@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="QuitSmoke.Views.SettingsPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:QuitSmoke.ViewModels"
+             Title="Configuración"
+             x:DataType="vm:SettingsPageViewModel"
+             BackgroundColor="#F8F9FA">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="24">
+            
+            <!-- Header -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Configuración"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       TextColor="#212529"
+                       HorizontalOptions="Center" />
+                <Label Text="Preferencias y permisos"
+                       FontSize="14"
+                       TextColor="#6C757D"
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <!-- Tarjetas estado rápido -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12" RowSpacing="12">
+                <Border Grid.Column="0" BackgroundColor="White" Stroke="#E9ECEF" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Opacity="0.05" Radius="6" Offset="0,2" />
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="🔋" FontSize="24" HorizontalOptions="Center" />
+                        <Label Text="Ahorro batería" FontSize="14" FontAttributes="Bold" TextColor="#212529" HorizontalTextAlignment="Center" />
+                        <Label x:Name="BatteryOptStatus" Text="Sin verificar" FontSize="12" TextColor="#6C757D" HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Column="1" BackgroundColor="White" Stroke="#E9ECEF" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Opacity="0.05" Radius="6" Offset="0,2" />
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="🚀" FontSize="24" HorizontalOptions="Center" />
+                        <Label Text="Autostart" FontSize="14" FontAttributes="Bold" TextColor="#212529" HorizontalTextAlignment="Center" />
+                        <Label x:Name="AutostartStatus" Text="Manual" FontSize="12" TextColor="#6C757D" HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Configuración de Permisos -->
+            <VerticalStackLayout Spacing="12">
+                <Label Text="Configuración de Permisos"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#212529"
+                       HorizontalOptions="Center"
+                       Margin="0,8,0,0" />
+
+                <Button Text="🔍 Verificar Estado de Permisos" 
+                        Clicked="OnCheckPermissionsClicked" 
+                        BackgroundColor="#17A2B8" 
+                        TextColor="White"
+                        FontSize="14"
+                        CornerRadius="8"
+                        HeightRequest="44" />
+
+                <Button Text="⚙️ Configurar Todos los Permisos" 
+                        Clicked="OnConfigureAllPermissionsClicked" 
+                        BackgroundColor="#28A745" 
+                        TextColor="White"
+                        FontSize="14"
+                        CornerRadius="8"
+                        HeightRequest="44" />
+
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                    <Button Grid.Column="0"
+                            Text="🔋 Batería" 
+                            Clicked="OnBatteryOptimizationClicked" 
+                            BackgroundColor="#FFC107" 
+                            TextColor="#212529"
+                            FontSize="12"
+                            CornerRadius="8"
+                            HeightRequest="40" />
+                    
+                    <Button Grid.Column="1"
+                            Text="🚀 Autostart" 
+                            Clicked="OnAutostartClicked" 
+                            BackgroundColor="#6F42C1" 
+                            TextColor="White"
+                            FontSize="12"
+                            CornerRadius="8"
+                            HeightRequest="40" />
+                </Grid>
+
+                <Border BackgroundColor="#FFF3CD" Stroke="#FFEAA7" StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="12">
+                    <Label Text="💡 Para un funcionamiento óptimo, configure todos los permisos para ejecución en segundo plano."
+                           FontSize="12"
+                           TextColor="#856404"
+                           LineBreakMode="WordWrap" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Ajustes propios -->
+            <Frame BackgroundColor="{StaticResource Secondary}" Padding="20" CornerRadius="10">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Cigarros máximos por día" FontSize="18" FontAttributes="Bold" />
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                        <Button Grid.Column="0" Text="−" FontSize="20" BackgroundColor="Red" TextColor="White" WidthRequest="50" HeightRequest="50" CornerRadius="25" Clicked="OnDecreaseMaxCigarettes" />
+                        <Entry Grid.Column="1" Text="{Binding MaxCigarettes}" FontSize="18" HorizontalTextAlignment="Center" Keyboard="Numeric" />
+                        <Button Grid.Column="2" Text="+" FontSize="20" BackgroundColor="Green" TextColor="White" WidthRequest="50" HeightRequest="50" CornerRadius="25" Clicked="OnIncreaseMaxCigarettes" />
+                    </Grid>
+                    <Label Text="{Binding TimeBetweenCigarettesText}" FontSize="14" HorizontalOptions="Center" TextColor="Gray" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Horario -->
+            <Frame BackgroundColor="LightBlue" Padding="20" CornerRadius="10">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Horario de vigilia" FontSize="18" FontAttributes="Bold" />
+                    <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,*" RowSpacing="10" ColumnSpacing="10">
+                        <Label Grid.Row="0" Grid.Column="0" Text="Hora de despertar:" FontSize="16" VerticalOptions="Center" />
+                        <TimePicker Grid.Row="0" Grid.Column="1" Time="{Binding WakeUpTime}" FontSize="16" />
+                        <Label Grid.Row="1" Grid.Column="0" Text="Hora de dormir:" FontSize="16" VerticalOptions="Center" />
+                        <TimePicker Grid.Row="1" Grid.Column="1" Time="{Binding SleepTime}" FontSize="16" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Acciones -->
+            <VerticalStackLayout Spacing="10">
+                <Button Text="💾 Guardar Configuración" FontSize="16" BackgroundColor="{StaticResource Primary}" TextColor="White" HeightRequest="50" CornerRadius="25" Command="{Binding SaveSettingsCommand}" />
+                <Button Text="📉 Reducir Máximo (Progreso gradual)" FontSize="16" BackgroundColor="Orange" TextColor="White" HeightRequest="50" CornerRadius="25" Command="{Binding ReduceMaxCigarettesCommand}" />
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

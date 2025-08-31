@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="QuitSmoke.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:QuitSmoke.Views"
+    Title="QuitSmoke"
+    FlyoutBehavior="Flyout">
+
+
+    <!-- Header del menú con safe area -->
+    <Shell.FlyoutHeader>
+        <Grid BackgroundColor="{StaticResource Primary}" HeightRequest="140" Padding="20,40,20,20">
+            <VerticalStackLayout VerticalOptions="Center" Spacing="8">
+                <Label Text="QuitSmoke" 
+                       FontSize="20" 
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource White}"
+                       HorizontalOptions="Start" />
+            </VerticalStackLayout>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <!-- Menú hamburguesa -->
+    <FlyoutItem Title="🏠 Principal">
+        <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="⚙️ Configuración">
+        <ShellContent ContentTemplate="{DataTemplate local:SettingsPage}" Route="SettingsPage" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="ℹ️ Acerca de">
+        <ShellContent ContentTemplate="{DataTemplate local:AboutPage}" Route="AboutPage" />
+    </FlyoutItem>
+
+    <!-- Footer del menú -->
+    <Shell.FlyoutFooter>
+        <Grid BackgroundColor="{StaticResource Gray100}" HeightRequest="60" Padding="20">
+            <Label Text="v1.10.0 - sOCratic" 
+                   FontSize="10" 
+                   TextColor="{StaticResource Gray400}"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center" />
+        </Grid>
+    </Shell.FlyoutFooter>
+
+</Shell>

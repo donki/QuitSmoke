@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QuitSmoke.Views.AboutPage"
+             Title="Acerca de"
+             BackgroundColor="#F8F9FA">
+    
+    <ScrollView>
+        <VerticalStackLayout Spacing="24" Padding="32,24" VerticalOptions="Start">
+            
+            <!-- Header unificado -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Acerca de"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       TextColor="#212529"
+                       HorizontalOptions="Center" />
+                <Label Text="Información de la aplicación"
+                       FontSize="14"
+                       TextColor="#6C757D"
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <!-- Logo y versión -->
+            <VerticalStackLayout Spacing="12" HorizontalOptions="Center" Margin="0,8,0,0">
+                <Border BackgroundColor="White" 
+                        Stroke="#28A745" 
+                        StrokeThickness="2" 
+                        StrokeShape="RoundRectangle 16" 
+                        WidthRequest="80" 
+                        HeightRequest="80"
+                        HorizontalOptions="Center">
+                    <Border.Shadow>
+                        <Shadow Brush="#28A745" Opacity="0.15" Radius="12" Offset="0,4" />
+                    </Border.Shadow>
+                    <Label Text="🚭" 
+                           FontSize="40" 
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+                </Border>
+                <Label Text="QuitSmoke v1.0.0" 
+                       FontSize="16" 
+                       FontAttributes="Bold"
+                       TextColor="#28A745"
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <!-- Descripción concisa -->
+            <Border BackgroundColor="White" 
+                    Stroke="#E9ECEF" 
+                    StrokeThickness="1" 
+                    StrokeShape="RoundRectangle 12" 
+                    Padding="20">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Opacity="0.05" Radius="8" Offset="0,2" />
+                </Border.Shadow>
+                <Label Text="Tu compañero para dejar de fumar. Recibe consejos motivacionales y mantén el control de tu progreso hacia una vida libre de humo."
+                       FontSize="15"
+                       LineHeight="1.4"
+                       TextColor="#495057"
+                       HorizontalTextAlignment="Center" />
+            </Border>
+
+            <!-- Características en cards -->
+            <VerticalStackLayout Spacing="12">
+                <Label Text="Características" 
+                       FontSize="18" 
+                       FontAttributes="Bold"
+                       TextColor="#212529"
+                       HorizontalOptions="Center"
+                       Margin="0,8,0,0" />
+                
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="12">
+                    
+                    <!-- Card 1 -->
+                    <Border Grid.Row="0" Grid.Column="0" 
+                            BackgroundColor="White" 
+                            Stroke="#E9ECEF" 
+                            StrokeThickness="1" 
+                            StrokeShape="RoundRectangle 8" 
+                            Padding="16">
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Opacity="0.05" Radius="6" Offset="0,2" />
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                            <Label Text="💡" FontSize="24" HorizontalOptions="Center" />
+                            <Label Text="Consejos motivacionales" 
+                                   FontSize="12" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#212529" 
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Card 2 -->
+                    <Border Grid.Row="0" Grid.Column="1" 
+                            BackgroundColor="White" 
+                            Stroke="#E9ECEF" 
+                            StrokeThickness="1" 
+                            StrokeShape="RoundRectangle 8" 
+                            Padding="16">
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Opacity="0.05" Radius="6" Offset="0,2" />
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                            <Label Text="🎯" FontSize="24" HorizontalOptions="Center" />
+                            <Label Text="Seguimiento de progreso" 
+                                   FontSize="12" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#212529" 
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Card 3 -->
+                    <Border Grid.Row="1" Grid.Column="0" 
+                            BackgroundColor="White" 
+                            Stroke="#E9ECEF" 
+                            StrokeThickness="1" 
+                            StrokeShape="RoundRectangle 8" 
+                            Padding="16">
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Opacity="0.05" Radius="6" Offset="0,2" />
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                            <Label Text="🏥" FontSize="24" HorizontalOptions="Center" />
+                            <Label Text="Beneficios de salud" 
+                                   FontSize="12" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#212529" 
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Card 4 -->
+                    <Border Grid.Row="1" Grid.Column="1" 
+                            BackgroundColor="White" 
+                            Stroke="#E9ECEF" 
+                            StrokeThickness="1" 
+                            StrokeShape="RoundRectangle 8" 
+                            Padding="16">
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Opacity="0.05" Radius="6" Offset="0,2" />
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                            <Label Text="💪" FontSize="24" HorizontalOptions="Center" />
+                            <Label Text="Apoyo constante" 
+                                   FontSize="12" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#212529" 
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+            </VerticalStackLayout>
+
+            <!-- Footer -->
+            <VerticalStackLayout Spacing="8" Margin="0,16,0,0">
+                <Label Text="sOCratic" 
+                       FontSize="14" 
+                       FontAttributes="Bold"
+                       TextColor="#28A745"
+                       HorizontalOptions="Center" />
+                <Label Text="© 2025 sOCratic - Todos los derechos reservados" 
+                       FontSize="11" 
+                       TextColor="#ADB5BD"
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+            
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

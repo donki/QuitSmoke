@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="backgroundGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E8F5E8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C8E6C9;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="leafGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2E7D32;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E53E3E;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="200" cy="200" r="180" fill="url(#backgroundGradient)" stroke="#4CAF50" stroke-width="2"/>
+  
+  <!-- Main icon: Lungs with leaves (representing healthy breathing) -->
+  <g transform="translate(200, 180)">
+    <!-- Left lung -->
+    <path d="M-40,-30 C-60,-30 -70,-10 -70,10 C-70,30 -60,50 -40,50 C-30,50 -20,40 -20,30 L-20,10 C-20,-10 -30,-30 -40,-30 Z" 
+          fill="url(#leafGradient)" opacity="0.9"/>
+    
+    <!-- Right lung -->
+    <path d="M40,-30 C60,-30 70,-10 70,10 C70,30 60,50 40,50 C30,50 20,40 20,30 L20,10 C20,-10 30,-30 40,-30 Z" 
+          fill="url(#leafGradient)" opacity="0.9"/>
+    
+    <!-- Trachea -->
+    <rect x="-5" y="-50" width="10" height="30" fill="#4CAF50" rx="5"/>
+    
+    <!-- Bronchi -->
+    <path d="M0,-20 L-15,0" stroke="#4CAF50" stroke-width="4" stroke-linecap="round"/>
+    <path d="M0,-20 L15,0" stroke="#4CAF50" stroke-width="4" stroke-linecap="round"/>
+    
+    <!-- Decorative leaves around lungs -->
+    <g opacity="0.7">
+      <!-- Left side leaves -->
+      <ellipse cx="-80" cy="-10" rx="8" ry="15" fill="#66BB6A" transform="rotate(-20 -80 -10)"/>
+      <ellipse cx="-85" cy="20" rx="6" ry="12" fill="#81C784" transform="rotate(30 -85 20)"/>
+      
+      <!-- Right side leaves -->
+      <ellipse cx="80" cy="-10" rx="8" ry="15" fill="#66BB6A" transform="rotate(20 80 -10)"/>
+      <ellipse cx="85" cy="20" rx="6" ry="12" fill="#81C784" transform="rotate(-30 85 20)"/>
+    </g>
+  </g>
+  
+  <!-- Heart symbol (representing health improvement) -->
+  <g transform="translate(200, 120)">
+    <path d="M0,10 C-10,0 -20,0 -20,10 C-20,15 -15,20 0,30 C15,20 20,15 20,10 C20,0 10,0 0,10 Z" 
+          fill="url(#heartGradient)" opacity="0.8"/>
+  </g>
+  
+  <!-- Progress indicator dots -->
+  <g transform="translate(200, 320)">
+    <circle cx="-20" cy="0" r="4" fill="#4CAF50"/>
+    <circle cx="0" cy="0" r="4" fill="#66BB6A"/>
+    <circle cx="20" cy="0" r="4" fill="#A5D6A7"/>
+  </g>
+  
+  <!-- Motivational elements: small stars -->
+  <g opacity="0.6">
+    <polygon points="120,80 125,90 135,90 127,97 130,107 120,100 110,107 113,97 105,90 115,90" fill="#FFD54F"/>
+    <polygon points="280,100 283,106 290,106 285,110 287,117 280,113 273,117 275,110 270,106 277,106" fill="#FFD54F"/>
+    <polygon points="100,280 103,286 110,286 105,290 107,297 100,293 93,297 95,290 90,286 97,286" fill="#FFD54F"/>
+    <polygon points="300,260 303,266 310,266 305,270 307,277 300,273 293,277 295,270 290,266 297,266" fill="#FFD54F"/>
+  </g>
+</svg>
