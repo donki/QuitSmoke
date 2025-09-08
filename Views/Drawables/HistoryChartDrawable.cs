@@ -15,10 +15,10 @@ public class HistoryChartDrawable : IDrawable
         var height = dirtyRect.Height;
 
         // Margins
-        float left = 20;
+        float left = 40; // Aumentado para etiquetas del eje Y
         float right = 10;
         float top = 10;
-        float bottom = 20;
+        float bottom = 30; // Aumentado para etiquetas del eje X
 
         var plotWidth = width - left - right;
         var plotHeight = height - top - bottom;
@@ -50,6 +50,26 @@ public class HistoryChartDrawable : IDrawable
         var max = Counts.Max();
         if (max == 0) max = 1;
 
+        // Etiquetas del eje Y
+        canvas.FontColor = Color.FromArgb("#666666");
+        canvas.FontSize = 10;
+        
+        // Dibujar líneas de grilla y etiquetas Y
+        int ySteps = Math.Min(5, max + 1); // Máximo 5 divisiones
+        for (int i = 0; i <= ySteps; i++)
+        {
+            float value = (float)i * max / ySteps;
+            float y = height - bottom - (i * plotHeight / ySteps);
+            
+            // Línea de grilla horizontal
+            canvas.StrokeColor = Color.FromArgb("#EEEEEE");
+            canvas.StrokeSize = 0.5f;
+            canvas.DrawLine(left, y, width - right, y);
+            
+            // Etiqueta del eje Y
+            canvas.DrawString(((int)value).ToString(), 5, y + 3, HorizontalAlignment.Left);
+        }
+
         // Points
         int n = Counts.Count;
         float stepX = n > 1 ? plotWidth / (n - 1) : plotWidth;
@@ -78,6 +98,17 @@ public class HistoryChartDrawable : IDrawable
             canvas.StrokeColor = Color.FromArgb("#4CAF50");
             canvas.StrokeSize = 2;
             canvas.DrawCircle(p, 4);
+        }
+
+        // Etiquetas del eje X (opcional - días)
+        if (n <= 10) // Solo mostrar si hay pocos días para evitar solapamiento
+        {
+            for (int i = 0; i < n; i += Math.Max(1, n / 5)) // Mostrar cada 5to día aproximadamente
+            {
+                float x = left + stepX * i;
+                var date = DateTime.Today.AddDays(-n + 1 + i);
+                canvas.DrawString(date.ToString("dd/MM"), x - 10, height - 15, HorizontalAlignment.Center);
+            }
         }
 
         canvas.RestoreState();

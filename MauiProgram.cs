@@ -22,6 +22,8 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
+
+
         // Services
         builder.Services.AddSingleton<ISmokingDataService, SmokingDataService>();
         builder.Services.AddSingleton<IAppNotificationService, NotificationService>();
@@ -32,10 +34,12 @@ public static class MauiProgram
         // ViewModels
         builder.Services.AddSingleton<MainPageViewModel>();
         builder.Services.AddTransient<SettingsPageViewModel>();
+        builder.Services.AddTransient<HistoryPageViewModel>();
 
         // Views
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddTransient<SettingsPage>();
+        builder.Services.AddTransient<HistoryPage>();
 
 #if DEBUG
         builder.Services.AddLogging(configure => configure.AddDebug());

@@ -61,6 +61,25 @@
                        HorizontalTextAlignment="Center" />
             </Border>
 
+            <!-- Aviso legal / Descargo de responsabilidad -->
+            <Border BackgroundColor="#FFF5F5"
+                    Stroke="#F5C2C7"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12"
+                    Padding="16">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Aviso legal"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="#C1121F"
+                           HorizontalOptions="Center" />
+                    <Label Text="Esta aplicación se ofrece exclusivamente como herramienta de apoyo para el control del consumo de tabaco. No constituye consejo médico, diagnóstico ni tratamiento, y no garantiza que el usuario deje de fumar. La decisión de dejar de fumar y el resultado dependen únicamente del usuario. En la máxima medida permitida por la ley, el desarrollador y sus colaboradores declinan toda garantía, expresa o implícita, incluyendo, entre otras, garantías de comerciabilidad, idoneidad para un propósito particular y ausencia de infracciones. El uso de la aplicación es bajo responsabilidad del usuario. El desarrollador no será responsable de ningún daño directo, indirecto, incidental, especial, ejemplar o consecuente que resulte del uso o la imposibilidad de uso de la aplicación. Ante cualquier duda o problema de salud, consulte a un profesional sanitario cualificado."
+                           FontSize="12"
+                           LineHeight="1.35"
+                           TextColor="#6C757D" />
+                </VerticalStackLayout>
+            </Border>
+
             <!-- Características en cards -->
             <VerticalStackLayout Spacing="12">
                 <Label Text="Características" 

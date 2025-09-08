@@ -4,18 +4,25 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:QuitSmoke.Views"
+    Shell.FlyoutBehavior="Flyout"
     Title="QuitSmoke"
-    FlyoutBehavior="Flyout">
+    FlyoutBackgroundColor="White"
+    FlyoutWidth="260">
 
 
     <!-- Header del menú con safe area -->
     <Shell.FlyoutHeader>
-        <Grid BackgroundColor="{StaticResource Primary}" HeightRequest="140" Padding="20,40,20,20">
+        <Grid BackgroundColor="#2196F3" HeightRequest="140" Padding="20,40,20,20">
             <VerticalStackLayout VerticalOptions="Center" Spacing="8">
                 <Label Text="QuitSmoke" 
                        FontSize="20" 
                        FontAttributes="Bold"
-                       TextColor="{StaticResource White}"
+                       TextColor="White"
+                       HorizontalOptions="Start" />
+                <Label Text="Don't Give Up" 
+                       FontSize="12" 
+                       TextColor="White"
+                       Opacity="0.9"
                        HorizontalOptions="Start" />
             </VerticalStackLayout>
         </Grid>
@@ -24,6 +31,11 @@
     <!-- Menú hamburguesa -->
     <FlyoutItem Title="🏠 Principal">
         <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" />
+    </FlyoutItem>
+
+    <!-- Histórico -->
+    <FlyoutItem Title="📈 Histórico">
+        <ShellContent ContentTemplate="{DataTemplate local:HistoryPage}" Route="HistoryPage" />
     </FlyoutItem>
 
     <FlyoutItem Title="⚙️ Configuración">

@@ -32,6 +32,9 @@ public partial class MainPageViewModel : ObservableObject
     private string _randomTipText = "";
 
     [ObservableProperty]
+    private string _randomTipTitle = "";
+
+    [ObservableProperty]
     private string _randomTipIcon = "";
 
     [ObservableProperty]
@@ -39,6 +42,9 @@ public partial class MainPageViewModel : ObservableObject
 
     [ObservableProperty]
     private string _healthBenefitsText = "";
+
+    [ObservableProperty]
+    private List<BenefitItem> _healthBenefits = new();
 
     public double ProgressPercentage => SmokingData.MaxCigarettesPerDay > 0 
         ? (double)SmokingData.SmokedToday / SmokingData.MaxCigarettesPerDay 
@@ -81,6 +87,8 @@ public partial class MainPageViewModel : ObservableObject
         UpdateProgressText();
         UpdateLastCigaretteTime();
         CanSmoke = SmokingData.RemainingCigarettes > 0;
+        // Forzar refresco de bindings a propiedades anidadas como SmokingData.RemainingCigarettes
+        OnPropertyChanged(nameof(SmokingData));
         await _notificationService.UpdatePersistentStatusAsync(SmokingData);
     }
 
@@ -128,12 +136,15 @@ public partial class MainPageViewModel : ObservableObject
             var since = DateTime.Now - lastTime;
             TimeSinceLastSmokeText = $"Tiempo sin fumar: {FormatTimeSpan(since)}";
             HealthBenefitsText = ComputeHealthBenefits(since);
+            HealthBenefits = ComputeHealthBenefitsItems(since);
         }
         else
         {
             LastCigaretteTimeText = "Último cigarro: No hay registros";
             TimeSinceLastSmokeText = "Tiempo sin fumar: --";
             HealthBenefitsText = "Sin datos sobre beneficios. Registra tu primer cigarro o comienza ahora.";
+            // Mostrar todos los beneficios sin alcanzar para demo
+            HealthBenefits = ComputeHealthBenefitsItems(TimeSpan.Zero);
         }
     }
 
@@ -155,6 +166,9 @@ public partial class MainPageViewModel : ObservableObject
         var milestones = new List<(TimeSpan Threshold, string Description)>
         {
             (TimeSpan.FromMinutes(20), "20 minutos: Pulso y presión arterial comienzan a normalizarse."),
+            (TimeSpan.FromHours(1), "1 hora: Continúan normalizándose el pulso y la presión arterial."),
+            (TimeSpan.FromHours(2), "2 horas: Mejora la circulación periférica; disminuyen manos y pies fríos."),
+            (TimeSpan.FromHours(4), "4 horas: Se reduce la presión arterial y la frecuencia cardiaca se estabiliza."),
             (TimeSpan.FromHours(8), "8 horas: Niveles de oxígeno aumentan y monóxido de carbono disminuye."),
             (TimeSpan.FromDays(1), "24 horas: El riesgo de ataque cardiaco comienza a disminuir."),
             (TimeSpan.FromDays(2), "48 horas: Mejora del sentido del gusto y olfato; comienzan a regenerarse las terminaciones nerviosas."),
@@ -176,10 +190,41 @@ public partial class MainPageViewModel : ObservableObject
         return sb.ToString().TrimEnd();
     }
 
+    private List<BenefitItem> ComputeHealthBenefitsItems(TimeSpan elapsed)
+    {
+        var milestones = new List<(TimeSpan Threshold, string Description)>
+        {
+            (TimeSpan.FromMinutes(20), "20 minutos: Pulso y presión arterial comienzan a normalizarse."),
+            (TimeSpan.FromHours(1), "1 hora: Continúan normalizándose el pulso y la presión arterial."),
+            (TimeSpan.FromHours(2), "2 horas: Mejora la circulación periférica; disminuyen manos y pies fríos."),
+            (TimeSpan.FromHours(4), "4 horas: Se reduce la presión arterial y la frecuencia cardiaca se estabiliza."),
+            (TimeSpan.FromHours(8), "8 horas: Niveles de oxígeno aumentan y monóxido de carbono disminuye."),
+            (TimeSpan.FromDays(1), "24 horas: El riesgo de ataque cardiaco comienza a disminuir."),
+            (TimeSpan.FromDays(2), "48 horas: Mejora del sentido del gusto y olfato; comienzan a regenerarse las terminaciones nerviosas."),
+            (TimeSpan.FromDays(14), "2 semanas: Mejora la circulación y la capacidad pulmonar."),
+            (TimeSpan.FromDays(90), "2-3 meses: Mejor notable en la respiración y la capacidad física."),
+            (TimeSpan.FromDays(365), "1 año: Riesgo de enfermedad coronaria reducido a la mitad comparado con un fumador."),
+            (TimeSpan.FromDays(365*5), "5 años: Riesgo de accidente cerebrovascular disminuye significativamente.")
+        };
+
+        var items = new List<BenefitItem>();
+        foreach (var m in milestones)
+        {
+            var achieved = elapsed >= m.Threshold;
+            items.Add(new BenefitItem
+            {
+                Description = m.Description,
+                Achieved = achieved
+            });
+        }
+        return items;
+    }
+
     private Task LoadRandomTipAsync()
     {
         var tip = _notificationService.GetRandomTip();
         RandomTipText = tip.Message;
+        RandomTipTitle = tip.Title;
         RandomTipIcon = tip.Icon;
         return Task.CompletedTask;
     }
@@ -187,7 +232,7 @@ public partial class MainPageViewModel : ObservableObject
     [RelayCommand]
     private async Task SmokeAsync()
     {
-        // Confirmación con consejo
+        // Usar el DisplayAlert por ahora hasta que TipConfirmPage funcione
         var tip = _notificationService.GetRandomTip();
         var body = $"{tip.Icon} {tip.Title}\n\n{tip.Message}\n\n¿Deseas fumar ahora?";
         var confirm = await Shell.Current.DisplayAlert("Antes de fumar", body, "Fumar", "Cancelar");

@@ -9,6 +9,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
+    <!-- Hot Reload Configuration -->
+    <UseInterpreter Condition="'$(Configuration)' == 'Debug'">True</UseInterpreter>
+    <PublishTrimmed>false</PublishTrimmed>
+    <MauiEnableVisualStudioHotReload>true</MauiEnableVisualStudioHotReload>
+
     <!-- Display Version -->
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
     <ApplicationVersion>1</ApplicationVersion>
@@ -26,8 +31,8 @@
     <AndroidUseAapt2 Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">True</AndroidUseAapt2>
     <AndroidCreatePackagePerAbi Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">False</AndroidCreatePackagePerAbi>
 
-    <AssemblyVersion>1.0.0.30</AssemblyVersion>
-    <FileVersion>1.0.0.30</FileVersion>
+    <AssemblyVersion>1.0.0.80</AssemblyVersion>
+    <FileVersion>1.0.0.80</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -55,5 +60,13 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Plugin.LocalNotification" Version="11.1.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <MauiXaml Update="Views\HistoryPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+  </ItemGroup>
+
+
 
 </Project>

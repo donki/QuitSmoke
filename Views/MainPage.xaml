@@ -3,6 +3,7 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:QuitSmoke.ViewModels"
+             xmlns:models="clr-namespace:QuitSmoke.Models"
              Title="QuitSmoke"
              x:DataType="vm:MainPageViewModel">
 
@@ -16,28 +17,46 @@
                    HorizontalOptions="Center"
                    TextColor="{StaticResource Primary}" />
 
-            <!-- Consejo aleatorio -->
-            <Frame BackgroundColor="LightYellow" 
-                   Padding="15" 
-                   CornerRadius="10"
-                   BorderColor="Orange"
-                   HasShadow="True">
-                <VerticalStackLayout Spacing="8">
-                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="8">
-                        <Label Text="{Binding RandomTipIcon}"
-                               FontSize="20" />
-                        <Label Text="💡 Consejo del día"
-                               FontSize="16"
-                               FontAttributes="Bold"
-                               TextColor="DarkOrange" />
-                    </HorizontalStackLayout>
+            <!-- Consejo aleatorio más visual -->
+            <Frame BackgroundColor="White" 
+                   Padding="20" 
+                   CornerRadius="15"
+                   HasShadow="True"
+                   BorderColor="#FFC107">
+                <VerticalStackLayout Spacing="12">
+                    <!-- Icono grande del consejo -->
+                    <Label Text="{Binding RandomTipIcon}"
+                           FontSize="48"
+                           HorizontalOptions="Center" />
 
+                    <!-- Titulo del consejo -->
+                    <Label Text="{Binding RandomTipTitle}"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center"
+                           TextColor="Black" />
+
+                    <!-- Mensaje del consejo -->
                     <Label Text="{Binding RandomTipText}"
                            FontSize="14"
                            HorizontalOptions="Center"
                            HorizontalTextAlignment="Center"
                            LineBreakMode="WordWrap"
-                           TextColor="DarkSlateGray" />
+                           TextColor="DarkGray" />
+
+                    <!-- Etiqueta de consejo -->
+                    <Border BackgroundColor="#FFF3CD"
+                            Stroke="#FFC107"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 15"
+                            Padding="8,4"
+                            HorizontalOptions="Center">
+                        <Label Text="✨ Tip Smart"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="#856404" />
+                    </Border>
                 </VerticalStackLayout>
             </Frame>
 
@@ -49,7 +68,8 @@
                     <Label Text="{Binding ProgressText}"
                            FontSize="18"
                            HorizontalOptions="Center"
-                           FontAttributes="Bold" />
+                           FontAttributes="Bold"
+                           TextColor="Black" />
 
                     <ProgressBar Progress="{Binding ProgressPercentage}"
                                  ProgressColor="{StaticResource Primary}"
@@ -58,7 +78,8 @@
 
                     <Label Text="{Binding SmokingData.RemainingCigarettes, StringFormat='Cigarros restantes: {0}'}"
                            FontSize="16"
-                           HorizontalOptions="Center" />
+                           HorizontalOptions="Center"
+                           TextColor="Black" />
                 </VerticalStackLayout>
             </Frame>
 
@@ -102,27 +123,74 @@
             </Grid>
 
             <!-- Acciones rápidas en línea -->
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+            <Grid ColumnDefinitions="*" ColumnSpacing="10">
                 <Button Grid.Column="0"
                         Text="💪 Esperaré"
                         FontSize="14"
                         BackgroundColor="Green"
                         TextColor="White"
                         Command="{Binding DelaySmokingCommand}" />
-                <Button Grid.Column="1"
-                        Text="🚬 Fumar ahora"
-                        FontSize="14"
-                        BackgroundColor="Orange"
-                        TextColor="White"
-                        Command="{Binding SmokeAnywayCommand}" />
             </Grid>
 
             <!-- Tiempo sin fumar y beneficios -->
-            <Frame BackgroundColor="White" Padding="12" CornerRadius="10" HasShadow="True">
-                <VerticalStackLayout Spacing="8">
-                    <Label Text="{Binding TimeSinceLastSmokeText}" FontSize="14" HorizontalOptions="Center" />
-                    <Label Text="Beneficios de salud" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
-                    <Label Text="{Binding HealthBenefitsText}" FontSize="13" LineBreakMode="WordWrap" />
+            <Frame BackgroundColor="White" Padding="16" CornerRadius="15" HasShadow="True">
+                <VerticalStackLayout Spacing="12">
+                    <!-- Tiempo sin fumar destacado -->
+                    <Border BackgroundColor="#E8F5E8"
+                            Stroke="#28A745"
+                            StrokeThickness="2"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="12">
+                        <Label Text="{Binding TimeSinceLastSmokeText}" 
+                               FontSize="16" 
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               TextColor="#155724" />
+                    </Border>
+
+                    <!-- Titulo de beneficios -->
+                    <Label Text="🏆 Beneficios de salud alcanzados" 
+                           FontSize="18" 
+                           FontAttributes="Bold" 
+                           HorizontalOptions="Center"
+                           TextColor="#28A745" />
+
+                    <!-- Lista de beneficios -->
+                    <CollectionView ItemsSource="{Binding HealthBenefits}" SelectionMode="None">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:BenefitItem">
+                                <Border Padding="12,8" StrokeShape="RoundRectangle 8" BackgroundColor="#F8F9FA" Stroke="#DEE2E6" StrokeThickness="1">
+                                    <Border.Triggers>
+                                        <DataTrigger TargetType="Border" Binding="{Binding Achieved}" Value="True">
+                                            <Setter Property="BackgroundColor" Value="#D4EDDA" />
+                                            <Setter Property="Stroke" Value="#28A745" />
+                                            <Setter Property="StrokeThickness" Value="2" />
+                                        </DataTrigger>
+                                    </Border.Triggers>
+                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                                        <Label Text="{Binding Icon}" FontSize="20" VerticalOptions="Center" TextColor="#28A745">
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label" Binding="{Binding Achieved}" Value="False">
+                                                    <Setter Property="TextColor" Value="#6C757D" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+                                        <Label Grid.Column="1" Text="{Binding Description}" FontSize="14" LineBreakMode="WordWrap" VerticalOptions="Center" TextColor="Black" FontAttributes="Bold">
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label" Binding="{Binding Achieved}" Value="False">
+                                                    <Setter Property="TextColor" Value="#6C757D" />
+                                                    <Setter Property="FontAttributes" Value="None" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                 </VerticalStackLayout>
             </Frame>
 
@@ -153,15 +221,18 @@
                     <Label Text="Estadísticas del día"
                            FontSize="16"
                            FontAttributes="Bold"
-                           HorizontalOptions="Center" />
+                           HorizontalOptions="Center"
+                           TextColor="Black" />
 
                     <Label Text="{Binding SmokingData.TimeBetweenCigarettes, StringFormat='Tiempo entre cigarros: {0:hh\\:mm}'}"
                            FontSize="14"
-                           HorizontalOptions="Center" />
+                           HorizontalOptions="Center"
+                           TextColor="Black" />
 
                     <Label Text="{Binding SmokingData.AwakeHours, StringFormat='Horas despierto: {0:hh\\:mm}'}"
                            FontSize="14"
-                           HorizontalOptions="Center" />
+                           HorizontalOptions="Center"
+                           TextColor="Black" />
                 </VerticalStackLayout>
             </Frame>
 

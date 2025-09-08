@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "QuitSmoke": {
+      "commandName": "MauiAndroid",
+      "hotReloadEnabled": true,
+      "hotReloadProfile": "blazorwasm"
+    }
+  }
+}
