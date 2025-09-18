@@ -3,6 +3,7 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:QuitSmoke.ViewModels"
+             xmlns:models="clr-namespace:QuitSmoke.Models"
              Title="Configuración"
              x:DataType="vm:SettingsPageViewModel"
              BackgroundColor="#F8F9FA">
@@ -123,6 +124,30 @@
                         <Label Grid.Row="1" Grid.Column="0" Text="Hora de dormir:" FontSize="16" VerticalOptions="Center" />
                         <TimePicker Grid.Row="1" Grid.Column="1" Time="{Binding SleepTime}" FontSize="16" />
                     </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Configuración de Precios -->
+            <Frame BackgroundColor="LightGreen" Padding="20" CornerRadius="10">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Configuración de Precios" FontSize="18" FontAttributes="Bold" />
+                    
+                    <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*" RowSpacing="10" ColumnSpacing="10">
+                        <Label Grid.Row="0" Grid.Column="0" Text="Precio de cajetilla:" FontSize="16" VerticalOptions="Center" />
+                        <Entry Grid.Row="0" Grid.Column="1" Text="{Binding PackPrice}" FontSize="16" Keyboard="Numeric" Placeholder="5.00" />
+                        
+                        <Label Grid.Row="1" Grid.Column="0" Text="Cigarros por cajetilla:" FontSize="16" VerticalOptions="Center" />
+                        <Entry Grid.Row="1" Grid.Column="1" Text="{Binding CigarettesPerPack}" FontSize="16" Keyboard="Numeric" Placeholder="20" />
+                        
+                        <Label Grid.Row="2" Grid.Column="0" Text="Divisa:" FontSize="16" VerticalOptions="Center" />
+                        <Picker Grid.Row="2" Grid.Column="1" 
+                                ItemsSource="{Binding AvailableCurrencies}" 
+                                ItemDisplayBinding="{Binding Name}"
+                                SelectedItem="{Binding SelectedCurrency}"
+                                FontSize="16" />
+                    </Grid>
+                    
+                    <Label Text="{Binding PricePerCigaretteText}" FontSize="14" HorizontalOptions="Center" TextColor="DarkGreen" />
                 </VerticalStackLayout>
             </Frame>
 

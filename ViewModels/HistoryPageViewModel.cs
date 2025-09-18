@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using QuitSmoke.Models;
 using QuitSmoke.Services;
 using QuitSmoke.Views.Drawables;
 
@@ -39,18 +40,40 @@ public partial class HistoryPageViewModel : ObservableObject
     [ObservableProperty]
     private string _averageTimeBetween = string.Empty;
 
+    // Propiedades económicas
+    [ObservableProperty]
+    private string _totalSpentText = string.Empty;
+
+    [ObservableProperty]
+    private string _totalSavedText = string.Empty;
+
+    [ObservableProperty]
+    private string _averageSpentPerDayText = string.Empty;
+
+    [ObservableProperty]
+    private string _savingsPercentageText = string.Empty;
+
+    // Propiedad para el spinner de carga
+    [ObservableProperty]
+    private bool _isLoading = true;
+
     public int Days { get; } = 30;
 
     public HistoryPageViewModel(ISmokingDataService smokingDataService)
     {
         _smokingDataService = smokingDataService;
-        _ = LoadAsync();
+        IsLoading = true;
+        _ = Task.Run(LoadAsync);
     }
 
     private async Task LoadAsync()
     {
         try
         {
+            IsLoading = true;
+            
+            // Pequeña demora para asegurar que el spinner sea visible
+            await Task.Delay(100);
             var history = await _smokingDataService.GetHistoryAsync(Days);
             var data = await _smokingDataService.GetDataAsync();
 
@@ -146,6 +169,9 @@ public partial class HistoryPageViewModel : ObservableObject
                 });
             }
             HistoryRows = rows.OrderByDescending(r => r.DateTime).ToList();
+
+            // Calcular estadísticas económicas
+            CalculateEconomicStats(history, data);
             
             // Para debug
             System.Diagnostics.Debug.WriteLine($"Historia cargada: {history.Count} d�as, {allTimes.Count} cigarros, {HistoryRows.Count} filas");
@@ -157,7 +183,67 @@ public partial class HistoryPageViewModel : ObservableObject
             TotalSummaryText = "Error cargando datos";
             HistoryRows = new List<HistoryRow>();
             ChartDrawable = new HistoryChartDrawable { Counts = new List<int>() };
+            TotalSpentText = "--";
+            TotalSavedText = "--";
+            AverageSpentPerDayText = "--";
+            SavingsPercentageText = "--";
         }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+
+    private void CalculateEconomicStats(List<DailySmokingRecord> history, SmokingData data)
+    {
+        var currency = GetCurrencySymbol(data.Currency);
+        
+        // Total gastado: suma real de todos los cigarros fumados en el período
+        var totalSpent = 0m;
+        var totalCigarettesSmoked = 0;
+        
+        foreach (var day in history)
+        {
+            if (day.SmokedCigarettes?.Any() == true)
+            {
+                // Si hay datos de precios específicos, usarlos
+                totalSpent += day.SmokedCigarettes.Sum(c => c.Price);
+                totalCigarettesSmoked += day.SmokedCigarettes.Count;
+            }
+            else if (day.Count > 0)
+            {
+                // Si no hay datos de precios específicos, usar el precio actual por cigarrillo
+                totalSpent += day.Count * data.PricePerCigarette;
+                totalCigarettesSmoked += day.Count;
+            }
+        }
+        
+        TotalSpentText = $"{currency}{totalSpent:F2}";
+        
+        // Total ahorrado: (Teórico fumado - Real fumado) * precio cigarrillo
+        // Basado solo en los días que tienen registros
+        var daysWithRecords = history.Count(h => h.Count > 0);
+        var theoreticalCigarettes = daysWithRecords * data.MaxCigarettesPerDay;
+        var cigarettesSaved = Math.Max(0, theoreticalCigarettes - totalCigarettesSmoked);
+        var totalSaved = cigarettesSaved * data.PricePerCigarette;
+        
+        TotalSavedText = $"{currency}{totalSaved:F2}";
+        
+        // Promedio gasto por día: (Promedio cigarros por día * precio cigarrillo)
+        // Basado solo en los días que tienen registros
+        var averageCigarettesPerDay = daysWithRecords > 0 ? (double)totalCigarettesSmoked / daysWithRecords : 0;
+        var averageSpentPerDay = averageCigarettesPerDay * (double)data.PricePerCigarette;
+        AverageSpentPerDayText = $"{currency}{averageSpentPerDay:F2}";
+        
+        // Porcentaje de ahorro: (Total Ahorrado / Total Gastado) * 100
+        var savingsPercentage = totalSpent > 0 ? ((double)totalSaved / (double)totalSpent) * 100 : 0;
+        SavingsPercentageText = $"{savingsPercentage:F1}%";
+    }
+
+    private string GetCurrencySymbol(string currencyCode)
+    {
+        var currency = Currency.GetAvailableCurrencies().FirstOrDefault(c => c.Code == currencyCode);
+        return currency?.Symbol ?? currencyCode;
     }
 
     private static string FormatDelta(TimeSpan delta)

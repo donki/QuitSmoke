@@ -29,6 +29,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<IAppNotificationService, NotificationService>();
 #if ANDROID
         builder.Services.AddSingleton<IPowerSettingsService, QuitSmoke.Platforms.Android.Services.PowerSettingsService>();
+        builder.Services.AddSingleton<IScreenService, QuitSmoke.Platforms.Android.Services.ScreenService>();
 #endif
 
         // ViewModels

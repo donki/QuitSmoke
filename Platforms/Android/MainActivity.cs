@@ -1,6 +1,7 @@
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Views;
 using AndroidX.Core.View;
 
 namespace QuitSmoke;
@@ -24,6 +25,9 @@ public class MainActivity : MauiAppCompatActivity
                 Window.SetStatusBarColor(Android.Graphics.Color.Transparent);
                 Window.SetNavigationBarColor(Android.Graphics.Color.Transparent);
             }
+            
+            // Mantener la pantalla encendida cuando está conectado por USB
+            Window.AddFlags(WindowManagerFlags.KeepScreenOn);
         }
     }
 }

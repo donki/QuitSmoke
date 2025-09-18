@@ -9,7 +9,15 @@ public class SmokingData
     public DateTime LastResetDate { get; set; } = DateTime.Today;
     public List<DateTime> SmokingTimes { get; set; } = new();
     
-    public int RemainingCigarettes => Math.Max(0, MaxCigarettesPerDay - SmokedToday);
+    // Configuración de precios
+    public decimal PackPrice { get; set; } = 5.0m; // Precio de la cajetilla
+    public int CigarettesPerPack { get; set; } = 20; // Cigarros por cajetilla
+    public string Currency { get; set; } = "EUR"; // Divisa
+    
+    // Lista de cigarros fumados con precio
+    public List<SmokedCigarette> SmokedCigarettes { get; set; } = new();
+    
+    public int RemainingCigarettes => MaxCigarettesPerDay - SmokedToday;
     
     public TimeSpan AwakeHours => SleepTime > WakeUpTime 
         ? SleepTime - WakeUpTime 
@@ -35,4 +43,15 @@ public class SmokingData
             return lastSmoke.Add(TimeBetweenCigarettes);
         }
     }
+    
+    // Propiedades calculadas para precios
+    public decimal PricePerCigarette => CigarettesPerPack > 0 ? PackPrice / CigarettesPerPack : 0;
+    
+    public decimal TotalSmokedValue => SmokedCigarettes.Sum(c => c.Price);
+    
+    public decimal TodaySmokedValue => SmokedCigarettes
+        .Where(c => c.SmokedAt.Date == DateTime.Today)
+        .Sum(c => c.Price);
+    
+    public decimal TodaySavedValue => (MaxCigarettesPerDay - SmokedToday) * PricePerCigarette;
 }

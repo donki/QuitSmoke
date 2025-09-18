@@ -6,8 +6,25 @@
              Title="📊 Historial"
              x:DataType="vm:HistoryPageViewModel">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="16" Spacing="16">
+    <Grid>
+        <!-- Spinner de carga -->
+        <VerticalStackLayout IsVisible="{Binding IsLoading}" 
+                             HorizontalOptions="Center" 
+                             VerticalOptions="Center"
+                             Spacing="16">
+            <ActivityIndicator IsRunning="{Binding IsLoading}" 
+                               Color="#3498DB" 
+                               HeightRequest="50" 
+                               WidthRequest="50" />
+            <Label Text="Cargando historial..." 
+                   FontSize="16" 
+                   TextColor="#7F8C8D" 
+                   HorizontalOptions="Center" />
+        </VerticalStackLayout>
+        
+        <!-- Contenido principal -->
+        <ScrollView IsVisible="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}">
+            <VerticalStackLayout Padding="16" Spacing="16">
             
             <!-- Estadísticas principales -->
             <Frame Padding="20" CornerRadius="15" BackgroundColor="White" HasShadow="True">
@@ -117,6 +134,103 @@
                                    TextColor="#495057" 
                                    HorizontalOptions="Center" 
                                    HorizontalTextAlignment="Center" />
+                        </Border>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Estadísticas económicas -->
+            <Frame Padding="20" CornerRadius="15" BackgroundColor="White" HasShadow="True">
+                <VerticalStackLayout Spacing="16">
+                    <Label Text="💰 Estadísticas Económicas" 
+                           FontSize="18" 
+                           FontAttributes="Bold" 
+                           TextColor="#2C3E50" 
+                           HorizontalOptions="Center" />
+                    
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="12">
+                        <!-- Total gastado -->
+                        <Border Grid.Row="0" Grid.Column="0" 
+                                BackgroundColor="#FADBD8" 
+                                Stroke="#E74C3C" 
+                                StrokeThickness="2" 
+                                StrokeShape="RoundRectangle 10" 
+                                Padding="12">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="💸" FontSize="24" HorizontalOptions="Center" />
+                                <Label Text="{Binding TotalSpentText}" 
+                                       FontSize="16" 
+                                       FontAttributes="Bold" 
+                                       TextColor="#C0392B" 
+                                       HorizontalOptions="Center" />
+                                <Label Text="Total gastado" 
+                                       FontSize="12" 
+                                       TextColor="#34495E" 
+                                       HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Border>
+                        
+                        <!-- Total ahorrado -->
+                        <Border Grid.Row="0" Grid.Column="1" 
+                                BackgroundColor="#D5F4E6" 
+                                Stroke="#27AE60" 
+                                StrokeThickness="2" 
+                                StrokeShape="RoundRectangle 10" 
+                                Padding="12">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="💚" FontSize="24" HorizontalOptions="Center" />
+                                <Label Text="{Binding TotalSavedText}" 
+                                       FontSize="16" 
+                                       FontAttributes="Bold" 
+                                       TextColor="#27AE60" 
+                                       HorizontalOptions="Center" />
+                                <Label Text="Total ahorrado" 
+                                       FontSize="12" 
+                                       TextColor="#34495E" 
+                                       HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Border>
+                        
+                        <!-- Gasto promedio por día -->
+                        <Border Grid.Row="1" Grid.Column="0" 
+                                BackgroundColor="#FEF9E7" 
+                                Stroke="#F39C12" 
+                                StrokeThickness="2" 
+                                StrokeShape="RoundRectangle 10" 
+                                Padding="12">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="📊" FontSize="24" HorizontalOptions="Center" />
+                                <Label Text="{Binding AverageSpentPerDayText}" 
+                                       FontSize="16" 
+                                       FontAttributes="Bold" 
+                                       TextColor="#D68910" 
+                                       HorizontalOptions="Center" />
+                                <Label Text="Promedio/día" 
+                                       FontSize="12" 
+                                       TextColor="#34495E" 
+                                       HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Border>
+                        
+                        <!-- Porcentaje de ahorro -->
+                        <Border Grid.Row="1" Grid.Column="1" 
+                                BackgroundColor="#EBF5FB" 
+                                Stroke="#3498DB" 
+                                StrokeThickness="2" 
+                                StrokeShape="RoundRectangle 10" 
+                                Padding="12">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="📈" FontSize="24" HorizontalOptions="Center" />
+                                <Label Text="{Binding SavingsPercentageText}" 
+                                       FontSize="16" 
+                                       FontAttributes="Bold" 
+                                       TextColor="#2980B9" 
+                                       HorizontalOptions="Center" />
+                                <Label Text="% de ahorro" 
+                                       FontSize="12" 
+                                       TextColor="#34495E" 
+                                       HorizontalOptions="Center" />
+                            </VerticalStackLayout>
                         </Border>
                     </Grid>
                 </VerticalStackLayout>
@@ -277,7 +391,8 @@
                     CornerRadius="25"
                     HeightRequest="50" />
                     
-        </VerticalStackLayout>
-    </ScrollView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 
 </ContentPage>

@@ -46,8 +46,13 @@ public partial class MainPageViewModel : ObservableObject
     [ObservableProperty]
     private List<BenefitItem> _healthBenefits = new();
 
+    [ObservableProperty]
+    private string _remainingCigarettesText = "";
+
+
+
     public double ProgressPercentage => SmokingData.MaxCigarettesPerDay > 0 
-        ? (double)SmokingData.SmokedToday / SmokingData.MaxCigarettesPerDay 
+        ? Math.Min(1.0, (double)SmokingData.SmokedToday / SmokingData.MaxCigarettesPerDay)
         : 0;
 
     [ObservableProperty]
@@ -86,7 +91,8 @@ public partial class MainPageViewModel : ObservableObject
         UpdateTimeDisplay();
         UpdateProgressText();
         UpdateLastCigaretteTime();
-        CanSmoke = SmokingData.RemainingCigarettes > 0;
+
+        CanSmoke = true; // Permitir fumar siempre, incluso si se excede el máximo
         // Forzar refresco de bindings a propiedades anidadas como SmokingData.RemainingCigarettes
         OnPropertyChanged(nameof(SmokingData));
         await _notificationService.UpdatePersistentStatusAsync(SmokingData);
@@ -123,8 +129,22 @@ public partial class MainPageViewModel : ObservableObject
             : 0;
         
         ProgressText = $"{SmokingData.SmokedToday} / {SmokingData.MaxCigarettesPerDay} cigarros ({percentage:F0}%)";
+        
+        // Actualizar texto de cigarros restantes
+        if (SmokingData.RemainingCigarettes >= 0)
+        {
+            RemainingCigarettesText = $"Cigarros restantes: {SmokingData.RemainingCigarettes}";
+        }
+        else
+        {
+            var exceeded = Math.Abs(SmokingData.RemainingCigarettes);
+            RemainingCigarettesText = $"Límite excedido por: {exceeded} cigarros";
+        }
+        
         OnPropertyChanged(nameof(ProgressPercentage));
     }
+
+
 
     private void UpdateLastCigaretteTime()
     {
@@ -232,23 +252,36 @@ public partial class MainPageViewModel : ObservableObject
     [RelayCommand]
     private async Task SmokeAsync()
     {
-        // Usar el DisplayAlert por ahora hasta que TipConfirmPage funcione
+        // Primer aviso con tip
         var tip = _notificationService.GetRandomTip();
         var body = $"{tip.Icon} {tip.Title}\n\n{tip.Message}\n\n¿Deseas fumar ahora?";
         var confirm = await Shell.Current.DisplayAlert("Antes de fumar", body, "Fumar", "Cancelar");
         if (!confirm)
             return;
 
-        if (SmokingData.RemainingCigarettes > 0)
+        // Segundo aviso si se va a exceder el límite diario
+        if (SmokingData.RemainingCigarettes <= 0)
         {
-            // Registrar cigarro
-            await _smokingDataService.AddSmokedCigaretteAsync();
-
-            // Recalcular y refrescar
-            SmokingData = await _smokingDataService.GetDataAsync();
-            UpdateDisplay();
-            await LoadRandomTipAsync();
+            var exceeded = Math.Abs(SmokingData.RemainingCigarettes) + 1; // +1 porque va a fumar uno más
+            var extraWarning = $"⚠️ AVISO IMPORTANTE ⚠️\n\n" +
+                              $"Vas a exceder tu objetivo diario por {exceeded} cigarro(s).\n\n" +
+                              $"Fumados hoy: {SmokingData.SmokedToday}\n" +
+                              $"Objetivo diario: {SmokingData.MaxCigarettesPerDay}\n\n" +
+                              $"Esto es un EXTRA respecto a tu objetivo de reducción.\n\n" +
+                              $"¿Estás seguro de que quieres continuar?";
+            
+            var confirmExtra = await Shell.Current.DisplayAlert("Excediendo objetivo", extraWarning, "Sí, fumar", "No, cancelar");
+            if (!confirmExtra)
+                return;
         }
+
+        // Registrar cigarro (sin restricción de límite)
+        await _smokingDataService.AddSmokedCigaretteAsync();
+
+        // Recalcular y refrescar
+        SmokingData = await _smokingDataService.GetDataAsync();
+        UpdateDisplay();
+        await LoadRandomTipAsync();
     }
 
     [RelayCommand]

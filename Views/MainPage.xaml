@@ -76,7 +76,7 @@
                                  BackgroundColor="LightGray"
                                  HeightRequest="10" />
 
-                    <Label Text="{Binding SmokingData.RemainingCigarettes, StringFormat='Cigarros restantes: {0}'}"
+                    <Label Text="{Binding RemainingCigarettesText}"
                            FontSize="16"
                            HorizontalOptions="Center"
                            TextColor="Black" />
@@ -212,6 +212,7 @@
                     TextColor="White"
                     Command="{Binding RefreshCommand}"
                     CornerRadius="20" />
+
 
             <!-- Daily Stats -->
             <Frame BackgroundColor="LightGreen" 

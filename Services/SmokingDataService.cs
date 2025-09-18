@@ -8,7 +8,7 @@ public class SmokingDataService : ISmokingDataService
     private readonly string _dataPath;
     private SmokingData? _cachedData;
 
-    // Nuevo: historial por día
+    // Nuevo: historial por dï¿½a
     private readonly string _historyPath;
 
     public SmokingDataService()
@@ -93,14 +93,50 @@ public class SmokingDataService : ISmokingDataService
     public async Task AddSmokedCigaretteAsync()
     {
         var data = await GetDataAsync();
-        if (data.SmokedToday < data.MaxCigarettesPerDay)
+        var now = DateTime.Now;
+        data.SmokingTimes.Add(now);
+        
+        // Agregar cigarro fumado con precio
+        var smokedCigarette = new SmokedCigarette
         {
-            var now = DateTime.Now;
-            data.SmokingTimes.Add(now);
-            data.SmokedToday = data.SmokingTimes.Count; // mantener sincronizado
-            await SaveDataAsync(data);
-            await AppendToHistoryAsync(now);
-        }
+            SmokedAt = now,
+            Price = data.PricePerCigarette,
+            Currency = data.Currency
+        };
+        data.SmokedCigarettes.Add(smokedCigarette);
+        
+        data.SmokedToday = data.SmokingTimes.Count; // mantener sincronizado
+        await SaveDataAsync(data);
+        await AppendToHistoryAsync(now, smokedCigarette);
+    }
+
+    public async Task AddSmokedCigaretteWithPriceAsync(decimal price, string currency)
+    {
+        var data = await GetDataAsync();
+        var now = DateTime.Now;
+        data.SmokingTimes.Add(now);
+        
+        // Agregar cigarro fumado con precio personalizado
+        var smokedCigarette = new SmokedCigarette
+        {
+            SmokedAt = now,
+            Price = price,
+            Currency = currency
+        };
+        data.SmokedCigarettes.Add(smokedCigarette);
+        
+        data.SmokedToday = data.SmokingTimes.Count;
+        await SaveDataAsync(data);
+        await AppendToHistoryAsync(now, smokedCigarette);
+    }
+
+    public async Task UpdatePriceConfigurationAsync(decimal packPrice, int cigarettesPerPack, string currency)
+    {
+        var data = await GetDataAsync();
+        data.PackPrice = packPrice;
+        data.CigarettesPerPack = cigarettesPerPack;
+        data.Currency = currency;
+        await SaveDataAsync(data);
     }
 
     public async Task UpdateMaxCigarettesAsync(int maxCigarettes)
@@ -137,7 +173,7 @@ public class SmokingDataService : ISmokingDataService
         }
     }
 
-    private async Task AppendToHistoryAsync(DateTime time)
+    private async Task AppendToHistoryAsync(DateTime time, SmokedCigarette? smokedCigarette = null)
     {
         var all = await GetHistoryAsync(3650); // up to 10 years
         var day = time.Date;
@@ -148,6 +184,10 @@ public class SmokingDataService : ISmokingDataService
             all.Add(existing);
         }
         existing.Times.Add(time);
+        if (smokedCigarette != null)
+        {
+            existing.SmokedCigarettes.Add(smokedCigarette);
+        }
         existing.Count = existing.Times.Count;
         await SaveHistoryAsync(all);
     }
@@ -159,6 +199,7 @@ public class SmokingDataService : ISmokingDataService
         var day = data.LastResetDate.Date;
         var existing = all.FirstOrDefault(r => r.Date.Date == day) ?? new DailySmokingRecord { Date = day };
         existing.Times = data.SmokingTimes.ToList();
+        existing.SmokedCigarettes = data.SmokedCigarettes.Where(c => c.SmokedAt.Date == day).ToList();
         existing.Count = existing.Times.Count;
         all.RemoveAll(r => r.Date.Date == day);
         all.Add(existing);
@@ -188,6 +229,13 @@ public class SmokingDataService : ISmokingDataService
         if (data.SmokingTimes.Any(t => t.Date != today))
         {
             data.SmokingTimes = data.SmokingTimes.Where(t => t.Date == today).ToList();
+            changed = true;
+        }
+
+        // Filtrar solo cigarros fumados de hoy
+        if (data.SmokedCigarettes.Any(c => c.SmokedAt.Date != today))
+        {
+            data.SmokedCigarettes = data.SmokedCigarettes.Where(c => c.SmokedAt.Date == today).ToList();
             changed = true;
         }
 
