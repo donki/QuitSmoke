@@ -2,10 +2,8 @@
 <ContentPage x:Class="QuitSmoke.Views.SettingsPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:QuitSmoke.ViewModels"
              xmlns:models="clr-namespace:QuitSmoke.Models"
              Title="Configuración"
-             x:DataType="vm:SettingsPageViewModel"
              BackgroundColor="#F8F9FA">
 
     <ScrollView>
@@ -107,10 +105,10 @@
                     <Label Text="Cigarros máximos por día" FontSize="18" FontAttributes="Bold" />
                     <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
                         <Button Grid.Column="0" Text="−" FontSize="20" BackgroundColor="Red" TextColor="White" WidthRequest="50" HeightRequest="50" CornerRadius="25" Clicked="OnDecreaseMaxCigarettes" />
-                        <Entry Grid.Column="1" Text="{Binding MaxCigarettes}" FontSize="18" HorizontalTextAlignment="Center" Keyboard="Numeric" />
+                        <Entry x:Name="MaxCigarettesEntry" Grid.Column="1" Text="20" FontSize="18" HorizontalTextAlignment="Center" Keyboard="Numeric" />
                         <Button Grid.Column="2" Text="+" FontSize="20" BackgroundColor="Green" TextColor="White" WidthRequest="50" HeightRequest="50" CornerRadius="25" Clicked="OnIncreaseMaxCigarettes" />
                     </Grid>
-                    <Label Text="{Binding TimeBetweenCigarettesText}" FontSize="14" HorizontalOptions="Center" TextColor="Gray" />
+                    <Label x:Name="TimeBetweenLabel" Text="Tiempo entre cigarros: --" FontSize="14" HorizontalOptions="Center" TextColor="Gray" />
                 </VerticalStackLayout>
             </Frame>
 
@@ -120,9 +118,9 @@
                     <Label Text="Horario de vigilia" FontSize="18" FontAttributes="Bold" />
                     <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,*" RowSpacing="10" ColumnSpacing="10">
                         <Label Grid.Row="0" Grid.Column="0" Text="Hora de despertar:" FontSize="16" VerticalOptions="Center" />
-                        <TimePicker Grid.Row="0" Grid.Column="1" Time="{Binding WakeUpTime}" FontSize="16" />
+                        <TimePicker x:Name="WakeUpTimePicker" Grid.Row="0" Grid.Column="1" Time="07:00:00" FontSize="16" />
                         <Label Grid.Row="1" Grid.Column="0" Text="Hora de dormir:" FontSize="16" VerticalOptions="Center" />
-                        <TimePicker Grid.Row="1" Grid.Column="1" Time="{Binding SleepTime}" FontSize="16" />
+                        <TimePicker x:Name="SleepTimePicker" Grid.Row="1" Grid.Column="1" Time="23:00:00" FontSize="16" />
                     </Grid>
                 </VerticalStackLayout>
             </Frame>
@@ -134,27 +132,23 @@
                     
                     <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*" RowSpacing="10" ColumnSpacing="10">
                         <Label Grid.Row="0" Grid.Column="0" Text="Precio de cajetilla:" FontSize="16" VerticalOptions="Center" />
-                        <Entry Grid.Row="0" Grid.Column="1" Text="{Binding PackPrice}" FontSize="16" Keyboard="Numeric" Placeholder="5.00" />
+                        <Entry x:Name="PackPriceEntry" Grid.Row="0" Grid.Column="1" Text="5.00" FontSize="16" Keyboard="Numeric" Placeholder="5.00" />
                         
                         <Label Grid.Row="1" Grid.Column="0" Text="Cigarros por cajetilla:" FontSize="16" VerticalOptions="Center" />
-                        <Entry Grid.Row="1" Grid.Column="1" Text="{Binding CigarettesPerPack}" FontSize="16" Keyboard="Numeric" Placeholder="20" />
+                        <Entry x:Name="CigarettesPerPackEntry" Grid.Row="1" Grid.Column="1" Text="20" FontSize="16" Keyboard="Numeric" Placeholder="20" />
                         
                         <Label Grid.Row="2" Grid.Column="0" Text="Divisa:" FontSize="16" VerticalOptions="Center" />
-                        <Picker Grid.Row="2" Grid.Column="1" 
-                                ItemsSource="{Binding AvailableCurrencies}" 
-                                ItemDisplayBinding="{Binding Name}"
-                                SelectedItem="{Binding SelectedCurrency}"
-                                FontSize="16" />
+                        <Picker x:Name="CurrencyPicker" Grid.Row="2" Grid.Column="1" FontSize="16" />
                     </Grid>
                     
-                    <Label Text="{Binding PricePerCigaretteText}" FontSize="14" HorizontalOptions="Center" TextColor="DarkGreen" />
+                    <Label x:Name="PricePerCigaretteLabel" Text="Precio por cigarrillo: €0.25" FontSize="14" HorizontalOptions="Center" TextColor="DarkGreen" />
                 </VerticalStackLayout>
             </Frame>
 
             <!-- Acciones -->
             <VerticalStackLayout Spacing="10">
-                <Button Text="💾 Guardar Configuración" FontSize="16" BackgroundColor="{StaticResource Primary}" TextColor="White" HeightRequest="50" CornerRadius="25" Command="{Binding SaveSettingsCommand}" />
-                <Button Text="📉 Reducir Máximo (Progreso gradual)" FontSize="16" BackgroundColor="Orange" TextColor="White" HeightRequest="50" CornerRadius="25" Command="{Binding ReduceMaxCigarettesCommand}" />
+                <Button Text="💾 Guardar Configuración" FontSize="16" BackgroundColor="{StaticResource Primary}" TextColor="White" HeightRequest="50" CornerRadius="25" Clicked="OnSaveSettingsClicked" />
+                <Button Text="📉 Reducir Máximo (Progreso gradual)" FontSize="16" BackgroundColor="Orange" TextColor="White" HeightRequest="50" CornerRadius="25" Clicked="OnReduceMaxClicked" />
             </VerticalStackLayout>
 
         </VerticalStackLayout>

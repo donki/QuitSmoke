@@ -380,3 +380,19 @@ Thumbs.db
 
 # Keep Release APKs (we want to track these)
 !Release/*.apk
+
+# Secretos y material de firma (Constitucion §5 - nunca versionar credenciales)
+*.keystore
+*.jks
+*.password.txt
+keystore.password.txt
+*.pem
+*.p12
+*.pfx
+# Credenciales de cuenta de servicio de Google Play
+play-service-account*.json
+*-service-account.json
+google-services.json
+
+# Repositorio embebido obsoleto (no es un submodulo)
+/QuitSmoke/

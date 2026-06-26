@@ -31,8 +31,34 @@ public partial class SettingsPage : ContentPage
         if (BindingContext is ViewModels.SettingsPageViewModel vm)
         {
             vm.MaxCigarettes++;
+            MaxCigarettesEntry.Text = vm.MaxCigarettes.ToString();
             await vm.SaveSettingsCommand.ExecuteAsync(null);
         }
+    }
+
+    private async void OnSaveSettingsClicked(object sender, EventArgs e)
+    {
+        // Volcar los valores de los controles al ViewModel antes de guardar.
+        if (int.TryParse(MaxCigarettesEntry.Text, out var maxCigarettes))
+        {
+            _viewModel.MaxCigarettes = maxCigarettes;
+        }
+        _viewModel.WakeUpTime = WakeUpTimePicker.Time;
+        _viewModel.SleepTime = SleepTimePicker.Time;
+        _viewModel.PackPrice = PackPriceEntry.Text;
+        _viewModel.CigarettesPerPack = CigarettesPerPackEntry.Text;
+        if (CurrencyPicker.SelectedItem is Models.Currency currency)
+        {
+            _viewModel.SelectedCurrency = currency;
+        }
+
+        await _viewModel.SaveSettingsCommand.ExecuteAsync(null);
+    }
+
+    private async void OnReduceMaxClicked(object sender, EventArgs e)
+    {
+        await _viewModel.ReduceMaxCigarettesCommand.ExecuteAsync(null);
+        MaxCigarettesEntry.Text = _viewModel.MaxCigarettes.ToString();
     }
 
 #if ANDROID
@@ -54,7 +80,7 @@ public partial class SettingsPage : ContentPage
         }
         _powerService.OpenAutostartSettings();
         _powerService.OpenBackgroundSettings();
-        await DisplayAlert("Permisos", "Se abrieron los ajustes del sistema. Configura batería, autoinicio y segundo plano.", "OK");
+        await DisplayAlert("Permisos", "Se abrieron los ajustes del sistema. Configura baterï¿½a, autoinicio y segundo plano.", "OK");
     }
 
     private async void OnBatteryOptimizationClicked(object sender, EventArgs e)
@@ -76,7 +102,7 @@ public partial class SettingsPage : ContentPage
     {
         if (_powerService == null) return;
         var ok = await _powerService.RequestIgnoreBatteryOptimizationsAsync();
-        await DisplayAlert("Ajustes de energía", ok ? "Solicitud enviada. Comprueba los ajustes del sistema." : "No se pudo abrir la solicitud.", "OK");
+        await DisplayAlert("Ajustes de energï¿½a", ok ? "Solicitud enviada. Comprueba los ajustes del sistema." : "No se pudo abrir la solicitud.", "OK");
     }
 
     private void OnOpenBatteryOptimizationSettings(object sender, EventArgs e)
