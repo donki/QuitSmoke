@@ -29,7 +29,9 @@ namespace QuitSmoke.Pages
         private void UpdateUI()
         {
             Title = _localizationService.GetString("about_title");
-            // Las actualizaciones de UI se harán mediante binding o código
+            // Aviso legal de exención de responsabilidad localizado (Constitución §6)
+            WarrantyTitleLabel.Text = $"⚖️ {_localizationService.GetString("warranty_title")}";
+            WarrantyTextLabel.Text = _localizationService.GetString("warranty_text");
         }
 
         private async void OnBackClicked(object? sender, EventArgs e)

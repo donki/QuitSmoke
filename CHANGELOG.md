@@ -9,6 +9,13 @@ actualizan en sincronía antes de cada publicación.
 
 ## [No publicado]
 
+### Añadido
+- Aviso legal de exención de responsabilidad (software "tal como está", sin
+  garantías, uso bajo propio riesgo) en la pantalla "Acerca de", localizado en
+  español e inglés (Constitución §6).
+- `THIRD-PARTY-NOTICES.md` con el inventario de dependencias de terceros y sus
+  licencias (todas MIT) (Constitución §4).
+
 ### Cambiado
 - Eliminada la arquitectura MVVM por ser demasiado pesada para esta app: se
   retiran los ViewModels y la dependencia `CommunityToolkit.Mvvm`. La interfaz
