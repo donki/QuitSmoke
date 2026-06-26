@@ -34,8 +34,8 @@ Una aplicación móvil desarrollada en .NET MAUI para ayudar a las personas a re
 
 - **.NET MAUI**: Framework multiplataforma para desarrollo móvil
 - **C#**: Lenguaje de programación principal
-- **MVVM Pattern**: Arquitectura Model-View-ViewModel
-- **CommunityToolkit.Mvvm**: Para implementación de MVVM
+- **Arquitectura code-behind ligero**: la interfaz delega la lógica de negocio en servicios (sin capa MVVM)
+- **Inyección de dependencias**: servicios registrados en `MauiProgram`
 - **Plugin.LocalNotification**: Para notificaciones locales
 - **Microsoft.Maui.Graphics**: Para gráficos y visualizaciones
 

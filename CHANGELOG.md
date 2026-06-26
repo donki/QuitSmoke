@@ -9,6 +9,14 @@ actualizan en sincronía antes de cada publicación.
 
 ## [No publicado]
 
+### Cambiado
+- Eliminada la arquitectura MVVM por ser demasiado pesada para esta app: se
+  retiran los ViewModels y la dependencia `CommunityToolkit.Mvvm`. La interfaz
+  pasa a code-behind ligero que delega en los servicios (Constitución §7).
+  `SettingsPage` ahora carga y guarda la configuración directamente contra
+  `ISmokingDataService` (corrige además que los datos no se cargaban en los
+  controles por falta de bindings).
+
 ### Seguridad
 - Se dejan de versionar el keystore de firma, la contraseña del keystore y las
   claves (`*.keystore`, `keystore.password.txt`, `*.pem`); añadidos a `.gitignore`
