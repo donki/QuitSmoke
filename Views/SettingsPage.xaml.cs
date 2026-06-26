@@ -1,68 +1,151 @@
 using QuitSmoke.Helpers;
+using QuitSmoke.Models;
 using QuitSmoke.Services;
-using QuitSmoke.ViewModels;
 
 namespace QuitSmoke.Views;
 
 public partial class SettingsPage : ContentPage
 {
+    private readonly ISmokingDataService _smokingDataService;
     private readonly IPowerSettingsService? _powerService;
-    private readonly SettingsPageViewModel _viewModel;
 
-    public SettingsPage(SettingsPageViewModel viewModel)
+    public SettingsPage()
     {
         InitializeComponent();
-        BindingContext = _viewModel = viewModel;
+        _smokingDataService = ServiceHelper.GetService<ISmokingDataService>()!;
 #if ANDROID
-        _powerService = ServiceHelper.Services.GetService(typeof(IPowerSettingsService)) as IPowerSettingsService;
+        _powerService = ServiceHelper.GetService<IPowerSettingsService>();
 #endif
+        CurrencyPicker.ItemDisplayBinding = new Binding(nameof(Currency.Name));
+        CurrencyPicker.ItemsSource = Currency.GetAvailableCurrencies();
+
+        // Actualizaciones en vivo de las etiquetas calculadas.
+        MaxCigarettesEntry.TextChanged += (_, _) => UpdateTimeBetween();
+        WakeUpTimePicker.PropertyChanged += (_, e) => { if (e.PropertyName == TimePicker.TimeProperty.PropertyName) UpdateTimeBetween(); };
+        SleepTimePicker.PropertyChanged += (_, e) => { if (e.PropertyName == TimePicker.TimeProperty.PropertyName) UpdateTimeBetween(); };
+        PackPriceEntry.TextChanged += (_, _) => UpdatePricePerCigarette();
+        CigarettesPerPackEntry.TextChanged += (_, _) => UpdatePricePerCigarette();
+        CurrencyPicker.SelectedIndexChanged += (_, _) => UpdatePricePerCigarette();
+
+        _ = LoadDataAsync();
     }
 
-    private async void OnDecreaseMaxCigarettes(object sender, EventArgs e)
+    protected override async void OnAppearing()
     {
-        if (BindingContext is ViewModels.SettingsPageViewModel vm)
+        base.OnAppearing();
+        await LoadDataAsync();
+    }
+
+    private async Task LoadDataAsync()
+    {
+        try
         {
-            await vm.ReduceMaxCigarettesCommand.ExecuteAsync(null);
+            var data = await _smokingDataService.GetDataAsync();
+
+            MaxCigarettesEntry.Text = data.MaxCigarettesPerDay.ToString();
+            WakeUpTimePicker.Time = data.WakeUpTime;
+            SleepTimePicker.Time = data.SleepTime;
+            PackPriceEntry.Text = data.PackPrice.ToString("F2");
+            CigarettesPerPackEntry.Text = data.CigarettesPerPack.ToString();
+            CurrencyPicker.SelectedItem = Currency.GetAvailableCurrencies()
+                .FirstOrDefault(c => c.Code == data.Currency)
+                ?? Currency.GetAvailableCurrencies().First();
+
+            UpdateTimeBetween();
+            UpdatePricePerCigarette();
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Error cargando configuración: {ex.Message}", "OK");
         }
     }
 
-    private async void OnIncreaseMaxCigarettes(object sender, EventArgs e)
+    private void UpdateTimeBetween()
     {
-        if (BindingContext is ViewModels.SettingsPageViewModel vm)
+        var wakeUp = WakeUpTimePicker.Time;
+        var sleep = SleepTimePicker.Time;
+        var awake = sleep > wakeUp ? sleep - wakeUp : TimeSpan.FromHours(24) - (wakeUp - sleep);
+
+        if (int.TryParse(MaxCigarettesEntry.Text, out var max) && max > 0)
         {
-            vm.MaxCigarettes++;
-            MaxCigarettesEntry.Text = vm.MaxCigarettes.ToString();
-            await vm.SaveSettingsCommand.ExecuteAsync(null);
+            var between = TimeSpan.FromMinutes(awake.TotalMinutes / max);
+            TimeBetweenLabel.Text = $"Tiempo entre cigarros: {between:hh\\:mm}";
+        }
+        else
+        {
+            TimeBetweenLabel.Text = "Tiempo entre cigarros: --";
+        }
+    }
+
+    private void UpdatePricePerCigarette()
+    {
+        if (decimal.TryParse(PackPriceEntry.Text, out var packPrice) &&
+            int.TryParse(CigarettesPerPackEntry.Text, out var cigarettesPerPack) &&
+            cigarettesPerPack > 0 &&
+            CurrencyPicker.SelectedItem is Currency currency)
+        {
+            var pricePerCigarette = packPrice / cigarettesPerPack;
+            PricePerCigaretteLabel.Text = $"Precio por cigarrillo: {currency.Symbol}{pricePerCigarette:F3}";
+        }
+        else
+        {
+            PricePerCigaretteLabel.Text = "Precio por cigarrillo: --";
+        }
+    }
+
+    private async Task SaveSettingsAsync()
+    {
+        if (int.TryParse(MaxCigarettesEntry.Text, out var maxCigarettes) && maxCigarettes > 0)
+        {
+            await _smokingDataService.UpdateMaxCigarettesAsync(maxCigarettes);
+        }
+
+        await _smokingDataService.UpdateScheduleAsync(WakeUpTimePicker.Time, SleepTimePicker.Time);
+
+        if (decimal.TryParse(PackPriceEntry.Text, out var packPrice) &&
+            int.TryParse(CigarettesPerPackEntry.Text, out var cigarettesPerPack) &&
+            CurrencyPicker.SelectedItem is Currency currency)
+        {
+            await _smokingDataService.UpdatePriceConfigurationAsync(packPrice, cigarettesPerPack, currency.Code);
         }
     }
 
     private async void OnSaveSettingsClicked(object sender, EventArgs e)
     {
-        // Volcar los valores de los controles al ViewModel antes de guardar.
-        if (int.TryParse(MaxCigarettesEntry.Text, out var maxCigarettes))
-        {
-            _viewModel.MaxCigarettes = maxCigarettes;
-        }
-        _viewModel.WakeUpTime = WakeUpTimePicker.Time;
-        _viewModel.SleepTime = SleepTimePicker.Time;
-        _viewModel.PackPrice = PackPriceEntry.Text;
-        _viewModel.CigarettesPerPack = CigarettesPerPackEntry.Text;
-        if (CurrencyPicker.SelectedItem is Models.Currency currency)
-        {
-            _viewModel.SelectedCurrency = currency;
-        }
-
-        await _viewModel.SaveSettingsCommand.ExecuteAsync(null);
+        await SaveSettingsAsync();
+        await DisplayAlert("Configuración", "Configuración guardada correctamente", "OK");
     }
 
     private async void OnReduceMaxClicked(object sender, EventArgs e)
     {
-        await _viewModel.ReduceMaxCigarettesCommand.ExecuteAsync(null);
-        MaxCigarettesEntry.Text = _viewModel.MaxCigarettes.ToString();
+        if (int.TryParse(MaxCigarettesEntry.Text, out var max) && max > 1)
+        {
+            MaxCigarettesEntry.Text = (max - 1).ToString();
+            UpdateTimeBetween();
+            await SaveSettingsAsync();
+        }
+    }
+
+    private async void OnDecreaseMaxCigarettes(object sender, EventArgs e)
+    {
+        if (int.TryParse(MaxCigarettesEntry.Text, out var max) && max > 1)
+        {
+            MaxCigarettesEntry.Text = (max - 1).ToString();
+            UpdateTimeBetween();
+            await SaveSettingsAsync();
+        }
+    }
+
+    private async void OnIncreaseMaxCigarettes(object sender, EventArgs e)
+    {
+        var max = int.TryParse(MaxCigarettesEntry.Text, out var current) ? current : 0;
+        MaxCigarettesEntry.Text = (max + 1).ToString();
+        UpdateTimeBetween();
+        await SaveSettingsAsync();
     }
 
 #if ANDROID
-    private async void OnCheckPermissionsClicked(object sender, EventArgs e)
+    private void OnCheckPermissionsClicked(object sender, EventArgs e)
     {
         if (_powerService == null) return;
         var ignoring = _powerService.IsIgnoringBatteryOptimizations();
@@ -80,7 +163,7 @@ public partial class SettingsPage : ContentPage
         }
         _powerService.OpenAutostartSettings();
         _powerService.OpenBackgroundSettings();
-        await DisplayAlert("Permisos", "Se abrieron los ajustes del sistema. Configura bater�a, autoinicio y segundo plano.", "OK");
+        await DisplayAlert("Permisos", "Se abrieron los ajustes del sistema. Configura batería, autoinicio y segundo plano.", "OK");
     }
 
     private async void OnBatteryOptimizationClicked(object sender, EventArgs e)
@@ -96,28 +179,6 @@ public partial class SettingsPage : ContentPage
     private void OnAutostartClicked(object sender, EventArgs e)
     {
         _powerService?.OpenAutostartSettings();
-    }
-
-    private async void OnRequestIgnoreBatteryOptimization(object sender, EventArgs e)
-    {
-        if (_powerService == null) return;
-        var ok = await _powerService.RequestIgnoreBatteryOptimizationsAsync();
-        await DisplayAlert("Ajustes de energ�a", ok ? "Solicitud enviada. Comprueba los ajustes del sistema." : "No se pudo abrir la solicitud.", "OK");
-    }
-
-    private void OnOpenBatteryOptimizationSettings(object sender, EventArgs e)
-    {
-        _powerService?.OpenBatteryOptimizationSettings();
-    }
-
-    private void OnOpenAutostartSettings(object sender, EventArgs e)
-    {
-        _powerService?.OpenAutostartSettings();
-    }
-
-    private void OnOpenBackgroundSettings(object sender, EventArgs e)
-    {
-        _powerService?.OpenBackgroundSettings();
     }
 #else
     private async void OnCheckPermissionsClicked(object sender, EventArgs e) => await DisplayAlert("Permisos", "Solo disponible en Android.", "OK");

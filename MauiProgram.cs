@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Logging;
-using QuitSmoke.ViewModels;
 using QuitSmoke.Views;
 using QuitSmoke.Services;
 using QuitSmoke.Helpers;
@@ -33,11 +32,6 @@ public static class MauiProgram
         builder.Services.AddSingleton<IScreenService, QuitSmoke.Platforms.Android.Services.ScreenService>();
         builder.Services.AddSingleton<IEmailService, QuitSmoke.Platforms.Android.Services.EmailService>();
 #endif
-
-        // ViewModels
-        builder.Services.AddSingleton<MainPageViewModel>();
-        builder.Services.AddTransient<SettingsPageViewModel>();
-        builder.Services.AddTransient<HistoryPageViewModel>();
 
         // Views
         builder.Services.AddSingleton<MainPage>();
