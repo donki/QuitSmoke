@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:QuitSmoke.Views"
+    xmlns:pages="clr-namespace:QuitSmoke.Pages"
     Shell.FlyoutBehavior="Flyout"
     Title="QuitSmoke"
     FlyoutBackgroundColor="White"
@@ -43,7 +44,7 @@
     </FlyoutItem>
 
     <FlyoutItem Title="ℹ️ Acerca de">
-        <ShellContent ContentTemplate="{DataTemplate local:AboutPage}" Route="AboutPage" />
+        <ShellContent ContentTemplate="{DataTemplate pages:AboutPage}" Route="AboutPage" />
     </FlyoutItem>
 
     <!-- Footer del menú -->

@@ -14,9 +14,9 @@
     <PublishTrimmed>false</PublishTrimmed>
     <MauiEnableVisualStudioHotReload>true</MauiEnableVisualStudioHotReload>
 
-    <!-- Display Version -->
-    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-    <ApplicationVersion>1</ApplicationVersion>
+    <!-- Display Version (Constitucion §6: DisplayVersion legible + Version entero incremental, en sincronia) -->
+    <ApplicationDisplayVersion>1.10.0</ApplicationDisplayVersion>
+    <ApplicationVersion>110</ApplicationVersion>
 
     <!-- Company Information -->
     <Company>sOCratic</Company>
@@ -26,7 +26,10 @@
 
     <!-- Android -->
     <ApplicationId>com.socratic.quitsmoke</ApplicationId>
-    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24.0</SupportedOSPlatformVersion>
+    <TargetSdkVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">36</TargetSdkVersion>
+    <UseDefaultAndroidSdkDirectory>true</UseDefaultAndroidSdkDirectory>
+    <AndroidSdkDirectory>C:\Program Files (x86)\Android\android-sdk</AndroidSdkDirectory>
     <AndroidPackageFormat Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">apk</AndroidPackageFormat>
     <AndroidUseAapt2 Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">True</AndroidUseAapt2>
     <AndroidCreatePackagePerAbi Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">False</AndroidCreatePackagePerAbi>

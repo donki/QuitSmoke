@@ -27,9 +27,11 @@ public static class MauiProgram
         // Services
         builder.Services.AddSingleton<ISmokingDataService, SmokingDataService>();
         builder.Services.AddSingleton<IAppNotificationService, NotificationService>();
+        builder.Services.AddSingleton<ILocalizationService, LocalizationService>();
 #if ANDROID
         builder.Services.AddSingleton<IPowerSettingsService, QuitSmoke.Platforms.Android.Services.PowerSettingsService>();
         builder.Services.AddSingleton<IScreenService, QuitSmoke.Platforms.Android.Services.ScreenService>();
+        builder.Services.AddSingleton<IEmailService, QuitSmoke.Platforms.Android.Services.EmailService>();
 #endif
 
         // ViewModels
@@ -41,6 +43,9 @@ public static class MauiProgram
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddTransient<SettingsPage>();
         builder.Services.AddTransient<HistoryPage>();
+        
+        // Pages
+        builder.Services.AddTransient<QuitSmoke.Pages.AboutPage>();
 
 #if DEBUG
         builder.Services.AddLogging(configure => configure.AddDebug());
