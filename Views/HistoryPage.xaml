@@ -8,253 +8,237 @@
         <!-- Spinner de carga -->
         <VerticalStackLayout x:Name="LoadingView"
                              IsVisible="True"
-                             HorizontalOptions="Center" 
+                             HorizontalOptions="Center"
                              VerticalOptions="Center"
                              Spacing="16">
             <ActivityIndicator x:Name="LoadingIndicator"
-                               IsRunning="True" 
-                               Color="#3498DB" 
-                               HeightRequest="50" 
+                               IsRunning="True"
+                               HeightRequest="50"
                                WidthRequest="50" />
-            <Label Text="Cargando historial..." 
-                   FontSize="16" 
-                   TextColor="#7F8C8D" 
+            <Label Text="Cargando historial..."
+                   Style="{StaticResource HintText}"
+                   FontSize="16"
                    HorizontalOptions="Center" />
         </VerticalStackLayout>
-        
+
         <!-- Contenido principal -->
         <ScrollView x:Name="ContentView" IsVisible="False">
             <VerticalStackLayout Padding="16" Spacing="16">
-            
+
             <!-- Estadísticas principales -->
-            <Frame Padding="20" CornerRadius="15" BackgroundColor="White" HasShadow="True">
+            <Border Style="{StaticResource Card}" Padding="20">
                 <VerticalStackLayout Spacing="16">
-                    <Label Text="📈 Estadísticas Generales" 
-                           FontSize="18" 
-                           FontAttributes="Bold" 
-                           TextColor="#2C3E50" 
+                    <Label Text="📈 Estadísticas Generales"
+                           Style="{StaticResource CardTitle}"
                            HorizontalOptions="Center" />
-                    
+
                     <!-- Grid de estadísticas -->
                     <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="16" RowSpacing="12">
-                        
+
                         <!-- Total cigarros -->
-                        <Border Grid.Row="0" Grid.Column="0" 
-                                BackgroundColor="#E8F4FD" 
-                                Stroke="#3498DB" 
-                                StrokeThickness="2" 
-                                StrokeShape="RoundRectangle 10" 
+                        <Border Grid.Row="0" Grid.Column="0"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}"
+                                Stroke="{StaticResource Primary}"
+                                StrokeThickness="2"
+                                StrokeShape="RoundRectangle 10"
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
                                 <Label Text="🚬" FontSize="24" HorizontalOptions="Center" />
                                 <Label x:Name="TotalCigarettesLabel"
                                        Text="0"
-                                       FontSize="20" 
-                                       FontAttributes="Bold" 
-                                       TextColor="#2980B9" 
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource Primary}"
                                        HorizontalOptions="Center" />
-                                <Label Text="Total cigarros" 
-                                       FontSize="12" 
-                                       TextColor="#34495E" 
+                                <Label Text="Total cigarros"
+                                       Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
-                        
+
                         <!-- Días registrados -->
-                        <Border Grid.Row="0" Grid.Column="1" 
-                                BackgroundColor="#E8F5E8" 
-                                Stroke="#27AE60" 
-                                StrokeThickness="2" 
-                                StrokeShape="RoundRectangle 10" 
+                        <Border Grid.Row="0" Grid.Column="1"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}"
+                                Stroke="{StaticResource Success}"
+                                StrokeThickness="2"
+                                StrokeShape="RoundRectangle 10"
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
                                 <Label Text="📅" FontSize="24" HorizontalOptions="Center" />
                                 <Label x:Name="TotalDaysLabel"
                                        Text="0"
-                                       FontSize="20" 
-                                       FontAttributes="Bold" 
-                                       TextColor="#27AE60" 
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource Success}"
                                        HorizontalOptions="Center" />
-                                <Label Text="Días registrados" 
-                                       FontSize="12" 
-                                       TextColor="#34495E" 
+                                <Label Text="Días registrados"
+                                       Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
-                        
+
                         <!-- Promedio por día -->
-                        <Border Grid.Row="1" Grid.Column="0" 
-                                BackgroundColor="#FDF2E9" 
-                                Stroke="#E67E22" 
-                                StrokeThickness="2" 
-                                StrokeShape="RoundRectangle 10" 
+                        <Border Grid.Row="1" Grid.Column="0"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}"
+                                Stroke="{StaticResource Accent}"
+                                StrokeThickness="2"
+                                StrokeShape="RoundRectangle 10"
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
                                 <Label Text="📊" FontSize="24" HorizontalOptions="Center" />
                                 <Label x:Name="AveragePerDayLabel"
                                        Text="0.0"
-                                       FontSize="20" 
-                                       FontAttributes="Bold" 
-                                       TextColor="#D68910" 
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource Accent}"
                                        HorizontalOptions="Center" />
-                                <Label Text="Promedio/día" 
-                                       FontSize="12" 
-                                       TextColor="#34495E" 
+                                <Label Text="Promedio/día"
+                                       Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
-                        
+
                         <!-- Reducción lograda -->
-                        <Border Grid.Row="1" Grid.Column="1" 
-                                BackgroundColor="#E8F5E8" 
-                                Stroke="#27AE60" 
-                                StrokeThickness="2" 
-                                StrokeShape="RoundRectangle 10" 
+                        <Border Grid.Row="1" Grid.Column="1"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}"
+                                Stroke="{StaticResource Success}"
+                                StrokeThickness="2"
+                                StrokeShape="RoundRectangle 10"
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
                                 <Label Text="📉" FontSize="24" HorizontalOptions="Center" />
                                 <Label x:Name="ReductionLabel"
                                        Text="0%"
-                                       FontSize="20" 
-                                       FontAttributes="Bold" 
-                                       TextColor="#27AE60" 
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource Success}"
                                        HorizontalOptions="Center" />
-                                <Label Text="Reducción lograda" 
-                                       FontSize="12" 
-                                       TextColor="#34495E" 
+                                <Label Text="Reducción lograda"
+                                       Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
-                        
+
                         <!-- Resumen textual -->
-                        <Border Grid.Row="2" Grid.ColumnSpan="2" 
-                                BackgroundColor="#F8F9FA" 
-                                Stroke="#6C757D" 
-                                StrokeThickness="1" 
-                                StrokeShape="RoundRectangle 8" 
+                        <Border Grid.Row="2" Grid.ColumnSpan="2"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}"
+                                Stroke="{AppThemeBinding Light={StaticResource SeparatorLight}, Dark={StaticResource SeparatorDark}}"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 8"
                                 Padding="12">
                             <Label x:Name="SummaryLabel"
                                    Text="Cargando estadísticas..."
-                                   FontSize="14" 
-                                   TextColor="#495057" 
-                                   HorizontalOptions="Center" 
+                                   Style="{StaticResource BodyText}"
+                                   HorizontalOptions="Center"
                                    HorizontalTextAlignment="Center" />
                         </Border>
                     </Grid>
                 </VerticalStackLayout>
-            </Frame>
+            </Border>
 
             <!-- Estadísticas económicas -->
-            <Frame Padding="20" CornerRadius="15" BackgroundColor="White" HasShadow="True">
+            <Border Style="{StaticResource Card}" Padding="20">
                 <VerticalStackLayout Spacing="16">
-                    <Label Text="💰 Estadísticas Económicas" 
-                           FontSize="18" 
-                           FontAttributes="Bold" 
-                           TextColor="#2C3E50" 
+                    <Label Text="💰 Estadísticas Económicas"
+                           Style="{StaticResource CardTitle}"
                            HorizontalOptions="Center" />
-                    
+
                     <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="12">
                         <!-- Total gastado -->
-                        <Border Grid.Row="0" Grid.Column="0" 
-                                BackgroundColor="#FADBD8" 
-                                Stroke="#E74C3C" 
-                                StrokeThickness="2" 
-                                StrokeShape="RoundRectangle 10" 
+                        <Border Grid.Row="0" Grid.Column="0"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}"
+                                Stroke="{StaticResource Danger}"
+                                StrokeThickness="2"
+                                StrokeShape="RoundRectangle 10"
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
                                 <Label Text="💸" FontSize="24" HorizontalOptions="Center" />
                                 <Label x:Name="TotalSpentLabel"
                                        Text="€0.00"
-                                       FontSize="16" 
-                                       FontAttributes="Bold" 
-                                       TextColor="#C0392B" 
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource Danger}"
                                        HorizontalOptions="Center" />
-                                <Label Text="Total gastado" 
-                                       FontSize="12" 
-                                       TextColor="#34495E" 
+                                <Label Text="Total gastado"
+                                       Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
-                        
+
                         <!-- Total ahorrado -->
-                        <Border Grid.Row="0" Grid.Column="1" 
-                                BackgroundColor="#D5F4E6" 
-                                Stroke="#27AE60" 
-                                StrokeThickness="2" 
-                                StrokeShape="RoundRectangle 10" 
+                        <Border Grid.Row="0" Grid.Column="1"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}"
+                                Stroke="{StaticResource Success}"
+                                StrokeThickness="2"
+                                StrokeShape="RoundRectangle 10"
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
                                 <Label Text="💚" FontSize="24" HorizontalOptions="Center" />
                                 <Label x:Name="TotalSavedLabel"
                                        Text="€0.00"
-                                       FontSize="16" 
-                                       FontAttributes="Bold" 
-                                       TextColor="#27AE60" 
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource Success}"
                                        HorizontalOptions="Center" />
-                                <Label Text="Total ahorrado" 
-                                       FontSize="12" 
-                                       TextColor="#34495E" 
+                                <Label Text="Total ahorrado"
+                                       Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
-                        
+
                         <!-- Gasto promedio por día -->
-                        <Border Grid.Row="1" Grid.Column="0" 
-                                BackgroundColor="#FEF9E7" 
-                                Stroke="#F39C12" 
-                                StrokeThickness="2" 
-                                StrokeShape="RoundRectangle 10" 
+                        <Border Grid.Row="1" Grid.Column="0"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}"
+                                Stroke="{StaticResource Accent}"
+                                StrokeThickness="2"
+                                StrokeShape="RoundRectangle 10"
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
                                 <Label Text="📊" FontSize="24" HorizontalOptions="Center" />
                                 <Label x:Name="AverageSpentLabel"
                                        Text="€0.00"
-                                       FontSize="16" 
-                                       FontAttributes="Bold" 
-                                       TextColor="#D68910" 
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource Accent}"
                                        HorizontalOptions="Center" />
-                                <Label Text="Promedio/día" 
-                                       FontSize="12" 
-                                       TextColor="#34495E" 
+                                <Label Text="Promedio/día"
+                                       Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
-                        
+
                         <!-- Porcentaje de ahorro -->
-                        <Border Grid.Row="1" Grid.Column="1" 
-                                BackgroundColor="#EBF5FB" 
-                                Stroke="#3498DB" 
-                                StrokeThickness="2" 
-                                StrokeShape="RoundRectangle 10" 
+                        <Border Grid.Row="1" Grid.Column="1"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}"
+                                Stroke="{StaticResource Primary}"
+                                StrokeThickness="2"
+                                StrokeShape="RoundRectangle 10"
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
                                 <Label Text="📈" FontSize="24" HorizontalOptions="Center" />
                                 <Label x:Name="SavingsPercentageLabel"
                                        Text="0.0%"
-                                       FontSize="16" 
-                                       FontAttributes="Bold" 
-                                       TextColor="#2980B9" 
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource Primary}"
                                        HorizontalOptions="Center" />
-                                <Label Text="% de ahorro" 
-                                       FontSize="12" 
-                                       TextColor="#34495E" 
+                                <Label Text="% de ahorro"
+                                       Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
                     </Grid>
                 </VerticalStackLayout>
-            </Frame>
+            </Border>
 
             <!-- Botón actualizar -->
-            <Button Text="🔄 Actualizar datos" 
+            <Button Text="🔄 Actualizar datos"
                     Clicked="OnRefreshClicked"
-                    BackgroundColor="#3498DB" 
-                    TextColor="White" 
+                    Style="{StaticResource PrimaryButton}"
                     FontSize="16"
-                    FontAttributes="Bold"
                     CornerRadius="25"
                     HeightRequest="50" />
-                    
+
             </VerticalStackLayout>
         </ScrollView>
     </Grid>

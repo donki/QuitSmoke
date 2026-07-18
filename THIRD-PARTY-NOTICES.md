@@ -8,7 +8,6 @@ dependencias usan licencias **permisivas** compatibles con MIT.
 | Dependencia | Versión | Uso | Licencia | Titular |
 |---|---|---|---|---|
 | Microsoft.Maui.Controls | 9.0.0 | Framework de interfaz multiplataforma (.NET MAUI) | MIT | Microsoft / .NET Foundation |
-| Microsoft.Maui.Controls.Compatibility | 9.0.0 | Compatibilidad de controles heredados de MAUI | MIT | Microsoft / .NET Foundation |
 | Microsoft.Extensions.Logging.Debug | 9.0.0 | Proveedor de logging de depuración (solo Debug) | MIT | Microsoft / .NET Foundation |
 | Plugin.LocalNotification | 11.1.0 | Notificaciones locales (recordatorios y alertas) | MIT | Eddy Zavaleta (thudugala) |
 

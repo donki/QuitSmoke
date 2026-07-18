@@ -12,88 +12,68 @@
             <Label x:Name="WelcomeLabel"
                    Text="QuitSmoke"
                    FontSize="24"
+                   FontAttributes="Bold"
                    HorizontalOptions="Center"
                    TextColor="{StaticResource Primary}" />
 
-            <!-- Consejo aleatorio más visual -->
-            <Frame BackgroundColor="White" 
-                   Padding="20" 
-                   CornerRadius="15"
-                   HasShadow="True"
-                   BorderColor="#FFC107">
+            <!-- Consejo aleatorio -->
+            <Border Style="{StaticResource Card}" Padding="20">
                 <VerticalStackLayout Spacing="12">
-                    <!-- Icono grande del consejo -->
                     <Label x:Name="TipIcon"
                            Text="💡"
                            FontSize="48"
                            HorizontalOptions="Center" />
 
-                    <!-- Titulo del consejo -->
                     <Label x:Name="TipTitle"
                            Text="Consejo del día"
-                           FontSize="18"
-                           FontAttributes="Bold"
+                           Style="{StaticResource CardTitle}"
                            HorizontalOptions="Center"
-                           HorizontalTextAlignment="Center"
-                           TextColor="Black" />
+                           HorizontalTextAlignment="Center" />
 
-                    <!-- Mensaje del consejo -->
                     <Label x:Name="TipText"
                            Text="Mantén la motivación y sigue adelante"
-                           FontSize="14"
+                           Style="{StaticResource BodyText}"
                            HorizontalOptions="Center"
                            HorizontalTextAlignment="Center"
-                           LineBreakMode="WordWrap"
-                           TextColor="DarkGray" />
+                           LineBreakMode="WordWrap" />
 
-                    <!-- Etiqueta de consejo -->
-                    <Border BackgroundColor="#FFF3CD"
-                            Stroke="#FFC107"
-                            StrokeThickness="1"
+                    <Border BackgroundColor="{StaticResource Accent}"
+                            Stroke="Transparent"
                             StrokeShape="RoundRectangle 15"
                             Padding="8,4"
                             HorizontalOptions="Center">
                         <Label Text="✨ Tip Smart"
                                FontSize="12"
                                FontAttributes="Bold"
-                               TextColor="#856404" />
+                               TextColor="{StaticResource White}" />
                     </Border>
                 </VerticalStackLayout>
-            </Frame>
+            </Border>
 
             <!-- Progress Display -->
-            <Frame BackgroundColor="{StaticResource Secondary}" 
-                   Padding="20" 
-                   CornerRadius="10">
+            <Border Style="{StaticResource Card}" Padding="20">
                 <VerticalStackLayout Spacing="10">
                     <Label x:Name="ProgressLabel"
                            Text="Progreso del día"
-                           FontSize="18"
-                           HorizontalOptions="Center"
-                           FontAttributes="Bold"
-                           TextColor="Black" />
+                           Style="{StaticResource CardTitle}"
+                           HorizontalOptions="Center" />
 
                     <ProgressBar x:Name="DayProgressBar"
                                  Progress="0.5"
                                  ProgressColor="{StaticResource Primary}"
-                                 BackgroundColor="LightGray"
                                  HeightRequest="10" />
 
                     <Label x:Name="RemainingLabel"
                            Text="Cigarros restantes: --"
-                           FontSize="16"
-                           HorizontalOptions="Center"
-                           TextColor="Black" />
+                           Style="{StaticResource BodyText}"
+                           HorizontalOptions="Center" />
                 </VerticalStackLayout>
-            </Frame>
+            </Border>
 
             <!-- Información de tiempos -->
             <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
                 <!-- Último cigarro -->
-                <Frame Grid.Column="0"
-                       BackgroundColor="LightCoral" 
-                       Padding="12" 
-                       CornerRadius="10">
+                <Border Grid.Column="0" Style="{StaticResource Card}" Padding="12">
                     <VerticalStackLayout Spacing="5">
                         <Label Text="🕐"
                                FontSize="18"
@@ -104,15 +84,12 @@
                                HorizontalOptions="Center"
                                HorizontalTextAlignment="Center"
                                FontAttributes="Bold"
-                               TextColor="DarkRed" />
+                               TextColor="{StaticResource Danger}" />
                     </VerticalStackLayout>
-                </Frame>
+                </Border>
 
                 <!-- Próximo cigarro -->
-                <Frame Grid.Column="1"
-                       BackgroundColor="LightBlue" 
-                       Padding="12" 
-                       CornerRadius="10">
+                <Border Grid.Column="1" Style="{StaticResource Card}" Padding="12">
                     <VerticalStackLayout Spacing="5">
                         <Label Text="⏰"
                                FontSize="18"
@@ -123,72 +100,58 @@
                                HorizontalOptions="Center"
                                HorizontalTextAlignment="Center"
                                FontAttributes="Bold"
-                               TextColor="DarkBlue" />
+                               TextColor="{StaticResource Primary}" />
                     </VerticalStackLayout>
-                </Frame>
+                </Border>
             </Grid>
 
             <!-- Tiempo sin fumar -->
-            <Frame BackgroundColor="White" Padding="16" CornerRadius="15" HasShadow="True">
-                <VerticalStackLayout Spacing="12">
-                    <!-- Tiempo sin fumar destacado -->
-                    <Border BackgroundColor="#E8F5E8"
-                            Stroke="#28A745"
-                            StrokeThickness="2"
-                            StrokeShape="RoundRectangle 10"
-                            Padding="12">
-                        <Label x:Name="TimeSinceLastLabel"
-                               Text="Tiempo sin fumar: --" 
-                               FontSize="16" 
-                               FontAttributes="Bold"
-                               HorizontalOptions="Center"
-                               TextColor="#155724" />
-                    </Border>
-                </VerticalStackLayout>
-            </Frame>
+            <Border Style="{StaticResource Card}" Padding="16">
+                <Border BackgroundColor="{StaticResource Success}"
+                        Stroke="Transparent"
+                        StrokeShape="RoundRectangle 10"
+                        Padding="12">
+                    <Label x:Name="TimeSinceLastLabel"
+                           Text="Tiempo sin fumar: --"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource White}" />
+                </Border>
+            </Border>
 
             <!-- Smoke Button principal -->
             <Button x:Name="SmokeBtn"
                     Text="🚬 Fumar Cigarro"
+                    Style="{StaticResource PrimaryButton}"
                     FontSize="18"
-                    BackgroundColor="{StaticResource Primary}"
-                    TextColor="White"
                     HeightRequest="60"
                     CornerRadius="30"
                     Clicked="OnSmokeClicked" />
 
             <!-- Quick Actions -->
             <Button Text="🔄 Actualizar datos"
-                    FontSize="14"
-                    BackgroundColor="Gray"
-                    TextColor="White"
-                    Clicked="OnRefreshClicked"
-                    CornerRadius="20" />
+                    Style="{StaticResource OutlineButton}"
+                    Clicked="OnRefreshClicked" />
 
             <!-- Daily Stats -->
-            <Frame BackgroundColor="LightGreen" 
-                   Padding="15" 
-                   CornerRadius="10">
+            <Border Style="{StaticResource Card}" Padding="15">
                 <VerticalStackLayout Spacing="5">
                     <Label Text="Estadísticas del día"
-                           FontSize="16"
-                           FontAttributes="Bold"
-                           HorizontalOptions="Center"
-                           TextColor="Black" />
+                           Style="{StaticResource CardTitle}"
+                           HorizontalOptions="Center" />
 
                     <Label x:Name="TimeBetweenLabel"
                            Text="Tiempo entre cigarros: --"
-                           FontSize="14"
-                           HorizontalOptions="Center"
-                           TextColor="Black" />
+                           Style="{StaticResource BodyText}"
+                           HorizontalOptions="Center" />
 
                     <Label x:Name="AwakeHoursLabel"
                            Text="Horas despierto: --"
-                           FontSize="14"
-                           HorizontalOptions="Center"
-                           TextColor="Black" />
+                           Style="{StaticResource BodyText}"
+                           HorizontalOptions="Center" />
                 </VerticalStackLayout>
-            </Frame>
+            </Border>
 
         </VerticalStackLayout>
     </ScrollView>

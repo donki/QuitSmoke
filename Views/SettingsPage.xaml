@@ -3,45 +3,38 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:QuitSmoke.Models"
-             Title="Configuración"
-             BackgroundColor="#F8F9FA">
+             Title="Configuración">
 
     <ScrollView>
         <VerticalStackLayout Spacing="20" Padding="24">
-            
+
             <!-- Header -->
             <VerticalStackLayout Spacing="8">
                 <Label Text="Configuración"
                        FontSize="24"
                        FontAttributes="Bold"
-                       TextColor="#212529"
+                       TextColor="{StaticResource Primary}"
                        HorizontalOptions="Center" />
                 <Label Text="Preferencias y permisos"
+                       Style="{StaticResource HintText}"
                        FontSize="14"
-                       TextColor="#6C757D"
                        HorizontalOptions="Center" />
             </VerticalStackLayout>
 
             <!-- Tarjetas estado rápido -->
             <Grid ColumnDefinitions="*,*" ColumnSpacing="12" RowSpacing="12">
-                <Border Grid.Column="0" BackgroundColor="White" Stroke="#E9ECEF" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
-                    <Border.Shadow>
-                        <Shadow Brush="Black" Opacity="0.05" Radius="6" Offset="0,2" />
-                    </Border.Shadow>
+                <Border Grid.Column="0" Style="{StaticResource Card}" Padding="16">
                     <VerticalStackLayout Spacing="8">
                         <Label Text="🔋" FontSize="24" HorizontalOptions="Center" />
-                        <Label Text="Ahorro batería" FontSize="14" FontAttributes="Bold" TextColor="#212529" HorizontalTextAlignment="Center" />
-                        <Label x:Name="BatteryOptStatus" Text="Sin verificar" FontSize="12" TextColor="#6C757D" HorizontalTextAlignment="Center" />
+                        <Label Text="Ahorro batería" Style="{StaticResource BodyText}" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                        <Label x:Name="BatteryOptStatus" Text="Sin verificar" Style="{StaticResource HintText}" HorizontalTextAlignment="Center" />
                     </VerticalStackLayout>
                 </Border>
-                <Border Grid.Column="1" BackgroundColor="White" Stroke="#E9ECEF" StrokeThickness="1" StrokeShape="RoundRectangle 12" Padding="16">
-                    <Border.Shadow>
-                        <Shadow Brush="Black" Opacity="0.05" Radius="6" Offset="0,2" />
-                    </Border.Shadow>
+                <Border Grid.Column="1" Style="{StaticResource Card}" Padding="16">
                     <VerticalStackLayout Spacing="8">
                         <Label Text="🚀" FontSize="24" HorizontalOptions="Center" />
-                        <Label Text="Autostart" FontSize="14" FontAttributes="Bold" TextColor="#212529" HorizontalTextAlignment="Center" />
-                        <Label x:Name="AutostartStatus" Text="Manual" FontSize="12" TextColor="#6C757D" HorizontalTextAlignment="Center" />
+                        <Label Text="Autostart" Style="{StaticResource BodyText}" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                        <Label x:Name="AutostartStatus" Text="Manual" Style="{StaticResource HintText}" HorizontalTextAlignment="Center" />
                     </VerticalStackLayout>
                 </Border>
             </Grid>
@@ -49,106 +42,98 @@
             <!-- Configuración de Permisos -->
             <VerticalStackLayout Spacing="12">
                 <Label Text="Configuración de Permisos"
-                       FontSize="18"
-                       FontAttributes="Bold"
-                       TextColor="#212529"
+                       Style="{StaticResource CardTitle}"
                        HorizontalOptions="Center"
                        Margin="0,8,0,0" />
 
-                <Button Text="🔍 Verificar Estado de Permisos" 
-                        Clicked="OnCheckPermissionsClicked" 
-                        BackgroundColor="#17A2B8" 
-                        TextColor="White"
-                        FontSize="14"
-                        CornerRadius="8"
+                <Button Text="🔍 Verificar Estado de Permisos"
+                        Clicked="OnCheckPermissionsClicked"
+                        Style="{StaticResource OutlineButton}"
                         HeightRequest="44" />
 
-                <Button Text="⚙️ Configurar Todos los Permisos" 
-                        Clicked="OnConfigureAllPermissionsClicked" 
-                        BackgroundColor="#28A745" 
-                        TextColor="White"
-                        FontSize="14"
-                        CornerRadius="8"
+                <Button Text="⚙️ Configurar Todos los Permisos"
+                        Clicked="OnConfigureAllPermissionsClicked"
+                        Style="{StaticResource PrimaryButton}"
                         HeightRequest="44" />
 
                 <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
                     <Button Grid.Column="0"
-                            Text="🔋 Batería" 
-                            Clicked="OnBatteryOptimizationClicked" 
-                            BackgroundColor="#FFC107" 
-                            TextColor="#212529"
+                            Text="🔋 Batería"
+                            Clicked="OnBatteryOptimizationClicked"
+                            Style="{StaticResource AccentButton}"
                             FontSize="12"
-                            CornerRadius="8"
                             HeightRequest="40" />
-                    
+
                     <Button Grid.Column="1"
-                            Text="🚀 Autostart" 
-                            Clicked="OnAutostartClicked" 
-                            BackgroundColor="#6F42C1" 
-                            TextColor="White"
+                            Text="🚀 Autostart"
+                            Clicked="OnAutostartClicked"
+                            Style="{StaticResource OutlineButton}"
                             FontSize="12"
-                            CornerRadius="8"
                             HeightRequest="40" />
                 </Grid>
 
-                <Border BackgroundColor="#FFF3CD" Stroke="#FFEAA7" StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="12">
+                <Border BackgroundColor="{AppThemeBinding Light={StaticResource DangerSurfaceLight}, Dark={StaticResource DangerSurfaceDark}}"
+                        Stroke="{StaticResource Accent}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 8"
+                        Padding="12">
                     <Label Text="💡 Para un funcionamiento óptimo, configure todos los permisos para ejecución en segundo plano."
+                           Style="{StaticResource BodyText}"
                            FontSize="12"
-                           TextColor="#856404"
                            LineBreakMode="WordWrap" />
                 </Border>
             </VerticalStackLayout>
 
             <!-- Ajustes propios -->
-            <Frame BackgroundColor="{StaticResource Secondary}" Padding="20" CornerRadius="10">
+            <Border Style="{StaticResource Card}" Padding="20">
                 <VerticalStackLayout Spacing="15">
-                    <Label Text="Cigarros máximos por día" FontSize="18" FontAttributes="Bold" />
+                    <Label Text="Cigarros máximos por día" Style="{StaticResource CardTitle}" />
                     <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
-                        <Button Grid.Column="0" Text="−" FontSize="20" BackgroundColor="Red" TextColor="White" WidthRequest="50" HeightRequest="50" CornerRadius="25" Clicked="OnDecreaseMaxCigarettes" />
+                        <Button Grid.Column="0" Text="−" FontSize="20" BackgroundColor="{StaticResource Danger}" TextColor="{StaticResource White}" WidthRequest="50" HeightRequest="50" CornerRadius="25" Clicked="OnDecreaseMaxCigarettes" />
                         <Entry x:Name="MaxCigarettesEntry" Grid.Column="1" Text="20" FontSize="18" HorizontalTextAlignment="Center" Keyboard="Numeric" />
-                        <Button Grid.Column="2" Text="+" FontSize="20" BackgroundColor="Green" TextColor="White" WidthRequest="50" HeightRequest="50" CornerRadius="25" Clicked="OnIncreaseMaxCigarettes" />
+                        <Button Grid.Column="2" Text="+" FontSize="20" BackgroundColor="{StaticResource Success}" TextColor="{StaticResource White}" WidthRequest="50" HeightRequest="50" CornerRadius="25" Clicked="OnIncreaseMaxCigarettes" />
                     </Grid>
-                    <Label x:Name="TimeBetweenLabel" Text="Tiempo entre cigarros: --" FontSize="14" HorizontalOptions="Center" TextColor="Gray" />
+                    <Label x:Name="TimeBetweenLabel" Text="Tiempo entre cigarros: --" Style="{StaticResource HintText}" HorizontalOptions="Center" />
                 </VerticalStackLayout>
-            </Frame>
+            </Border>
 
             <!-- Horario -->
-            <Frame BackgroundColor="LightBlue" Padding="20" CornerRadius="10">
+            <Border Style="{StaticResource Card}" Padding="20">
                 <VerticalStackLayout Spacing="15">
-                    <Label Text="Horario de vigilia" FontSize="18" FontAttributes="Bold" />
+                    <Label Text="Horario de vigilia" Style="{StaticResource CardTitle}" />
                     <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,*" RowSpacing="10" ColumnSpacing="10">
-                        <Label Grid.Row="0" Grid.Column="0" Text="Hora de despertar:" FontSize="16" VerticalOptions="Center" />
+                        <Label Grid.Row="0" Grid.Column="0" Text="Hora de despertar:" Style="{StaticResource BodyText}" FontSize="16" VerticalOptions="Center" />
                         <TimePicker x:Name="WakeUpTimePicker" Grid.Row="0" Grid.Column="1" Time="07:00:00" FontSize="16" />
-                        <Label Grid.Row="1" Grid.Column="0" Text="Hora de dormir:" FontSize="16" VerticalOptions="Center" />
+                        <Label Grid.Row="1" Grid.Column="0" Text="Hora de dormir:" Style="{StaticResource BodyText}" FontSize="16" VerticalOptions="Center" />
                         <TimePicker x:Name="SleepTimePicker" Grid.Row="1" Grid.Column="1" Time="23:00:00" FontSize="16" />
                     </Grid>
                 </VerticalStackLayout>
-            </Frame>
+            </Border>
 
             <!-- Configuración de Precios -->
-            <Frame BackgroundColor="LightGreen" Padding="20" CornerRadius="10">
+            <Border Style="{StaticResource Card}" Padding="20">
                 <VerticalStackLayout Spacing="15">
-                    <Label Text="Configuración de Precios" FontSize="18" FontAttributes="Bold" />
-                    
+                    <Label Text="Configuración de Precios" Style="{StaticResource CardTitle}" />
+
                     <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*" RowSpacing="10" ColumnSpacing="10">
-                        <Label Grid.Row="0" Grid.Column="0" Text="Precio de cajetilla:" FontSize="16" VerticalOptions="Center" />
+                        <Label Grid.Row="0" Grid.Column="0" Text="Precio de cajetilla:" Style="{StaticResource BodyText}" FontSize="16" VerticalOptions="Center" />
                         <Entry x:Name="PackPriceEntry" Grid.Row="0" Grid.Column="1" Text="5.00" FontSize="16" Keyboard="Numeric" Placeholder="5.00" />
-                        
-                        <Label Grid.Row="1" Grid.Column="0" Text="Cigarros por cajetilla:" FontSize="16" VerticalOptions="Center" />
+
+                        <Label Grid.Row="1" Grid.Column="0" Text="Cigarros por cajetilla:" Style="{StaticResource BodyText}" FontSize="16" VerticalOptions="Center" />
                         <Entry x:Name="CigarettesPerPackEntry" Grid.Row="1" Grid.Column="1" Text="20" FontSize="16" Keyboard="Numeric" Placeholder="20" />
-                        
-                        <Label Grid.Row="2" Grid.Column="0" Text="Divisa:" FontSize="16" VerticalOptions="Center" />
+
+                        <Label Grid.Row="2" Grid.Column="0" Text="Divisa:" Style="{StaticResource BodyText}" FontSize="16" VerticalOptions="Center" />
                         <Picker x:Name="CurrencyPicker" Grid.Row="2" Grid.Column="1" FontSize="16" />
                     </Grid>
-                    
-                    <Label x:Name="PricePerCigaretteLabel" Text="Precio por cigarrillo: €0.25" FontSize="14" HorizontalOptions="Center" TextColor="DarkGreen" />
+
+                    <Label x:Name="PricePerCigaretteLabel" Text="Precio por cigarrillo: €0.25" Style="{StaticResource HintText}" HorizontalOptions="Center" />
                 </VerticalStackLayout>
-            </Frame>
+            </Border>
 
             <!-- Acciones -->
             <VerticalStackLayout Spacing="10">
-                <Button Text="💾 Guardar Configuración" FontSize="16" BackgroundColor="{StaticResource Primary}" TextColor="White" HeightRequest="50" CornerRadius="25" Clicked="OnSaveSettingsClicked" />
-                <Button Text="📉 Reducir Máximo (Progreso gradual)" FontSize="16" BackgroundColor="Orange" TextColor="White" HeightRequest="50" CornerRadius="25" Clicked="OnReduceMaxClicked" />
+                <Button Text="💾 Guardar Configuración" Style="{StaticResource PrimaryButton}" HeightRequest="50" CornerRadius="25" Clicked="OnSaveSettingsClicked" />
+                <Button Text="📉 Reducir Máximo (Progreso gradual)" Style="{StaticResource AccentButton}" FontSize="16" HeightRequest="50" CornerRadius="25" Clicked="OnReduceMaxClicked" />
             </VerticalStackLayout>
 
         </VerticalStackLayout>
