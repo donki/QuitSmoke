@@ -12,14 +12,10 @@ public static class MauiProgram
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
+        // Tipografia del sistema (A.9): no se embeben familias propias.
         builder
             .UseMauiApp<App>()
-            .UseLocalNotification()
-            .ConfigureFonts(fonts =>
-            {
-                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-            });
+            .UseLocalNotification();
 
 
 
@@ -27,6 +23,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<ISmokingDataService, SmokingDataService>();
         builder.Services.AddSingleton<IAppNotificationService, NotificationService>();
         builder.Services.AddSingleton<ILocalizationService, LocalizationService>();
+        builder.Services.AddSingleton<UpdateService>();
 #if ANDROID
         builder.Services.AddSingleton<IPowerSettingsService, QuitSmoke.Platforms.Android.Services.PowerSettingsService>();
         builder.Services.AddSingleton<IScreenService, QuitSmoke.Platforms.Android.Services.ScreenService>();

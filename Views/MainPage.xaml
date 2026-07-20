@@ -42,7 +42,8 @@
                             StrokeShape="RoundRectangle 15"
                             Padding="8,4"
                             HorizontalOptions="Center">
-                        <Label Text="✨ Tip Smart"
+                        <Label x:Name="TipSmartLabel"
+                               Text="Tip Smart"
                                FontSize="12"
                                FontAttributes="Bold"
                                TextColor="{StaticResource White}" />
@@ -122,22 +123,26 @@
 
             <!-- Smoke Button principal -->
             <Button x:Name="SmokeBtn"
-                    Text="🚬 Fumar Cigarro"
                     Style="{StaticResource PrimaryButton}"
+                    ImageSource="ic_cigarette_white.png"
+                    ContentLayout="Left,8"
                     FontSize="18"
                     HeightRequest="60"
                     CornerRadius="30"
                     Clicked="OnSmokeClicked" />
 
             <!-- Quick Actions -->
-            <Button Text="🔄 Actualizar datos"
+            <Button x:Name="RefreshBtn"
                     Style="{StaticResource OutlineButton}"
+                    ImageSource="ic_refresh.png"
+                    ContentLayout="Left,8"
                     Clicked="OnRefreshClicked" />
 
             <!-- Daily Stats -->
             <Border Style="{StaticResource Card}" Padding="15">
                 <VerticalStackLayout Spacing="5">
-                    <Label Text="Estadísticas del día"
+                    <Label x:Name="DailyStatsLabel"
+                           Text="Estadísticas del día"
                            Style="{StaticResource CardTitle}"
                            HorizontalOptions="Center" />
 

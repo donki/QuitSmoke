@@ -396,3 +396,7 @@ google-services.json
 
 # Repositorio embebido obsoleto (no es un submodulo)
 /QuitSmoke/
+
+# Binarios de terceros (pepk de Google Play, no versionar)
+pepk.jar
+pepk-src.jar

@@ -2,7 +2,7 @@
 <ContentPage x:Class="QuitSmoke.Views.HistoryPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             Title="📊 Historial">
+             Title="Historial">
 
     <Grid>
         <!-- Spinner de carga -->
@@ -15,7 +15,8 @@
                                IsRunning="True"
                                HeightRequest="50"
                                WidthRequest="50" />
-            <Label Text="Cargando historial..."
+            <Label x:Name="LoadingLabel"
+                   Text="Cargando historial..."
                    Style="{StaticResource HintText}"
                    FontSize="16"
                    HorizontalOptions="Center" />
@@ -28,7 +29,8 @@
             <!-- Estadísticas principales -->
             <Border Style="{StaticResource Card}" Padding="20">
                 <VerticalStackLayout Spacing="16">
-                    <Label Text="📈 Estadísticas Generales"
+                    <Label x:Name="GeneralStatsLabel"
+                           Text="Estadísticas Generales"
                            Style="{StaticResource CardTitle}"
                            HorizontalOptions="Center" />
 
@@ -50,7 +52,8 @@
                                        FontAttributes="Bold"
                                        TextColor="{StaticResource Primary}"
                                        HorizontalOptions="Center" />
-                                <Label Text="Total cigarros"
+                                <Label x:Name="TotalCigarettesCaption"
+                                       Text="Total cigarros"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -71,7 +74,8 @@
                                        FontAttributes="Bold"
                                        TextColor="{StaticResource Success}"
                                        HorizontalOptions="Center" />
-                                <Label Text="Días registrados"
+                                <Label x:Name="DaysRecordedCaption"
+                                       Text="Días registrados"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -92,7 +96,8 @@
                                        FontAttributes="Bold"
                                        TextColor="{StaticResource Accent}"
                                        HorizontalOptions="Center" />
-                                <Label Text="Promedio/día"
+                                <Label x:Name="AvgPerDayCaption"
+                                       Text="Promedio/día"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -113,7 +118,8 @@
                                        FontAttributes="Bold"
                                        TextColor="{StaticResource Success}"
                                        HorizontalOptions="Center" />
-                                <Label Text="Reducción lograda"
+                                <Label x:Name="ReductionCaption"
+                                       Text="Reducción lograda"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -139,7 +145,8 @@
             <!-- Estadísticas económicas -->
             <Border Style="{StaticResource Card}" Padding="20">
                 <VerticalStackLayout Spacing="16">
-                    <Label Text="💰 Estadísticas Económicas"
+                    <Label x:Name="EconomicStatsLabel"
+                           Text="Estadísticas Económicas"
                            Style="{StaticResource CardTitle}"
                            HorizontalOptions="Center" />
 
@@ -159,7 +166,8 @@
                                        FontAttributes="Bold"
                                        TextColor="{StaticResource Danger}"
                                        HorizontalOptions="Center" />
-                                <Label Text="Total gastado"
+                                <Label x:Name="TotalSpentCaption"
+                                       Text="Total gastado"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -180,7 +188,8 @@
                                        FontAttributes="Bold"
                                        TextColor="{StaticResource Success}"
                                        HorizontalOptions="Center" />
-                                <Label Text="Total ahorrado"
+                                <Label x:Name="TotalSavedCaption"
+                                       Text="Total ahorrado"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -201,7 +210,8 @@
                                        FontAttributes="Bold"
                                        TextColor="{StaticResource Accent}"
                                        HorizontalOptions="Center" />
-                                <Label Text="Promedio/día"
+                                <Label x:Name="AvgSpentCaption"
+                                       Text="Promedio/día"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -222,7 +232,8 @@
                                        FontAttributes="Bold"
                                        TextColor="{StaticResource Primary}"
                                        HorizontalOptions="Center" />
-                                <Label Text="% de ahorro"
+                                <Label x:Name="SavingsPctCaption"
+                                       Text="% de ahorro"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -232,7 +243,8 @@
             </Border>
 
             <!-- Botón actualizar -->
-            <Button Text="🔄 Actualizar datos"
+            <Button x:Name="RefreshButton"
+                    Text="Actualizar datos"
                     Clicked="OnRefreshClicked"
                     Style="{StaticResource PrimaryButton}"
                     FontSize="16"

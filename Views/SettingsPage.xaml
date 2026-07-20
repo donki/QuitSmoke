@@ -10,12 +10,14 @@
 
             <!-- Header -->
             <VerticalStackLayout Spacing="8">
-                <Label Text="Configuración"
+                <Label x:Name="HeaderTitleLabel"
+                       Text="Configuración"
                        FontSize="24"
                        FontAttributes="Bold"
                        TextColor="{StaticResource Primary}"
                        HorizontalOptions="Center" />
-                <Label Text="Preferencias y permisos"
+                <Label x:Name="HeaderSubtitleLabel"
+                       Text="Preferencias y permisos"
                        Style="{StaticResource HintText}"
                        FontSize="14"
                        HorizontalOptions="Center" />
@@ -25,15 +27,15 @@
             <Grid ColumnDefinitions="*,*" ColumnSpacing="12" RowSpacing="12">
                 <Border Grid.Column="0" Style="{StaticResource Card}" Padding="16">
                     <VerticalStackLayout Spacing="8">
-                        <Label Text="🔋" FontSize="24" HorizontalOptions="Center" />
-                        <Label Text="Ahorro batería" Style="{StaticResource BodyText}" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                        <Image Source="ic_battery.png" HeightRequest="28" WidthRequest="28" HorizontalOptions="Center" />
+                        <Label x:Name="BatterySaveLabel" Text="Ahorro batería" Style="{StaticResource BodyText}" FontAttributes="Bold" HorizontalTextAlignment="Center" />
                         <Label x:Name="BatteryOptStatus" Text="Sin verificar" Style="{StaticResource HintText}" HorizontalTextAlignment="Center" />
                     </VerticalStackLayout>
                 </Border>
                 <Border Grid.Column="1" Style="{StaticResource Card}" Padding="16">
                     <VerticalStackLayout Spacing="8">
-                        <Label Text="🚀" FontSize="24" HorizontalOptions="Center" />
-                        <Label Text="Autostart" Style="{StaticResource BodyText}" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                        <Image Source="ic_rocket.png" HeightRequest="28" WidthRequest="28" HorizontalOptions="Center" />
+                        <Label x:Name="AutostartLabel" Text="Autostart" Style="{StaticResource BodyText}" FontAttributes="Bold" HorizontalTextAlignment="Center" />
                         <Label x:Name="AutostartStatus" Text="Manual" Style="{StaticResource HintText}" HorizontalTextAlignment="Center" />
                     </VerticalStackLayout>
                 </Border>
@@ -41,31 +43,44 @@
 
             <!-- Configuración de Permisos -->
             <VerticalStackLayout Spacing="12">
-                <Label Text="Configuración de Permisos"
+                <Label x:Name="PermissionsTitleLabel"
+                       Text="Configuración de Permisos"
                        Style="{StaticResource CardTitle}"
                        HorizontalOptions="Center"
                        Margin="0,8,0,0" />
 
-                <Button Text="🔍 Verificar Estado de Permisos"
+                <Button x:Name="CheckPermissionsButton"
+                        Text="Verificar Estado de Permisos"
+                        ImageSource="ic_search.png"
+                        ContentLayout="Left,8"
                         Clicked="OnCheckPermissionsClicked"
                         Style="{StaticResource OutlineButton}"
                         HeightRequest="44" />
 
-                <Button Text="⚙️ Configurar Todos los Permisos"
+                <Button x:Name="ConfigureAllButton"
+                        Text="Configurar Todos los Permisos"
+                        ImageSource="ic_settings_white.png"
+                        ContentLayout="Left,8"
                         Clicked="OnConfigureAllPermissionsClicked"
                         Style="{StaticResource PrimaryButton}"
                         HeightRequest="44" />
 
                 <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
-                    <Button Grid.Column="0"
-                            Text="🔋 Batería"
+                    <Button x:Name="BatteryButton"
+                            Grid.Column="0"
+                            Text="Batería"
+                            ImageSource="ic_battery_white.png"
+                            ContentLayout="Left,6"
                             Clicked="OnBatteryOptimizationClicked"
                             Style="{StaticResource AccentButton}"
                             FontSize="12"
                             HeightRequest="40" />
 
-                    <Button Grid.Column="1"
-                            Text="🚀 Autostart"
+                    <Button x:Name="AutostartButton"
+                            Grid.Column="1"
+                            Text="Autostart"
+                            ImageSource="ic_rocket.png"
+                            ContentLayout="Left,6"
                             Clicked="OnAutostartClicked"
                             Style="{StaticResource OutlineButton}"
                             FontSize="12"
@@ -77,7 +92,8 @@
                         StrokeThickness="1"
                         StrokeShape="RoundRectangle 8"
                         Padding="12">
-                    <Label Text="💡 Para un funcionamiento óptimo, configure todos los permisos para ejecución en segundo plano."
+                    <Label x:Name="PermissionsHintLabel"
+                           Text="Para un funcionamiento óptimo, configure todos los permisos para ejecución en segundo plano."
                            Style="{StaticResource BodyText}"
                            FontSize="12"
                            LineBreakMode="WordWrap" />
@@ -87,7 +103,7 @@
             <!-- Ajustes propios -->
             <Border Style="{StaticResource Card}" Padding="20">
                 <VerticalStackLayout Spacing="15">
-                    <Label Text="Cigarros máximos por día" Style="{StaticResource CardTitle}" />
+                    <Label x:Name="MaxPerDayLabel" Text="Cigarros máximos por día" Style="{StaticResource CardTitle}" />
                     <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
                         <Button Grid.Column="0" Text="−" FontSize="20" BackgroundColor="{StaticResource Danger}" TextColor="{StaticResource White}" WidthRequest="50" HeightRequest="50" CornerRadius="25" Clicked="OnDecreaseMaxCigarettes" />
                         <Entry x:Name="MaxCigarettesEntry" Grid.Column="1" Text="20" FontSize="18" HorizontalTextAlignment="Center" Keyboard="Numeric" />
@@ -100,11 +116,11 @@
             <!-- Horario -->
             <Border Style="{StaticResource Card}" Padding="20">
                 <VerticalStackLayout Spacing="15">
-                    <Label Text="Horario de vigilia" Style="{StaticResource CardTitle}" />
+                    <Label x:Name="ScheduleLabel" Text="Horario de vigilia" Style="{StaticResource CardTitle}" />
                     <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,*" RowSpacing="10" ColumnSpacing="10">
-                        <Label Grid.Row="0" Grid.Column="0" Text="Hora de despertar:" Style="{StaticResource BodyText}" FontSize="16" VerticalOptions="Center" />
+                        <Label x:Name="WakeTimeLabel" Grid.Row="0" Grid.Column="0" Text="Hora de despertar:" Style="{StaticResource BodyText}" FontSize="16" VerticalOptions="Center" />
                         <TimePicker x:Name="WakeUpTimePicker" Grid.Row="0" Grid.Column="1" Time="07:00:00" FontSize="16" />
-                        <Label Grid.Row="1" Grid.Column="0" Text="Hora de dormir:" Style="{StaticResource BodyText}" FontSize="16" VerticalOptions="Center" />
+                        <Label x:Name="SleepTimeLabel" Grid.Row="1" Grid.Column="0" Text="Hora de dormir:" Style="{StaticResource BodyText}" FontSize="16" VerticalOptions="Center" />
                         <TimePicker x:Name="SleepTimePicker" Grid.Row="1" Grid.Column="1" Time="23:00:00" FontSize="16" />
                     </Grid>
                 </VerticalStackLayout>
@@ -113,16 +129,16 @@
             <!-- Configuración de Precios -->
             <Border Style="{StaticResource Card}" Padding="20">
                 <VerticalStackLayout Spacing="15">
-                    <Label Text="Configuración de Precios" Style="{StaticResource CardTitle}" />
+                    <Label x:Name="PriceConfigLabel" Text="Configuración de Precios" Style="{StaticResource CardTitle}" />
 
                     <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*" RowSpacing="10" ColumnSpacing="10">
-                        <Label Grid.Row="0" Grid.Column="0" Text="Precio de cajetilla:" Style="{StaticResource BodyText}" FontSize="16" VerticalOptions="Center" />
+                        <Label x:Name="PackPriceLabel" Grid.Row="0" Grid.Column="0" Text="Precio de cajetilla:" Style="{StaticResource BodyText}" FontSize="16" VerticalOptions="Center" />
                         <Entry x:Name="PackPriceEntry" Grid.Row="0" Grid.Column="1" Text="5.00" FontSize="16" Keyboard="Numeric" Placeholder="5.00" />
 
-                        <Label Grid.Row="1" Grid.Column="0" Text="Cigarros por cajetilla:" Style="{StaticResource BodyText}" FontSize="16" VerticalOptions="Center" />
+                        <Label x:Name="PerPackLabel" Grid.Row="1" Grid.Column="0" Text="Cigarros por cajetilla:" Style="{StaticResource BodyText}" FontSize="16" VerticalOptions="Center" />
                         <Entry x:Name="CigarettesPerPackEntry" Grid.Row="1" Grid.Column="1" Text="20" FontSize="16" Keyboard="Numeric" Placeholder="20" />
 
-                        <Label Grid.Row="2" Grid.Column="0" Text="Divisa:" Style="{StaticResource BodyText}" FontSize="16" VerticalOptions="Center" />
+                        <Label x:Name="CurrencyLabel" Grid.Row="2" Grid.Column="0" Text="Divisa:" Style="{StaticResource BodyText}" FontSize="16" VerticalOptions="Center" />
                         <Picker x:Name="CurrencyPicker" Grid.Row="2" Grid.Column="1" FontSize="16" />
                     </Grid>
 
@@ -132,8 +148,8 @@
 
             <!-- Acciones -->
             <VerticalStackLayout Spacing="10">
-                <Button Text="💾 Guardar Configuración" Style="{StaticResource PrimaryButton}" HeightRequest="50" CornerRadius="25" Clicked="OnSaveSettingsClicked" />
-                <Button Text="📉 Reducir Máximo (Progreso gradual)" Style="{StaticResource AccentButton}" FontSize="16" HeightRequest="50" CornerRadius="25" Clicked="OnReduceMaxClicked" />
+                <Button x:Name="SaveButton" Text="Guardar Configuración" ImageSource="ic_save_white.png" ContentLayout="Left,8" Style="{StaticResource PrimaryButton}" HeightRequest="50" CornerRadius="25" Clicked="OnSaveSettingsClicked" />
+                <Button x:Name="ReduceMaxButton" Text="Reducir Máximo (Progreso gradual)" ImageSource="ic_trending_down_white.png" ContentLayout="Left,8" Style="{StaticResource AccentButton}" FontSize="16" HeightRequest="50" CornerRadius="25" Clicked="OnReduceMaxClicked" />
             </VerticalStackLayout>
 
         </VerticalStackLayout>
