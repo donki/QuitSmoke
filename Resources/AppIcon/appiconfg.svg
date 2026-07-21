@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="432" height="432" viewBox="0 0 432 432" xmlns="http://www.w3.org/2000/svg">
-  <!-- Foreground icon (simplified version for better visibility at small sizes) -->
-  <g transform="translate(216, 200)">
-    <!-- Simplified lungs -->
-    <path d="M-40,-30 C-60,-30 -70,-10 -70,10 C-70,30 -60,50 -40,50 C-30,50 -20,40 -20,30 L-20,10 C-20,-10 -30,-30 -40,-30 Z" 
-          fill="#FFFFFF"/>
-    
-    <path d="M40,-30 C60,-30 70,-10 70,10 C70,30 60,50 40,50 C30,50 20,40 20,30 L20,10 C20,-10 30,-30 40,-30 Z" 
-          fill="#FFFFFF"/>
-    
-    <!-- Simplified trachea -->
-    <rect x="-5" y="-50" width="10" height="30" fill="#FFFFFF" rx="5"/>
-    
-    <!-- Health heart -->
-    <path d="M0,-70 C-6,-78 -12,-78 -12,-70 C-12,-66 -9,-62 0,-55 C9,-62 12,-66 12,-70 C12,-78 6,-78 0,-70 Z" 
-          fill="#FF6B6B"/>
+<!-- Primer plano: símbolo de PROHIBIDO FUMAR (cigarrillo + círculo de prohibición con
+     barra), blanco sobre el verde de marca. Claro y reconocible a tamaño pequeño. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="456" height="456" viewBox="0 0 456 456">
+
+  <!-- Cigarrillo (centrado dentro del círculo) -->
+  <g>
+    <rect x="150" y="210" width="120" height="34" rx="8" fill="#FFFFFF" />
+    <rect x="150" y="210" width="26" height="34" rx="8" fill="#FFD54F" />       <!-- filtro -->
+    <rect x="276" y="210" width="16" height="34" rx="6" fill="#FF7043" />       <!-- brasa -->
+    <!-- humo -->
+    <path d="M300 206 c10 -8 10 -18 0 -26" fill="none" stroke="#FFFFFF" stroke-width="7"
+          stroke-linecap="round" opacity="0.85" />
   </g>
+
+  <!-- Círculo de prohibición + barra diagonal -->
+  <circle cx="228" cy="227" r="120" fill="none" stroke="#FFFFFF" stroke-width="24" />
+  <line x1="143" y1="142" x2="313" y2="312" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" />
+
 </svg>
