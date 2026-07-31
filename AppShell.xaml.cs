@@ -23,7 +23,6 @@ public partial class AppShell : Shell
         HistoryItem.Title = loc.GetString("nav_history");
         SettingsItem.Title = loc.GetString("nav_settings");
         AboutItem.Title = loc.GetString("nav_about");
-        HeaderSubtitleLabel.Text = loc.GetString("flyout_subtitle");
-        FooterVersionLabel.Text = $"v{AppInfo.Current.VersionString} - sOCratic";
+        FooterVersionLabel.Text = $"v{AppInfo.Current.VersionString}";
     }
 }

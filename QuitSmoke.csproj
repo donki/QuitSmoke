@@ -15,8 +15,8 @@
     <MauiEnableVisualStudioHotReload>true</MauiEnableVisualStudioHotReload>
 
     <!-- Display Version (Constitucion §6: DisplayVersion legible + Version entero incremental, en sincronia) -->
-    <ApplicationDisplayVersion>1.10.0</ApplicationDisplayVersion>
-    <ApplicationVersion>110</ApplicationVersion>
+    <ApplicationDisplayVersion>2026.07.28.0</ApplicationDisplayVersion>
+    <ApplicationVersion>202607280</ApplicationVersion>
 
     <!-- Company Information -->
     <Company>sOCratic</Company>
@@ -38,12 +38,21 @@
     <FileVersion>1.0.0.88</FileVersion>
   </PropertyGroup>
 
+  <!--
+    Embeber los ensamblados en el APK también en Debug. Sin esto, un APK Debug usa Fast Deployment:
+    los ensamblados no viajan dentro del APK y la app aborta al arrancar ("No assemblies found")
+    cuando se instala suelta con adb (sin desplegar desde el IDE).
+  -->
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+  </PropertyGroup>
+
   <ItemGroup>
     <!-- App Icon -->
-    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#4CAF50" />
+    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#3525CD" />
 
     <!-- Splash Screen -->
-    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#E8F5E8" BaseSize="400,400" />
+    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#3525CD" BaseSize="200,200" />
 
     <!-- Images -->
     <MauiImage Include="Resources\Images\*" />
@@ -69,4 +78,11 @@
 
 
 
+  <!-- Notas de autor compartidas (una sola fuente para todas las apps) -->
+  <ItemGroup>
+    <Compile Include="..\Shared\AuthorNotes.cs" Link="AuthorNotes.cs" />
+    <Compile Include="..\Shared\ModernDialog.cs" Link="ModernDialog.cs" />
+  </ItemGroup>
+
+  <Import Project="..\Shared\signing.props" />
 </Project>

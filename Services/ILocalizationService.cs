@@ -150,7 +150,16 @@ public class LocalizationService : ILocalizationService
                 ["history_savings_pct"] = "% de ahorro",
                 ["history_refresh"] = "Actualizar datos",
                 ["history_summary"] = "Reducción lograda: {0}% ({1}/{2} cigarros en {3} días)",
-                ["history_error_loading"] = "Error cargando historial"
+                ["history_error_loading"] = "Error cargando historial",
+                // Notificaciones
+                ["notif_can_smoke"] = "🚬 Puedes fumar ahora",
+                ["notif_next_title"] = "⏰ Próximo cigarro",
+                ["notif_next_body"] = "Podrás fumar a las {0}. {1}",
+                ["notif_status_title"] = "QuitSmoke: {0}/{1} hoy",
+                ["notif_next_now"] = "Siguiente: ahora ({0})",
+                ["notif_next_at"] = "Siguiente: {0}",
+                ["notif_limit"] = "Límite diario alcanzado",
+                ["notif_smoke_action"] = "🚬 Fumar"
             },
             ["en"] = new Dictionary<string, string>
             {
@@ -277,7 +286,16 @@ public class LocalizationService : ILocalizationService
                 ["history_savings_pct"] = "% savings",
                 ["history_refresh"] = "Refresh data",
                 ["history_summary"] = "Reduction achieved: {0}% ({1}/{2} cigarettes in {3} days)",
-                ["history_error_loading"] = "Error loading history"
+                ["history_error_loading"] = "Error loading history",
+                // Notifications
+                ["notif_can_smoke"] = "🚬 You can smoke now",
+                ["notif_next_title"] = "⏰ Next cigarette",
+                ["notif_next_body"] = "You can smoke at {0}. {1}",
+                ["notif_status_title"] = "QuitSmoke: {0}/{1} today",
+                ["notif_next_now"] = "Next: now ({0})",
+                ["notif_next_at"] = "Next: {0}",
+                ["notif_limit"] = "Daily limit reached",
+                ["notif_smoke_action"] = "🚬 Smoke"
             }
         };
     }

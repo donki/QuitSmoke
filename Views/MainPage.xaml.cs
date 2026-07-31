@@ -11,14 +11,6 @@ public partial class MainPage : ContentPage
     private readonly ILocalizationService _loc;
     private readonly UpdateService _updateService;
     private SmokingData _smokingData = new();
-    private readonly List<string> _tips = new()
-    {
-        "💪|Mantente fuerte|Cada cigarro que no fumas es una victoria",
-        "🌟|Progreso gradual|Reducir poco a poco es mejor que no intentarlo",
-        "💚|Tu salud mejora|Cada hora sin fumar beneficia tu cuerpo",
-        "🎯|Enfócate en hoy|No pienses en mañana, solo en este momento",
-        "🏆|Eres capaz|Ya has demostrado que puedes controlar tu consumo"
-    };
 
     public MainPage()
     {
@@ -57,10 +49,13 @@ public partial class MainPage : ContentPage
             _smokingData = await _smokingDataService.GetDataAsync();
             UpdateUI();
             ShowRandomTip();
+
+            // Mantener la notificación persistente (con el botón "🚬 Fumar") al día.
+            await _notificationService.UpdatePersistentStatusAsync(_smokingData);
         }
         catch (Exception ex)
         {
-            await DisplayAlert(_loc.GetString("error"), $"{_loc.GetString("main_error_loading")}: {ex.Message}", _loc.GetString("ok"));
+            await SocShared.ModernDialog.AlertAsync(this,_loc.GetString("error"), $"{_loc.GetString("main_error_loading")}: {ex.Message}", _loc.GetString("ok"));
         }
     }
 
@@ -117,16 +112,15 @@ public partial class MainPage : ContentPage
 
     private void ShowRandomTip()
     {
-        var random = new Random();
-        var tip = _tips[random.Next(_tips.Count)];
-        var parts = tip.Split('|');
-
-        if (parts.Length == 3)
-        {
-            TipIcon.Text = parts[0];
-            TipTitle.Text = parts[1];
-            TipText.Text = parts[2];
-        }
+        // Consejos en el idioma configurado (antes eran 5 literales en español; ahora usa el
+        // catálogo completo de SmokingTips localizado es/en).
+        var tips = Models.SmokingTips.GetAllTips(_loc.GetCurrentLanguage());
+        if (tips.Count == 0)
+            return;
+        var tip = tips[new Random().Next(tips.Count)];
+        TipIcon.Text = tip.Icon;
+        TipTitle.Text = tip.Title;
+        TipText.Text = tip.Message;
     }
 
     private string FormatTimeSpan(TimeSpan timeSpan)
@@ -148,7 +142,7 @@ public partial class MainPage : ContentPage
         {
             if (_smokingData.SmokedToday >= _smokingData.MaxCigarettesPerDay)
             {
-                var confirm = await DisplayAlert(
+                var confirm = await SocShared.ModernDialog.AlertAsync(this,
                     L("main_limit_title"),
                     string.Format(L("main_limit_question"), _smokingData.MaxCigarettesPerDay),
                     L("main_limit_yes"),
@@ -156,7 +150,7 @@ public partial class MainPage : ContentPage
 
                 if (!confirm) return;
 
-                var doubleConfirm = await DisplayAlert(
+                var doubleConfirm = await SocShared.ModernDialog.AlertAsync(this,
                     L("main_confirm_title"),
                     L("main_confirm_question"),
                     L("main_confirm_yes"),
@@ -168,11 +162,11 @@ public partial class MainPage : ContentPage
             await _smokingDataService.AddSmokedCigaretteAsync();
             await LoadDataAsync();
 
-            await DisplayAlert(L("main_registered_title"), L("main_registered_message"), L("ok"));
+            await SocShared.ModernDialog.AlertAsync(this,L("main_registered_title"), L("main_registered_message"), L("ok"));
         }
         catch (Exception ex)
         {
-            await DisplayAlert(L("error"), $"{L("main_error_register")}: {ex.Message}", L("ok"));
+            await SocShared.ModernDialog.AlertAsync(this,L("error"), $"{L("main_error_register")}: {ex.Message}", L("ok"));
         }
     }
 

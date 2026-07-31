@@ -7,6 +7,49 @@ y el versionado las reglas de la [Constitución del proyecto](constitution/const
 `ApplicationDisplayVersion` (legible) y `ApplicationVersion` (entero incremental) se
 actualizan en sincronía antes de cada publicación.
 
+## [2026.07.27.0] — 2026-07-27
+
+`versionCode`: 202607270
+
+### Añadido
+- **Consejos traducidos (es/en)**: `SmokingTips` pasa a tener catálogo en español e inglés y
+  `GetAllTips(lang)` devuelve el del idioma configurado. La pantalla principal usa ahora el catálogo
+  completo localizado (antes 5 consejos fijos en español) y las notificaciones también.
+
+### Corregido
+- **Notificaciones traducidas (§8 i18n)**: los textos de las notificaciones ("Puedes fumar ahora",
+  "Próximo cigarro", estado, "Límite diario alcanzado", botón "Fumar") se resuelven por
+  `ILocalizationService` (claves `notif_*` en es/en), inyectado en `NotificationService`.
+- **Ajustes se autoguardan**: al editar un campo o cambiar un selector en Configuración se guarda
+  solo; el botón "Guardar" queda oculto.
+- **Barra de estado ya no tapa el reloj**: `MainActivity` deja de dibujar edge-to-edge bajo la barra
+  de estado (`SetDecorFitsSystemWindows(true)` + color de marca).
+- **Permisos justificados (§A.3)**: cada `uses-permission` lleva su justificación y se retira
+  `ACCESS_NETWORK_STATE` (no se usa).
+- **DI (§5/§7)**: `AboutPage` resuelve `ILocalizationService` por el contenedor en vez de instanciarlo.
+- Consejo con "pesos" corregido a texto neutro (la moneda por defecto es €).
+
+## [2026.07.26.0] — 2026-07-26
+
+`versionCode`: 202607260
+
+### Añadido
+- **Marcar "🚬 Fumar" desde la notificación**: la notificación de estado persistente (con el
+  recuento de hoy) lleva ahora un botón de acción **Fumar**. Al pulsarlo se registra un cigarro
+  **sin abrir la app** y la notificación se actualiza en el momento. Implementado con la categoría
+  `Status` de `Plugin.LocalNotification` (registrada en `MauiProgram`) y el manejador
+  `App.OnNotificationActionTapped`. La notificación persistente se muestra/actualiza al arrancar y
+  tras cada registro.
+- `EmbedAssembliesIntoApk=true` para Android: evita que un APK Debug instalado suelto aborte al
+  arrancar por *fast deployment* (ensamblados fuera del APK).
+
+### Corregido
+- **Versión al esquema CalVer de la constitución (§A.4)**: pasa de `1.10.0`/`110` (semver, no
+  conforme) a `2026.07.26.0`/`202607260` (`AAAA.MM.DD.N` + `versionCode AAAAMMDDN`).
+- **Texto del menú lateral invisible**: dentro de un `Shell.ItemTemplate` los `{StaticResource}`
+  de color no resolvían en runtime y las etiquetas de navegación salían sin color. Se fijan
+  colores literales `AppThemeBinding` (claro `#2C3E50`, oscuro `#E8ECF1`).
+
 ## [No publicado]
 
 ### Añadido

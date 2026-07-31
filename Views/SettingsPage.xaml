@@ -148,7 +148,8 @@
 
             <!-- Acciones -->
             <VerticalStackLayout Spacing="10">
-                <Button x:Name="SaveButton" Text="Guardar Configuración" ImageSource="ic_save_white.png" ContentLayout="Left,8" Style="{StaticResource PrimaryButton}" HeightRequest="50" CornerRadius="25" Clicked="OnSaveSettingsClicked" />
+                <!-- Autoguardado: los ajustes se guardan solos; el botón queda oculto. -->
+                <Button x:Name="SaveButton" IsVisible="False" Text="Guardar Configuración" ImageSource="ic_save_white.png" ContentLayout="Left,8" Style="{StaticResource PrimaryButton}" HeightRequest="50" CornerRadius="25" Clicked="OnSaveSettingsClicked" />
                 <Button x:Name="ReduceMaxButton" Text="Reducir Máximo (Progreso gradual)" ImageSource="ic_trending_down_white.png" ContentLayout="Left,8" Style="{StaticResource AccentButton}" FontSize="16" HeightRequest="50" CornerRadius="25" Clicked="OnReduceMaxClicked" />
             </VerticalStackLayout>
 

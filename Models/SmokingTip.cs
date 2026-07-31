@@ -10,7 +10,11 @@ public class SmokingTip
 
 public static class SmokingTips
 {
-    public static List<SmokingTip> GetAllTips() => new()
+    /// <summary>Consejos en el idioma configurado ("es" o "en"). Cualquier otro cae a español.</summary>
+    public static List<SmokingTip> GetAllTips(string lang = "es")
+        => lang == "en" ? TipsEn : TipsEs;
+
+    private static readonly List<SmokingTip> TipsEs = new()
     {
         // Salud física
         new SmokingTip { Title = "Tu respiración mejora", Message = "En solo 20 minutos sin fumar, tu frecuencia cardíaca y presión arterial bajan.", Category = "Salud", Icon = "🫁" },
@@ -25,7 +29,7 @@ public static class SmokingTips
         new SmokingTip { Title = "Sistema inmune fuerte", Message = "Tu sistema inmunológico se fortalece, enfermándote menos.", Category = "Salud", Icon = "🛡️" },
 
         // Dinero
-        new SmokingTip { Title = "Ahorra dinero", Message = "Una cajetilla menos son aproximadamente $80 pesos que puedes usar en algo mejor.", Category = "Dinero", Icon = "💰" },
+        new SmokingTip { Title = "Ahorra dinero", Message = "Cada cajetilla que no compras es dinero que puedes usar en algo mejor.", Category = "Dinero", Icon = "💰" },
         new SmokingTip { Title = "Vacaciones gratis", Message = "El dinero que gastas en cigarros en un año podría pagarte unas vacaciones.", Category = "Dinero", Icon = "✈️" },
         new SmokingTip { Title = "Inversión en salud", Message = "El dinero ahorrado puedes invertirlo en un gimnasio o comida saludable.", Category = "Dinero", Icon = "🏋️" },
         new SmokingTip { Title = "Menos gastos médicos", Message = "Ahorrarás en consultas médicas y medicamentos relacionados con el tabaco.", Category = "Dinero", Icon = "🏥" },
@@ -35,7 +39,7 @@ public static class SmokingTips
         new SmokingTip { Title = "Protege a tu familia", Message = "El humo de segunda mano daña a tus seres queridos, especialmente niños.", Category = "Familia", Icon = "👨‍👩‍👧‍👦" },
         new SmokingTip { Title = "Mejor ejemplo", Message = "Eres un mejor ejemplo para tus hijos y personas que te admiran.", Category = "Familia", Icon = "⭐" },
         new SmokingTip { Title = "Más tiempo con familia", Message = "Vivirás más años para disfrutar con tus seres queridos.", Category = "Familia", Icon = "❤️" },
-        new SmokingTip { Title = "Sin olor a cigarro", Message = "Tu ropa, casa y carro no olerán a cigarro.", Category = "Social", Icon = "🌸" },
+        new SmokingTip { Title = "Sin olor a cigarro", Message = "Tu ropa, casa y coche no olerán a cigarro.", Category = "Social", Icon = "🌸" },
         new SmokingTip { Title = "Mejor aliento", Message = "Tendrás mejor aliento para besos y conversaciones cercanas.", Category = "Social", Icon = "💋" },
 
         // Psicológico y emocional
@@ -73,7 +77,7 @@ public static class SmokingTips
 
         // Consejos prácticos
         new SmokingTip { Title = "Cambia tu rutina", Message = "Si siempre fumas en cierto lugar, evítalo por un rato.", Category = "Consejo", Icon = "🔄" },
-        new SmokingTip { Title = "Identifica tus triggers", Message = "¿Qué situaciones te dan ganas de fumar? Prepárate para ellas.", Category = "Consejo", Icon = "🎯" },
+        new SmokingTip { Title = "Identifica tus desencadenantes", Message = "¿Qué situaciones te dan ganas de fumar? Prepárate para ellas.", Category = "Consejo", Icon = "🎯" },
         new SmokingTip { Title = "Recompénsate", Message = "Date un pequeño premio cada vez que resistes fumar.", Category = "Consejo", Icon = "🎁" },
         new SmokingTip { Title = "Busca apoyo", Message = "Habla con amigos o familia sobre tu proceso. No lo hagas solo.", Category = "Consejo", Icon = "🤝" },
         new SmokingTip { Title = "Ten paciencia", Message = "Cambiar un hábito toma tiempo. Sé paciente contigo mismo.", Category = "Consejo", Icon = "⏳" },
@@ -88,7 +92,7 @@ public static class SmokingTips
         // Beneficios a largo plazo
         new SmokingTip { Title = "Vida más larga", Message = "Los no fumadores viven en promedio 10 años más.", Category = "Largo plazo", Icon = "📈" },
         new SmokingTip { Title = "Mejor vejez", Message = "Tendrás una vejez más saludable y activa.", Category = "Largo plazo", Icon = "👴" },
-        new SmokingTip { Title = "Menos enfermedades", Message = "Reduces drasticamente el riesgo de cáncer, infartos y derrames.", Category = "Largo plazo", Icon = "🏥" },
+        new SmokingTip { Title = "Menos enfermedades", Message = "Reduces drásticamente el riesgo de cáncer, infartos y derrames.", Category = "Largo plazo", Icon = "🏥" },
         new SmokingTip { Title = "Mejor calidad de vida", Message = "Disfrutarás más de la vida sin las limitaciones del cigarro.", Category = "Largo plazo", Icon = "🌟" },
         new SmokingTip { Title = "Orgullo personal", Message = "Te sentirás orgulloso de haber vencido una adicción difícil.", Category = "Largo plazo", Icon = "🏅" },
 
@@ -124,7 +128,7 @@ public static class SmokingTips
         new SmokingTip { Title = "Mejor conversación", Message = "Puedes tener conversaciones largas sin necesidad de interrumpir para fumar.", Category = "Social", Icon = "💬" },
         new SmokingTip { Title = "Más actividades", Message = "Puedes disfrutar de más lugares y actividades donde no se permite fumar.", Category = "Social", Icon = "🎭" },
         new SmokingTip { Title = "Sin discriminación", Message = "No enfrentas la discriminación social que a veces sufren los fumadores.", Category = "Social", Icon = "🤝" },
-        new SmokingTip { Title = "Mejor citas", Message = "Muchas personas prefieren salir con no fumadores.", Category = "Social", Icon = "💕" },
+        new SmokingTip { Title = "Mejores citas", Message = "Muchas personas prefieren salir con no fumadores.", Category = "Social", Icon = "💕" },
         new SmokingTip { Title = "Líder positivo", Message = "Puedes ser un líder positivo en tu círculo social.", Category = "Social", Icon = "👑" },
 
         // Últimos consejos motivacionales
@@ -133,5 +137,130 @@ public static class SmokingTips
         new SmokingTip { Title = "El momento es ahora", Message = "No hay mejor momento que ahora para tomar una decisión saludable.", Category = "Motivación", Icon = "⏰" },
         new SmokingTip { Title = "Confía en ti", Message = "Has superado desafíos antes. Puedes superar este también.", Category = "Motivación", Icon = "🙏" },
         new SmokingTip { Title = "Tu historia", Message = "Tú escribes tu historia. Haz que sea una historia de superación.", Category = "Motivación", Icon = "📖" }
+    };
+
+    private static readonly List<SmokingTip> TipsEn = new()
+    {
+        // Physical health
+        new SmokingTip { Title = "Your breathing improves", Message = "Just 20 minutes without smoking and your heart rate and blood pressure drop.", Category = "Health", Icon = "🫁" },
+        new SmokingTip { Title = "Better circulation", Message = "After 2-12 weeks smoke-free, your circulation improves and exercise gets easier.", Category = "Health", Icon = "❤️" },
+        new SmokingTip { Title = "Cleaner lungs", Message = "In 1-9 months, coughing and shortness of breath fade. Your lungs clean themselves.", Category = "Health", Icon = "🫁" },
+        new SmokingTip { Title = "Lower cancer risk", Message = "After 1 year, your risk of heart disease drops by half.", Category = "Health", Icon = "🛡️" },
+        new SmokingTip { Title = "Better sense of smell", Message = "Your sense of smell and taste improve noticeably in the first few weeks.", Category = "Health", Icon = "👃" },
+        new SmokingTip { Title = "Whiter teeth", Message = "Your teeth get whiter and your breath fresher.", Category = "Health", Icon = "🦷" },
+        new SmokingTip { Title = "Younger skin", Message = "Your skin looks younger and healthier without cigarette toxins.", Category = "Health", Icon = "✨" },
+        new SmokingTip { Title = "More energy", Message = "You'll have more energy for the things you truly enjoy.", Category = "Health", Icon = "⚡" },
+        new SmokingTip { Title = "Better sleep", Message = "You'll sleep better without nicotine disrupting your sleep cycles.", Category = "Health", Icon = "😴" },
+        new SmokingTip { Title = "Stronger immune system", Message = "Your immune system gets stronger, so you get sick less often.", Category = "Health", Icon = "🛡️" },
+
+        // Money
+        new SmokingTip { Title = "Save money", Message = "Every pack you don't buy is money you can spend on something better.", Category = "Money", Icon = "💰" },
+        new SmokingTip { Title = "A free holiday", Message = "What you spend on cigarettes in a year could pay for a holiday.", Category = "Money", Icon = "✈️" },
+        new SmokingTip { Title = "Invest in health", Message = "You can put the money you save into a gym or healthy food.", Category = "Money", Icon = "🏋️" },
+        new SmokingTip { Title = "Fewer medical costs", Message = "You'll save on doctor visits and tobacco-related medication.", Category = "Money", Icon = "🏥" },
+        new SmokingTip { Title = "Cheaper insurance", Message = "Non-smokers pay less for life and health insurance.", Category = "Money", Icon = "📋" },
+
+        // Family and social
+        new SmokingTip { Title = "Protect your family", Message = "Second-hand smoke harms your loved ones, especially children.", Category = "Family", Icon = "👨‍👩‍👧‍👦" },
+        new SmokingTip { Title = "A better example", Message = "You're a better example for your kids and those who look up to you.", Category = "Family", Icon = "⭐" },
+        new SmokingTip { Title = "More time with family", Message = "You'll live more years to enjoy with your loved ones.", Category = "Family", Icon = "❤️" },
+        new SmokingTip { Title = "No cigarette smell", Message = "Your clothes, home and car won't smell of smoke.", Category = "Social", Icon = "🌸" },
+        new SmokingTip { Title = "Fresher breath", Message = "You'll have fresher breath for kisses and close conversations.", Category = "Social", Icon = "💋" },
+
+        // Psychological and emotional
+        new SmokingTip { Title = "More self-control", Message = "You show you're in control of your impulses and decisions.", Category = "Mental", Icon = "🧠" },
+        new SmokingTip { Title = "Less anxiety", Message = "It may seem otherwise, but smoking increases anxiety in the long run.", Category = "Mental", Icon = "😌" },
+        new SmokingTip { Title = "Better focus", Message = "Without nicotine's ups and downs, your focus is steadier.", Category = "Mental", Icon = "🎯" },
+        new SmokingTip { Title = "More confidence", Message = "Managing to quit boosts your confidence in yourself.", Category = "Mental", Icon = "💪" },
+        new SmokingTip { Title = "Less real stress", Message = "A cigarette only relieves the stress it causes in the first place.", Category = "Mental", Icon = "🧘" },
+
+        // Alternative activities
+        new SmokingTip { Title = "Drink water", Message = "Have a glass of water. It hydrates you and keeps your hands and mouth busy.", Category = "Alternative", Icon = "💧" },
+        new SmokingTip { Title = "Breathe deeply", Message = "Take 5 deep breaths. It's more relaxing than a cigarette.", Category = "Alternative", Icon = "🌬️" },
+        new SmokingTip { Title = "Walk for 5 minutes", Message = "A short walk releases natural endorphins.", Category = "Alternative", Icon = "🚶" },
+        new SmokingTip { Title = "Call a friend", Message = "Connect with someone you care about instead of smoking.", Category = "Alternative", Icon = "📞" },
+        new SmokingTip { Title = "Chew gum", Message = "Keep your mouth busy with something that won't harm your health.", Category = "Alternative", Icon = "🍬" },
+        new SmokingTip { Title = "Listen to music", Message = "Play your favourite song and let it lift your mood.", Category = "Alternative", Icon = "🎵" },
+        new SmokingTip { Title = "Do some stretches", Message = "Stretch your body and release tension in a healthy way.", Category = "Alternative", Icon = "🤸" },
+        new SmokingTip { Title = "Eat some fruit", Message = "An apple or orange gives you energy and flavour without toxins.", Category = "Alternative", Icon = "🍎" },
+        new SmokingTip { Title = "Meditate for 2 minutes", Message = "Close your eyes and focus on your breathing.", Category = "Alternative", Icon = "🧘‍♂️" },
+        new SmokingTip { Title = "Write down your feelings", Message = "Note how you feel instead of smoking. It helps you process it.", Category = "Alternative", Icon = "📝" },
+
+        // Motivational
+        new SmokingTip { Title = "Every 'no' counts", Message = "Every time you say no to a cigarette, you get stronger.", Category = "Motivation", Icon = "💪" },
+        new SmokingTip { Title = "You've come this far", Message = "You've already cut down. Don't give up now!", Category = "Motivation", Icon = "🏆" },
+        new SmokingTip { Title = "Remember your 'why'", Message = "Recall the main reason you decided to quit smoking.", Category = "Motivation", Icon = "🎯" },
+        new SmokingTip { Title = "You are stronger", Message = "You're stronger than any addiction. You have the power to choose.", Category = "Motivation", Icon = "⚡" },
+        new SmokingTip { Title = "The craving will pass", Message = "Cravings are temporary, but the benefits of not smoking are permanent.", Category = "Motivation", Icon = "⏰" },
+
+        // Fun facts
+        new SmokingTip { Title = "20 minutes is enough", Message = "In just 20 minutes without smoking, your body already starts to recover.", Category = "Fact", Icon = "⏱️" },
+        new SmokingTip { Title = "4,000 chemicals", Message = "Each cigarette has over 4,000 chemicals, 70 of which cause cancer.", Category = "Fact", Icon = "⚗️" },
+        new SmokingTip { Title = "Fast addiction", Message = "Nicotine reaches the brain in just 10 seconds, but the damage lasts years.", Category = "Fact", Icon = "🧠" },
+        new SmokingTip { Title = "False relaxation", Message = "Smoking doesn't relax you, it only eases the anxiety nicotine causes.", Category = "Fact", Icon = "🎭" },
+        new SmokingTip { Title = "Better performance", Message = "Non-smokers have better physical and mental performance.", Category = "Fact", Icon = "🏃" },
+
+        // Practical tips
+        new SmokingTip { Title = "Change your routine", Message = "If you always smoke in a certain place, avoid it for a while.", Category = "Tip", Icon = "🔄" },
+        new SmokingTip { Title = "Spot your triggers", Message = "Which situations make you want to smoke? Get ready for them.", Category = "Tip", Icon = "🎯" },
+        new SmokingTip { Title = "Reward yourself", Message = "Give yourself a small treat every time you resist a cigarette.", Category = "Tip", Icon = "🎁" },
+        new SmokingTip { Title = "Seek support", Message = "Talk to friends or family about your journey. Don't do it alone.", Category = "Tip", Icon = "🤝" },
+        new SmokingTip { Title = "Be patient", Message = "Changing a habit takes time. Be patient with yourself.", Category = "Tip", Icon = "⏳" },
+
+        // Immediate benefits
+        new SmokingTip { Title = "Better taste", Message = "Food tastes better when you don't smoke. Rediscover the flavours.", Category = "Immediate", Icon = "🍽️" },
+        new SmokingTip { Title = "Free hands", Message = "Your hands are free for more productive things.", Category = "Immediate", Icon = "👐" },
+        new SmokingTip { Title = "No interruptions", Message = "You don't have to interrupt what you're doing to go and smoke.", Category = "Immediate", Icon = "⏸️" },
+        new SmokingTip { Title = "Better image", Message = "You project a healthier, more professional image.", Category = "Immediate", Icon = "👔" },
+        new SmokingTip { Title = "No guilt", Message = "You don't feel guilty after smoking because you simply don't.", Category = "Immediate", Icon = "😊" },
+
+        // Long-term benefits
+        new SmokingTip { Title = "A longer life", Message = "Non-smokers live on average 10 years longer.", Category = "Long term", Icon = "📈" },
+        new SmokingTip { Title = "A better old age", Message = "You'll enjoy a healthier, more active old age.", Category = "Long term", Icon = "👴" },
+        new SmokingTip { Title = "Fewer diseases", Message = "You drastically cut the risk of cancer, heart attacks and strokes.", Category = "Long term", Icon = "🏥" },
+        new SmokingTip { Title = "Better quality of life", Message = "You'll enjoy life more without the limits of smoking.", Category = "Long term", Icon = "🌟" },
+        new SmokingTip { Title = "Personal pride", Message = "You'll feel proud of having beaten a tough addiction.", Category = "Long term", Icon = "🏅" },
+
+        // Reflections
+        new SmokingTip { Title = "Do you really need it?", Message = "Ask yourself: do I really need this cigarette, or is it just a habit?", Category = "Reflection", Icon = "🤔" },
+        new SmokingTip { Title = "How will you feel after?", Message = "Think about how you'll feel after smoking vs. after resisting.", Category = "Reflection", Icon = "💭" },
+        new SmokingTip { Title = "What would you tell a friend?", Message = "If a friend were in your shoes, would you tell them to smoke?", Category = "Reflection", Icon = "👥" },
+        new SmokingTip { Title = "Is it worth it?", Message = "Are 5 minutes of 'pleasure' worth years of damage?", Category = "Reflection", Icon = "⚖️" },
+        new SmokingTip { Title = "Your future self", Message = "What would your future self thank you for more: smoking now or resisting?", Category = "Reflection", Icon = "🔮" },
+
+        // Emotional
+        new SmokingTip { Title = "You are valuable", Message = "Your life and health are valuable. You deserve to take care of yourself.", Category = "Emotional", Icon = "💎" },
+        new SmokingTip { Title = "You're in control", Message = "You decide what goes into your body. You hold the power.", Category = "Emotional", Icon = "👑" },
+        new SmokingTip { Title = "Every day is new", Message = "Every day is a fresh chance to make better choices.", Category = "Emotional", Icon = "🌅" },
+        new SmokingTip { Title = "You're an example", Message = "Someone is watching and learning from your decisions.", Category = "Emotional", Icon = "👀" },
+        new SmokingTip { Title = "You deserve self-love", Message = "Caring for yourself is the purest form of self-love.", Category = "Emotional", Icon = "💝" },
+
+        // Distraction techniques
+        new SmokingTip { Title = "Count to 100", Message = "Count slowly to 100. The craving will probably have passed.", Category = "Technique", Icon = "🔢" },
+        new SmokingTip { Title = "Visualise your goal", Message = "Close your eyes and picture yourself completely free of cigarettes.", Category = "Technique", Icon = "👁️" },
+        new SmokingTip { Title = "5-4-3-2-1 technique", Message = "Name 5 things you see, 4 you touch, 3 you hear, 2 you smell, 1 you taste.", Category = "Technique", Icon = "🔍" },
+        new SmokingTip { Title = "Clench your fists", Message = "Clench your fists for 10 seconds, then relax. Release the tension.", Category = "Technique", Icon = "✊" },
+        new SmokingTip { Title = "Force a smile", Message = "Smile even if you don't feel like it. Your brain will release endorphins.", Category = "Technique", Icon = "😊" },
+
+        // Progress reminders
+        new SmokingTip { Title = "Look at your progress", Message = "You've cut down. Every cigarette you don't smoke is a win.", Category = "Progress", Icon = "📊" },
+        new SmokingTip { Title = "Celebrate small wins", Message = "Every hour without smoking is an achievement worth recognising.", Category = "Progress", Icon = "🎉" },
+        new SmokingTip { Title = "Stronger than yesterday", Message = "Every day you practise self-control, you get stronger.", Category = "Progress", Icon = "💪" },
+        new SmokingTip { Title = "The journey is the goal", Message = "It's not about perfection, but about steady progress.", Category = "Progress", Icon = "🛤️" },
+        new SmokingTip { Title = "Small steps", Message = "Big changes are made with small, consistent steps.", Category = "Progress", Icon = "👣" },
+
+        // Social benefits
+        new SmokingTip { Title = "Better conversation", Message = "You can hold long conversations without breaking off to smoke.", Category = "Social", Icon = "💬" },
+        new SmokingTip { Title = "More activities", Message = "You can enjoy more places and activities where smoking isn't allowed.", Category = "Social", Icon = "🎭" },
+        new SmokingTip { Title = "No stigma", Message = "You don't face the social stigma smokers sometimes deal with.", Category = "Social", Icon = "🤝" },
+        new SmokingTip { Title = "Better dates", Message = "Many people prefer to date non-smokers.", Category = "Social", Icon = "💕" },
+        new SmokingTip { Title = "A positive leader", Message = "You can be a positive leader in your social circle.", Category = "Social", Icon = "👑" },
+
+        // Final motivational tips
+        new SmokingTip { Title = "Today is the day", Message = "Today could be the day that changes your life.", Category = "Motivation", Icon = "🌟" },
+        new SmokingTip { Title = "You are unique", Message = "You have something unique to offer the world. Take care of it.", Category = "Motivation", Icon = "⭐" },
+        new SmokingTip { Title = "The moment is now", Message = "There's no better time than now to make a healthy decision.", Category = "Motivation", Icon = "⏰" },
+        new SmokingTip { Title = "Trust yourself", Message = "You've overcome challenges before. You can overcome this one too.", Category = "Motivation", Icon = "🙏" },
+        new SmokingTip { Title = "Your story", Message = "You write your story. Make it a story of overcoming.", Category = "Motivation", Icon = "📖" }
     };
 }

@@ -61,8 +61,8 @@
                 </VerticalStackLayout>
             </Border>
 
-            <!-- 3. Apoyo -->
-            <Border Style="{StaticResource Card}">
+            <!-- 3. Apoyo (Ko-fi) — oculto a petición del autor en todas las apps. -->
+            <Border Style="{StaticResource Card}" IsVisible="False">
                 <VerticalStackLayout Padding="25,20" Spacing="14">
                     <Label x:Name="SupportTitleLabel"
                            Text="Apoya el Desarrollo"

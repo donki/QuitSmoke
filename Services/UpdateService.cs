@@ -38,7 +38,7 @@ public class UpdateService
             var title = loc.GetString("update_available");
             var body = string.Format(loc.GetString("update_message"), manifest.Version, current);
 
-            var wantsUpdate = await page.DisplayAlert(
+            var wantsUpdate = await SocShared.ModernDialog.AlertAsync(page,
                 title,
                 body,
                 loc.GetString("update_now"),

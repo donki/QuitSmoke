@@ -9,12 +9,21 @@ public class NotificationService : INotificationService
     private readonly string _tipsHistoryPath;
     private readonly Random _random = new();
     private List<SmokingTip>? _cachedTipsHistory;
+    private readonly ILocalizationService _loc;
 
     private const int PersistentStatusNotificationId = 2000;
-    private const string StatusChannelId = "quit_smoke_status";
+    // Id v2: la importancia de un canal es inmutable tras crearse; con un id nuevo se aplica la
+    // importancia High necesaria para que la notificación muestre el botón de acción "Fumar"
+    // (en MIUI/One UI un canal DEFAULT ongoing oculta la fila de acciones).
+    private const string StatusChannelId = "quit_smoke_status_v2";
 
-    public NotificationService()
+    // Id de la acción "🚬 Fumar" del botón de la notificación persistente. La categoría con esta
+    // acción se registra en MauiProgram y el tap se maneja en App.xaml.cs.
+    public const int SmokeActionId = 100;
+
+    public NotificationService(ILocalizationService loc)
     {
+        _loc = loc;
         _tipsHistoryPath = Path.Combine(FileSystem.AppDataDirectory, "tips_history.json");
     }
 
@@ -41,7 +50,7 @@ public class NotificationService : INotificationService
             var request = new NotificationRequest
             {
                 NotificationId = 1001,
-                Title = "🚬 Puedes fumar ahora",
+                Title = _loc.GetString("notif_can_smoke"),
                 Subtitle = tip.Title,
                 Description = tip.Message,
                 BadgeNumber = 1,
@@ -67,9 +76,9 @@ public class NotificationService : INotificationService
             var request = new NotificationRequest
             {
                 NotificationId = 1002,
-                Title = "⏰ Próximo cigarro",
+                Title = _loc.GetString("notif_next_title"),
                 Subtitle = tip.Title,
-                Description = $"Podrás fumar a las {nextTime:HH:mm}. {tip.Message}",
+                Description = string.Format(_loc.GetString("notif_next_body"), nextTime.ToString("HH:mm"), tip.Message),
                 Schedule = new NotificationRequestSchedule
                 {
                     NotifyTime = nextTime,
@@ -88,19 +97,19 @@ public class NotificationService : INotificationService
     {
         try
         {
-            string title = $"QuitSmoke: {data.SmokedToday}/{data.MaxCigarettesPerDay} hoy";
+            string title = string.Format(_loc.GetString("notif_status_title"), data.SmokedToday, data.MaxCigarettesPerDay);
             string desc;
             if (data.NextRecommendedTime.HasValue)
             {
                 var next = data.NextRecommendedTime.Value;
                 if (next <= DateTime.Now)
-                    desc = $"Siguiente: ahora ({DateTime.Now:HH:mm})";
+                    desc = string.Format(_loc.GetString("notif_next_now"), DateTime.Now.ToString("HH:mm"));
                 else
-                    desc = $"Siguiente: {next:HH:mm}";
+                    desc = string.Format(_loc.GetString("notif_next_at"), next.ToString("HH:mm"));
             }
             else
             {
-                desc = "Límite diario alcanzado";
+                desc = _loc.GetString("notif_limit");
             }
 
             var request = new NotificationRequest
@@ -108,6 +117,8 @@ public class NotificationService : INotificationService
                 NotificationId = PersistentStatusNotificationId,
                 Title = title,
                 Description = desc,
+                // Categoría que aporta el botón de acción "🚬 Fumar" (registrada en MauiProgram).
+                CategoryType = NotificationCategoryType.Status,
                 Android = new()
                 {
                     ChannelId = StatusChannelId,
@@ -126,7 +137,7 @@ public class NotificationService : INotificationService
 
     public SmokingTip GetRandomTip()
     {
-        var allTips = SmokingTips.GetAllTips();
+        var allTips = SmokingTips.GetAllTips(_loc.GetCurrentLanguage());
         var recentTips = GetRecentTipsSync();
         var availableTips = allTips.Where(t => !recentTips.Contains(t.Message)).ToList();
         if (!availableTips.Any())
