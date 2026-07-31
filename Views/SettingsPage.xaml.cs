@@ -29,6 +29,15 @@ public partial class SettingsPage : ContentPage
         CigarettesPerPackEntry.TextChanged += (_, _) => UpdatePricePerCigarette();
         CurrencyPicker.SelectedIndexChanged += (_, _) => UpdatePricePerCigarette();
 
+        // Autoguardado: los ajustes se guardan solos al terminar de editar cada campo o cambiar
+        // un selector, sin necesidad del botón "Guardar" (que queda oculto).
+        MaxCigarettesEntry.Unfocused += async (_, _) => await SaveSettingsAsync();
+        PackPriceEntry.Unfocused += async (_, _) => await SaveSettingsAsync();
+        CigarettesPerPackEntry.Unfocused += async (_, _) => await SaveSettingsAsync();
+        WakeUpTimePicker.PropertyChanged += async (_, e) => { if (e.PropertyName == TimePicker.TimeProperty.PropertyName) await SaveSettingsAsync(); };
+        SleepTimePicker.PropertyChanged += async (_, e) => { if (e.PropertyName == TimePicker.TimeProperty.PropertyName) await SaveSettingsAsync(); };
+        CurrencyPicker.SelectedIndexChanged += async (_, _) => await SaveSettingsAsync();
+
         ApplyLocalization();
         _ = LoadDataAsync();
     }
@@ -86,7 +95,7 @@ public partial class SettingsPage : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert(_loc.GetString("error"), $"{_loc.GetString("settings_error_loading")}: {ex.Message}", _loc.GetString("ok"));
+            await SocShared.ModernDialog.AlertAsync(this,_loc.GetString("error"), $"{_loc.GetString("settings_error_loading")}: {ex.Message}", _loc.GetString("ok"));
         }
     }
 
@@ -143,7 +152,7 @@ public partial class SettingsPage : ContentPage
     private async void OnSaveSettingsClicked(object sender, EventArgs e)
     {
         await SaveSettingsAsync();
-        await DisplayAlert(_loc.GetString("settings_saved_title"), _loc.GetString("settings_saved_message"), _loc.GetString("ok"));
+        await SocShared.ModernDialog.AlertAsync(this,_loc.GetString("settings_saved_title"), _loc.GetString("settings_saved_message"), _loc.GetString("ok"));
     }
 
     private async void OnReduceMaxClicked(object sender, EventArgs e)
@@ -193,7 +202,7 @@ public partial class SettingsPage : ContentPage
         }
         _powerService.OpenAutostartSettings();
         _powerService.OpenBackgroundSettings();
-        await DisplayAlert(_loc.GetString("settings_permissions_result_title"), _loc.GetString("settings_permissions_result_message"), _loc.GetString("ok"));
+        await SocShared.ModernDialog.AlertAsync(this,_loc.GetString("settings_permissions_result_title"), _loc.GetString("settings_permissions_result_message"), _loc.GetString("ok"));
     }
 
     private async void OnBatteryOptimizationClicked(object sender, EventArgs e)
@@ -211,9 +220,9 @@ public partial class SettingsPage : ContentPage
         _powerService?.OpenAutostartSettings();
     }
 #else
-    private async void OnCheckPermissionsClicked(object sender, EventArgs e) => await DisplayAlert(_loc.GetString("settings_permissions_result_title"), _loc.GetString("settings_android_only"), _loc.GetString("ok"));
-    private async void OnConfigureAllPermissionsClicked(object sender, EventArgs e) => await DisplayAlert(_loc.GetString("settings_permissions_result_title"), _loc.GetString("settings_android_only"), _loc.GetString("ok"));
-    private async void OnBatteryOptimizationClicked(object sender, EventArgs e) => await DisplayAlert(_loc.GetString("settings_permissions_result_title"), _loc.GetString("settings_android_only"), _loc.GetString("ok"));
-    private async void OnAutostartClicked(object sender, EventArgs e) => await DisplayAlert(_loc.GetString("settings_permissions_result_title"), _loc.GetString("settings_android_only"), _loc.GetString("ok"));
+    private async void OnCheckPermissionsClicked(object sender, EventArgs e) => await SocShared.ModernDialog.AlertAsync(this,_loc.GetString("settings_permissions_result_title"), _loc.GetString("settings_android_only"), _loc.GetString("ok"));
+    private async void OnConfigureAllPermissionsClicked(object sender, EventArgs e) => await SocShared.ModernDialog.AlertAsync(this,_loc.GetString("settings_permissions_result_title"), _loc.GetString("settings_android_only"), _loc.GetString("ok"));
+    private async void OnBatteryOptimizationClicked(object sender, EventArgs e) => await SocShared.ModernDialog.AlertAsync(this,_loc.GetString("settings_permissions_result_title"), _loc.GetString("settings_android_only"), _loc.GetString("ok"));
+    private async void OnAutostartClicked(object sender, EventArgs e) => await SocShared.ModernDialog.AlertAsync(this,_loc.GetString("settings_permissions_result_title"), _loc.GetString("settings_android_only"), _loc.GetString("ok"));
 #endif
 }

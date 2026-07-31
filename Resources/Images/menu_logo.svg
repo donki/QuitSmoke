@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Splash: símbolo "no fumar" en blanco, centrado sobre fondo indigo (#3525CD). -->
+<!-- Logo de cabecera del menú: símbolo "no fumar" blanco (sobre cabecera indigo). -->
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <!-- Cigarrillo -->
   <rect x="168" y="243" width="150" height="26" rx="5" fill="#FFFFFF"/>
   <rect x="326" y="243" width="18" height="26" rx="5" fill="#C3C0FF"/>
-  <!-- Anillo prohibido -->
   <circle cx="256" cy="256" r="150" fill="none" stroke="#FFFFFF" stroke-width="22"/>
   <line x1="150" y1="150" x2="362" y2="362" stroke="#FFFFFF" stroke-width="22" stroke-linecap="round"/>
 </svg>

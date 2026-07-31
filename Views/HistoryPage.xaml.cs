@@ -61,7 +61,7 @@ public partial class HistoryPage : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert(_loc.GetString("error"), $"{_loc.GetString("history_error_loading")}: {ex.Message}", _loc.GetString("ok"));
+            await SocShared.ModernDialog.AlertAsync(this,_loc.GetString("error"), $"{_loc.GetString("history_error_loading")}: {ex.Message}", _loc.GetString("ok"));
         }
         finally
         {

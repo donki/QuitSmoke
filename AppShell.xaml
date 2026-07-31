@@ -19,11 +19,13 @@
                        HeightRequest="22"
                        WidthRequest="22"
                        VerticalOptions="Center" />
+                <!-- Colores literales: dentro de un Shell.ItemTemplate los {StaticResource} no
+                     siempre resuelven en runtime y el texto quedaba invisible. -->
                 <Label Grid.Column="1"
                        Text="{Binding Title}"
                        VerticalOptions="Center"
                        FontSize="16"
-                       TextColor="{AppThemeBinding Light={StaticResource TextPrimaryLight}, Dark={StaticResource TextPrimaryDark}}" />
+                       TextColor="{AppThemeBinding Light=#2C3E50, Dark=#E8ECF1}" />
             </Grid>
         </DataTemplate>
     </Shell.ItemTemplate>
@@ -32,17 +34,12 @@
     <!-- Header del menú con safe area (color de marca por token) -->
     <Shell.FlyoutHeader>
         <Grid BackgroundColor="{StaticResource Primary}" HeightRequest="140" Padding="20,40,20,20">
-            <VerticalStackLayout VerticalOptions="Center" Spacing="8">
+            <VerticalStackLayout VerticalOptions="Center" Spacing="6">
+                <Image Source="menu_logo.png" HeightRequest="52" WidthRequest="52" HorizontalOptions="Start" />
                 <Label Text="QuitSmoke"
                        FontSize="20"
                        FontAttributes="Bold"
                        TextColor="{StaticResource White}"
-                       HorizontalOptions="Start" />
-                <Label x:Name="HeaderSubtitleLabel"
-                       Text="Don't Give Up"
-                       FontSize="12"
-                       TextColor="{StaticResource White}"
-                       Opacity="0.9"
                        HorizontalOptions="Start" />
             </VerticalStackLayout>
         </Grid>
@@ -67,11 +64,10 @@
 
     <!-- Footer del menú (tokens tema-aware; version leida de AppInfo) -->
     <Shell.FlyoutFooter>
-        <Grid BackgroundColor="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}"
-              HeightRequest="60" Padding="20">
+        <Grid Padding="20,12">
             <Label x:Name="FooterVersionLabel"
-                   Text="sOCratic"
-                   FontSize="10"
+                   Text="v2026.07.28.0"
+                   FontSize="12"
                    TextColor="{AppThemeBinding Light={StaticResource TextSecondaryLight}, Dark={StaticResource TextSecondaryDark}}"
                    VerticalOptions="Center"
                    HorizontalOptions="Center" />

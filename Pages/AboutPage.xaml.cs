@@ -17,7 +17,7 @@ namespace QuitSmoke.Pages
         public AboutPage()
         {
             InitializeComponent();
-            _localizationService = new LocalizationService();
+            _localizationService = ServiceHelper.GetService<ILocalizationService>();
 
             // Obtener el servicio de email si está disponible (solo en Android)
 #if ANDROID
@@ -108,12 +108,12 @@ namespace QuitSmoke.Pages
             catch (FeatureNotSupportedException)
             {
                 var errorMessage = _localizationService.GetString("email_error");
-                await DisplayAlert("Error", errorMessage, "OK");
+                await SocShared.ModernDialog.AlertAsync(this,"Error", errorMessage, "OK");
             }
             catch (Exception ex)
             {
                 var errorMessage = _localizationService.GetString("email_error_message");
-                await DisplayAlert("Error", $"{errorMessage}: {ex.Message}", "OK");
+                await SocShared.ModernDialog.AlertAsync(this,"Error", $"{errorMessage}: {ex.Message}", "OK");
             }
         }
 
@@ -136,13 +136,13 @@ namespace QuitSmoke.Pages
                 try
                 {
                     await Clipboard.SetTextAsync(DonationUrl);
-                    await DisplayAlert(_localizationService.GetString("browser_not_available"),
+                    await SocShared.ModernDialog.AlertAsync(this,_localizationService.GetString("browser_not_available"),
                         $"{_localizationService.GetString("link_copied")}:\n{DonationUrl}",
                         "OK");
                 }
                 catch
                 {
-                    await DisplayAlert("Error",
+                    await SocShared.ModernDialog.AlertAsync(this,"Error",
                         $"{DonationUrl}",
                         "OK");
                 }
@@ -153,13 +153,13 @@ namespace QuitSmoke.Pages
                 try
                 {
                     await Clipboard.SetTextAsync(DonationUrl);
-                    await DisplayAlert(_localizationService.GetString("browser_not_available"),
+                    await SocShared.ModernDialog.AlertAsync(this,_localizationService.GetString("browser_not_available"),
                         $"{_localizationService.GetString("link_copied")}:\n{DonationUrl}",
                         "OK");
                 }
                 catch
                 {
-                    await DisplayAlert("Error",
+                    await SocShared.ModernDialog.AlertAsync(this,"Error",
                         $"{DonationUrl}",
                         "OK");
                 }
@@ -170,7 +170,7 @@ namespace QuitSmoke.Pages
         {
             _localizationService.SetLanguage("es");
             UpdateUI();
-            await DisplayAlert(_localizationService.GetString("language"),
+            await SocShared.ModernDialog.AlertAsync(this,_localizationService.GetString("language"),
                 _localizationService.GetString("language_selected"), "OK");
         }
 
@@ -178,7 +178,7 @@ namespace QuitSmoke.Pages
         {
             _localizationService.SetLanguage("en");
             UpdateUI();
-            await DisplayAlert(_localizationService.GetString("language"),
+            await SocShared.ModernDialog.AlertAsync(this,_localizationService.GetString("language"),
                 _localizationService.GetString("language_selected"), "OK");
         }
     }

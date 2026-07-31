@@ -2,10 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" 
           package="com.socratic.quitsmoke">
     
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- Permisos justificados (constitución §A.3: cada permiso justificado, mínimo privilegio).
+         Se retira ACCESS_NETWORK_STATE (default de la plantilla MAUI): la app no consulta el estado
+         de conectividad en ningún punto del código. -->
+
+    <!-- INTERNET: única red que usa la app es la comprobación de versión al arrancar
+         (UpdateService consulta el appcast del repositorio). No envía datos del usuario. -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- POST_NOTIFICATIONS: avisos de "puedes fumar" y la notificación de estado persistente con el
+         botón "Fumar" (Android 13+ requiere el permiso en runtime). -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- WAKE_LOCK: lo usa Plugin.LocalNotification para entregar las notificaciones programadas. -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- RECEIVE_BOOT_COMPLETED: re-programa las notificaciones tras reiniciar el dispositivo
+         (Plugin.LocalNotification), para que el recordatorio siga funcionando. -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application 

@@ -2,13 +2,13 @@
 <svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#2E7D32;stop-opacity:1" />
+      <stop offset="0%" style="stop-color:#635BF2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3525CD;stop-opacity:1" />
     </linearGradient>
     
     <linearGradient id="lungGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#E8F5E8;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#C8E6C9;stop-opacity:1" />
+      <stop offset="0%" style="stop-color:#EDECFB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C3C0FF;stop-opacity:1" />
     </linearGradient>
   </defs>
   

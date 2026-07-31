@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Primer plano: símbolo de PROHIBIDO FUMAR (cigarrillo + círculo de prohibición con
-     barra), blanco sobre el verde de marca. Claro y reconocible a tamaño pequeño. -->
+<!-- Primer plano: simbolo de PROHIBIDO FUMAR (cigarrillo + circulo de prohibicion con
+     barra), blanco sobre el indigo de marca. Claro y reconocible a tamano pequeno. -->
 <svg xmlns="http://www.w3.org/2000/svg" width="456" height="456" viewBox="0 0 456 456">
 
-  <!-- Cigarrillo (centrado dentro del círculo) -->
+  <!-- Cigarrillo (centrado dentro del circulo) -->
   <g>
     <rect x="150" y="210" width="120" height="34" rx="8" fill="#FFFFFF" />
-    <rect x="150" y="210" width="26" height="34" rx="8" fill="#FFD54F" />       <!-- filtro -->
-    <rect x="276" y="210" width="16" height="34" rx="6" fill="#FF7043" />       <!-- brasa -->
+    <rect x="150" y="210" width="26" height="34" rx="8" fill="#C3C0FF" />       <!-- filtro -->
+    <rect x="276" y="210" width="16" height="34" rx="6" fill="#C3C0FF" />       <!-- brasa -->
     <!-- humo -->
-    <path d="M300 206 c10 -8 10 -18 0 -26" fill="none" stroke="#FFFFFF" stroke-width="7"
+    <path d="M300 206 c10 -8 10 -18 0 -26" fill="none" stroke="#C3C0FF" stroke-width="7"
           stroke-linecap="round" opacity="0.85" />
   </g>
 
-  <!-- Círculo de prohibición + barra diagonal -->
+  <!-- Circulo de prohibicion + barra diagonal -->
   <circle cx="228" cy="227" r="120" fill="none" stroke="#FFFFFF" stroke-width="24" />
   <line x1="143" y1="142" x2="313" y2="312" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" />
 
