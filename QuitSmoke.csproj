@@ -1,7 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net9.0-android</TargetFrameworks>
+    <TargetFrameworks>net9.0-android36.0</TargetFrameworks>
+
+    <!-- API objetivo exigida por Google Play (constitucion Mobile 5.2). -->
+    <TargetSdkVersion>36</TargetSdkVersion>
     <OutputType>Exe</OutputType>
     <RootNamespace>QuitSmoke</RootNamespace>
     <UseMaui>true</UseMaui>
@@ -12,11 +15,15 @@
     <!-- Hot Reload Configuration -->
     <UseInterpreter Condition="'$(Configuration)' == 'Debug'">True</UseInterpreter>
     <PublishTrimmed>false</PublishTrimmed>
+    <!-- Sin recorte no se puede compilar AOT, y desde API 36 el SDK lo activa solo en Release.
+         Se apaga explicitamente: la app no lo necesita y con recorte habria que revisar que no
+         se pierda nada por reflexion. -->
+    <RunAOTCompilation>false</RunAOTCompilation>
     <MauiEnableVisualStudioHotReload>true</MauiEnableVisualStudioHotReload>
 
     <!-- Display Version (Constitucion §6: DisplayVersion legible + Version entero incremental, en sincronia) -->
-    <ApplicationDisplayVersion>2026.08.02.0</ApplicationDisplayVersion>
-    <ApplicationVersion>202608020</ApplicationVersion>
+    <ApplicationDisplayVersion>2026.08.28.0</ApplicationDisplayVersion>
+    <ApplicationVersion>202608280</ApplicationVersion>
 
     <!-- Company Information -->
     <Company>sOCratic</Company>
