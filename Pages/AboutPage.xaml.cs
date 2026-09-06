@@ -7,7 +7,6 @@ namespace QuitSmoke.Pages
     {
         // CONFIGURACIÓN
         private const string ContactEmail = "jsoladelarosa@gmail.com";
-        private const string DonationUrl = "https://ko-fi.com/josepsola";
         private const string EmailSubject = "Contacto desde QuitSmoke";
         private const string AppName = "QuitSmoke";
 
@@ -41,9 +40,6 @@ namespace QuitSmoke.Pages
             ContactHintLabel.Text = L("contact_hint");
 
             // Apoyo
-            SupportTitleLabel.Text = L("support_development");
-            SupportButton.Text = L("support_button");
-            SupportHintLabel.Text = L("support_description");
 
             // Idioma
             LanguageTitleLabel.Text = L("language");
@@ -114,55 +110,6 @@ namespace QuitSmoke.Pages
             {
                 var errorMessage = _localizationService.GetString("email_error_message");
                 await SocShared.ModernDialog.AlertAsync(this,"Error", $"{errorMessage}: {ex.Message}", "OK");
-            }
-        }
-
-        private async void OnDonationClicked(object? sender, EventArgs e)
-        {
-            try
-            {
-                var uri = new Uri(DonationUrl);
-                var browserLaunchOptions = new BrowserLaunchOptions
-                {
-                    LaunchMode = BrowserLaunchMode.SystemPreferred,
-                    TitleMode = BrowserTitleMode.Show
-                };
-
-                await Browser.OpenAsync(uri, browserLaunchOptions);
-            }
-            catch (FeatureNotSupportedException)
-            {
-                // Fallback: copy URL to clipboard if browser is not available
-                try
-                {
-                    await Clipboard.SetTextAsync(DonationUrl);
-                    await SocShared.ModernDialog.AlertAsync(this,_localizationService.GetString("browser_not_available"),
-                        $"{_localizationService.GetString("link_copied")}:\n{DonationUrl}",
-                        "OK");
-                }
-                catch
-                {
-                    await SocShared.ModernDialog.AlertAsync(this,"Error",
-                        $"{DonationUrl}",
-                        "OK");
-                }
-            }
-            catch (Exception)
-            {
-                // Fallback: copy URL to clipboard on any other error
-                try
-                {
-                    await Clipboard.SetTextAsync(DonationUrl);
-                    await SocShared.ModernDialog.AlertAsync(this,_localizationService.GetString("browser_not_available"),
-                        $"{_localizationService.GetString("link_copied")}:\n{DonationUrl}",
-                        "OK");
-                }
-                catch
-                {
-                    await SocShared.ModernDialog.AlertAsync(this,"Error",
-                        $"{DonationUrl}",
-                        "OK");
-                }
             }
         }
 

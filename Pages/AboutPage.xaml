@@ -61,28 +61,6 @@
                 </VerticalStackLayout>
             </Border>
 
-            <!-- 3. Apoyo (Ko-fi) — oculto a petición del autor en todas las apps. -->
-            <Border Style="{StaticResource Card}" IsVisible="False">
-                <VerticalStackLayout Padding="25,20" Spacing="14">
-                    <Label x:Name="SupportTitleLabel"
-                           Text="Apoya el Desarrollo"
-                           Style="{StaticResource CardTitle}"
-                           TextColor="{StaticResource Accent}" />
-
-                    <Button x:Name="SupportButton"
-                            Text="Ko-fi.com - Invítame un café"
-                            Style="{StaticResource AccentButton}"
-                            Clicked="OnDonationClicked"
-                            HorizontalOptions="Fill" />
-
-                    <Label x:Name="SupportHintLabel"
-                           Text=""
-                           Style="{StaticResource HintText}"
-                           HorizontalOptions="Center"
-                           HorizontalTextAlignment="Center" />
-                </VerticalStackLayout>
-            </Border>
-
             <!-- 4. Idioma -->
             <Border Style="{StaticResource Card}">
                 <VerticalStackLayout Padding="25,20" Spacing="14">
