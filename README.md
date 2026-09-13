@@ -2,6 +2,11 @@
 
 Una aplicación móvil desarrollada en .NET MAUI para ayudar a las personas a reducir y controlar su consumo de cigarrillos de manera gradual y efectiva.
 
+## Dónde conseguirla
+
+- **Google Play:** https://play.google.com/store/apps/details?id=com.socratic.quitsmoke
+- **Releases de GitHub** (APK / EXE / MSIX de cada versión): https://github.com/donki/QuitSmoke/releases
+
 ## 📱 Características
 
 ### 🎯 Control de Consumo
