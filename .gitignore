@@ -400,3 +400,4 @@ google-services.json
 # Binarios de terceros (pepk de Google Play, no versionar)
 pepk.jar
 pepk-src.jar
+releases/
