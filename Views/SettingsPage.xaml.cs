@@ -9,6 +9,9 @@ public partial class SettingsPage : ContentPage
     private readonly ISmokingDataService _smokingDataService;
     private readonly ILocalizationService _loc;
     private readonly IPowerSettingsService? _powerService;
+    private string? _currencyLanguage;
+    private bool _suppressSave;
+    private bool _permissionsChecked;
 
     public SettingsPage()
     {
@@ -19,7 +22,6 @@ public partial class SettingsPage : ContentPage
         _powerService = ServiceHelper.GetService<IPowerSettingsService>();
 #endif
         CurrencyPicker.ItemDisplayBinding = new Binding(nameof(Currency.Name));
-        CurrencyPicker.ItemsSource = Currency.GetAvailableCurrencies();
 
         // Actualizaciones en vivo de las etiquetas calculadas.
         MaxCigarettesEntry.TextChanged += (_, _) => UpdateTimeBetween();
@@ -73,6 +75,32 @@ public partial class SettingsPage : ContentPage
         CurrencyLabel.Text = L("settings_currency");
         SaveButton.Text = L("settings_save");
         ReduceMaxButton.Text = L("settings_reduce_max");
+
+        if (!_permissionsChecked)
+        {
+            BatteryOptStatus.Text = L("settings_unverified");
+            AutostartStatus.Text = L("settings_manual");
+        }
+
+        // Nombres de las divisas en el idioma actual: se rehace la lista solo si cambió el idioma.
+        var lang = _loc.GetCurrentLanguage();
+        if (lang != _currencyLanguage)
+        {
+            var selectedCode = (CurrencyPicker.SelectedItem as Currency)?.Code;
+            _suppressSave = true;
+            try
+            {
+                var currencies = Currency.GetAvailableCurrencies(_loc);
+                CurrencyPicker.ItemsSource = currencies;
+                if (selectedCode != null)
+                    CurrencyPicker.SelectedItem = currencies.FirstOrDefault(c => c.Code == selectedCode);
+            }
+            finally
+            {
+                _suppressSave = false;
+            }
+            _currencyLanguage = lang;
+        }
     }
 
     private async Task LoadDataAsync()
@@ -86,9 +114,10 @@ public partial class SettingsPage : ContentPage
             SleepTimePicker.Time = data.SleepTime;
             PackPriceEntry.Text = data.PackPrice.ToString("F2");
             CigarettesPerPackEntry.Text = data.CigarettesPerPack.ToString();
-            CurrencyPicker.SelectedItem = Currency.GetAvailableCurrencies()
-                .FirstOrDefault(c => c.Code == data.Currency)
-                ?? Currency.GetAvailableCurrencies().First();
+            // Se elige de la misma lista que muestra el selector (si no, el elemento no se encuentra).
+            if (CurrencyPicker.ItemsSource is IList<Currency> currencies && currencies.Count > 0)
+                CurrencyPicker.SelectedItem = currencies.FirstOrDefault(c => c.Code == data.Currency)
+                    ?? currencies[0];
 
             UpdateTimeBetween();
             UpdatePricePerCigarette();
@@ -134,6 +163,9 @@ public partial class SettingsPage : ContentPage
 
     private async Task SaveSettingsAsync()
     {
+        if (_suppressSave)
+            return;
+
         if (int.TryParse(MaxCigarettesEntry.Text, out var maxCigarettes) && maxCigarettes > 0)
         {
             await _smokingDataService.UpdateMaxCigarettesAsync(maxCigarettes);
@@ -187,6 +219,7 @@ public partial class SettingsPage : ContentPage
     private void OnCheckPermissionsClicked(object sender, EventArgs e)
     {
         if (_powerService == null) return;
+        _permissionsChecked = true;
         var ignoring = _powerService.IsIgnoringBatteryOptimizations();
         BatteryOptStatus.Text = ignoring ? _loc.GetString("settings_battery_excluded") : _loc.GetString("settings_battery_optimized");
         AutostartStatus.Text = _loc.GetString("settings_check_system");

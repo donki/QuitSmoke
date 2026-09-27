@@ -7,7 +7,6 @@ namespace QuitSmoke.Pages
     {
         // CONFIGURACIÓN
         private const string ContactEmail = "jsoladelarosa@gmail.com";
-        private const string EmailSubject = "Contacto desde QuitSmoke";
         private const string AppName = "QuitSmoke";
 
         private readonly ILocalizationService _localizationService;
@@ -78,22 +77,20 @@ namespace QuitSmoke.Pages
         {
             try
             {
-                var currentLanguage = _localizationService.GetCurrentLanguage();
-                var body = currentLanguage == "es"
-                    ? $"Hola,\n\nMe pongo en contacto desde la aplicación {AppName} para:\n\n[Escribe aquí tu mensaje]\n\nGracias."
-                    : $"Hello,\n\nI'm contacting you from the {AppName} application to:\n\n[Write your message here]\n\nThank you.";
+                var subject = _localizationService.GetString("email_subject");
+                var body = string.Format(_localizationService.GetString("email_body"), AppName);
 
                 // Intentar usar el servicio nativo de Android primero
                 if (_emailService != null)
                 {
-                    await _emailService.SendEmailAsync(ContactEmail, EmailSubject, body);
+                    await _emailService.SendEmailAsync(ContactEmail, subject, body);
                 }
                 else
                 {
                     // Fallback a MAUI Essentials
                     var message = new EmailMessage
                     {
-                        Subject = EmailSubject,
+                        Subject = subject,
                         To = new List<string> { ContactEmail },
                         Body = body
                     };
@@ -104,12 +101,12 @@ namespace QuitSmoke.Pages
             catch (FeatureNotSupportedException)
             {
                 var errorMessage = _localizationService.GetString("email_error");
-                await SocShared.ModernDialog.AlertAsync(this,"Error", errorMessage, "OK");
+                await SocShared.ModernDialog.AlertAsync(this, _localizationService.GetString("error"), errorMessage, _localizationService.GetString("ok"));
             }
             catch (Exception ex)
             {
                 var errorMessage = _localizationService.GetString("email_error_message");
-                await SocShared.ModernDialog.AlertAsync(this,"Error", $"{errorMessage}: {ex.Message}", "OK");
+                await SocShared.ModernDialog.AlertAsync(this, _localizationService.GetString("error"), $"{errorMessage}: {ex.Message}", _localizationService.GetString("ok"));
             }
         }
 
@@ -118,7 +115,7 @@ namespace QuitSmoke.Pages
             _localizationService.SetLanguage("es");
             UpdateUI();
             await SocShared.ModernDialog.AlertAsync(this,_localizationService.GetString("language"),
-                _localizationService.GetString("language_selected"), "OK");
+                _localizationService.GetString("language_selected"), _localizationService.GetString("ok"));
         }
 
         private async void OnEnglishClicked(object? sender, EventArgs e)
@@ -126,7 +123,7 @@ namespace QuitSmoke.Pages
             _localizationService.SetLanguage("en");
             UpdateUI();
             await SocShared.ModernDialog.AlertAsync(this,_localizationService.GetString("language"),
-                _localizationService.GetString("language_selected"), "OK");
+                _localizationService.GetString("language_selected"), _localizationService.GetString("ok"));
         }
     }
 }

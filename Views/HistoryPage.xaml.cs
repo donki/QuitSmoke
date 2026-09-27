@@ -15,6 +15,7 @@ public partial class HistoryPage : ContentPage
         _smokingDataService = ServiceHelper.GetService<ISmokingDataService>()!;
         _loc = ServiceHelper.GetService<ILocalizationService>();
         ApplyLocalization();
+        SummaryLabel.Text = _loc.GetString("history_summary_loading");
         _ = LoadDataAsync();
     }
 

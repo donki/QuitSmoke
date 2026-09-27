@@ -25,13 +25,11 @@
                            HorizontalOptions="Center" />
 
                     <Label x:Name="TipTitle"
-                           Text="Consejo del día"
                            Style="{StaticResource CardTitle}"
                            HorizontalOptions="Center"
                            HorizontalTextAlignment="Center" />
 
                     <Label x:Name="TipText"
-                           Text="Mantén la motivación y sigue adelante"
                            Style="{StaticResource BodyText}"
                            HorizontalOptions="Center"
                            HorizontalTextAlignment="Center"
@@ -43,7 +41,6 @@
                             Padding="8,4"
                             HorizontalOptions="Center">
                         <Label x:Name="TipSmartLabel"
-                               Text="Tip Smart"
                                FontSize="12"
                                FontAttributes="Bold"
                                TextColor="{StaticResource White}" />
@@ -55,7 +52,6 @@
             <Border Style="{StaticResource Card}" Padding="20">
                 <VerticalStackLayout Spacing="10">
                     <Label x:Name="ProgressLabel"
-                           Text="Progreso del día"
                            Style="{StaticResource CardTitle}"
                            HorizontalOptions="Center" />
 
@@ -65,7 +61,6 @@
                                  HeightRequest="10" />
 
                     <Label x:Name="RemainingLabel"
-                           Text="Cigarros restantes: --"
                            Style="{StaticResource BodyText}"
                            HorizontalOptions="Center" />
                 </VerticalStackLayout>
@@ -80,7 +75,6 @@
                                FontSize="18"
                                HorizontalOptions="Center" />
                         <Label x:Name="LastCigaretteLabel"
-                               Text="Último: --"
                                FontSize="12"
                                HorizontalOptions="Center"
                                HorizontalTextAlignment="Center"
@@ -96,7 +90,6 @@
                                FontSize="18"
                                HorizontalOptions="Center" />
                         <Label x:Name="NextCigaretteLabel"
-                               Text="Próximo: --"
                                FontSize="12"
                                HorizontalOptions="Center"
                                HorizontalTextAlignment="Center"
@@ -113,7 +106,6 @@
                         StrokeShape="RoundRectangle 10"
                         Padding="12">
                     <Label x:Name="TimeSinceLastLabel"
-                           Text="Tiempo sin fumar: --"
                            FontSize="16"
                            FontAttributes="Bold"
                            HorizontalOptions="Center"
@@ -142,17 +134,14 @@
             <Border Style="{StaticResource Card}" Padding="15">
                 <VerticalStackLayout Spacing="5">
                     <Label x:Name="DailyStatsLabel"
-                           Text="Estadísticas del día"
                            Style="{StaticResource CardTitle}"
                            HorizontalOptions="Center" />
 
                     <Label x:Name="TimeBetweenLabel"
-                           Text="Tiempo entre cigarros: --"
                            Style="{StaticResource BodyText}"
                            HorizontalOptions="Center" />
 
                     <Label x:Name="AwakeHoursLabel"
-                           Text="Horas despierto: --"
                            Style="{StaticResource BodyText}"
                            HorizontalOptions="Center" />
                 </VerticalStackLayout>

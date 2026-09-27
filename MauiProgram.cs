@@ -13,6 +13,9 @@ public static class MauiProgram
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
+        // La categoría y el canal de notificaciones se registran antes que el contenedor de
+        // servicios: se usa una instancia propia del servicio de idioma (lee el idioma guardado).
+        var startupLoc = new LocalizationService();
         // Tipografia del sistema (A.9): no se embeben familias propias.
         builder
             .UseMauiApp<App>()
@@ -26,11 +29,7 @@ public static class MauiProgram
                     {
                         new NotificationAction(Services.NotificationService.SmokeActionId)
                         {
-                            // La categoría se registra en el arranque (antes del DI): el idioma se
-                            // lee de Preferences. "es" -> Fumar, resto -> Smoke.
-                            Title = (Microsoft.Maui.Storage.Preferences.Get("app_language",
-                                        System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName) == "es")
-                                        ? "🚬 Fumar" : "🚬 Smoke",
+                            Title = startupLoc.GetString("notif_smoke_action"),
                             Android = new AndroidAction
                             {
                                 LaunchAppWhenTapped = false
@@ -46,7 +45,7 @@ public static class MauiProgram
                     android.AddChannel(new NotificationChannelRequest
                     {
                         Id = "quit_smoke_status_v2",
-                        Name = "Estado",
+                        Name = startupLoc.GetString("notif_channel_status"),
                         Importance = AndroidImportance.High,
                         EnableSound = false,
                         EnableVibration = false,

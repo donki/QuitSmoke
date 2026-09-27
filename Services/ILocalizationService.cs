@@ -159,7 +159,28 @@ public class LocalizationService : ILocalizationService
                 ["notif_next_now"] = "Siguiente: ahora ({0})",
                 ["notif_next_at"] = "Siguiente: {0}",
                 ["notif_limit"] = "Límite diario alcanzado",
-                ["notif_smoke_action"] = "🚬 Fumar"
+                ["notif_smoke_action"] = "🚬 Fumar",
+                ["notif_channel_status"] = "Estado",
+                // Correo de contacto
+                ["email_subject"] = "Contacto desde QuitSmoke",
+                ["email_body"] = "Hola,\n\nMe pongo en contacto desde la aplicación {0} para:\n\n[Escribe aquí tu mensaje]\n\nGracias.",
+                ["email_chooser_title"] = "Enviar correo con:",
+                ["email_no_activity"] = "No se pudo obtener la actividad actual",
+                // Divisas
+                ["currency_EUR"] = "Euro",
+                ["currency_USD"] = "Dólar estadounidense",
+                ["currency_GBP"] = "Libra esterlina",
+                ["currency_JPY"] = "Yen japonés",
+                ["currency_CAD"] = "Dólar canadiense",
+                ["currency_AUD"] = "Dólar australiano",
+                ["currency_CHF"] = "Franco suizo",
+                ["currency_CNY"] = "Yuan chino",
+                ["currency_MXN"] = "Peso mexicano",
+                ["currency_ARS"] = "Peso argentino",
+                ["currency_CLP"] = "Peso chileno",
+                ["currency_COP"] = "Peso colombiano",
+                ["currency_PEN"] = "Sol peruano",
+                ["currency_BRL"] = "Real brasileño"
             },
             ["en"] = new Dictionary<string, string>
             {
@@ -295,7 +316,28 @@ public class LocalizationService : ILocalizationService
                 ["notif_next_now"] = "Next: now ({0})",
                 ["notif_next_at"] = "Next: {0}",
                 ["notif_limit"] = "Daily limit reached",
-                ["notif_smoke_action"] = "🚬 Smoke"
+                ["notif_smoke_action"] = "🚬 Smoke",
+                ["notif_channel_status"] = "Status",
+                // Contact email
+                ["email_subject"] = "Contact from QuitSmoke",
+                ["email_body"] = "Hello,\n\nI'm contacting you from the {0} app about:\n\n[Write your message here]\n\nThank you.",
+                ["email_chooser_title"] = "Send email with:",
+                ["email_no_activity"] = "Could not get the current activity",
+                // Currencies
+                ["currency_EUR"] = "Euro",
+                ["currency_USD"] = "US Dollar",
+                ["currency_GBP"] = "Pound Sterling",
+                ["currency_JPY"] = "Japanese Yen",
+                ["currency_CAD"] = "Canadian Dollar",
+                ["currency_AUD"] = "Australian Dollar",
+                ["currency_CHF"] = "Swiss Franc",
+                ["currency_CNY"] = "Chinese Yuan",
+                ["currency_MXN"] = "Mexican Peso",
+                ["currency_ARS"] = "Argentine Peso",
+                ["currency_CLP"] = "Chilean Peso",
+                ["currency_COP"] = "Colombian Peso",
+                ["currency_PEN"] = "Peruvian Sol",
+                ["currency_BRL"] = "Brazilian Real"
             }
         };
     }

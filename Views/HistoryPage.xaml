@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage x:Class="QuitSmoke.Views.HistoryPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             Title="Historial">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <Grid>
         <!-- Spinner de carga -->
@@ -16,7 +15,6 @@
                                HeightRequest="50"
                                WidthRequest="50" />
             <Label x:Name="LoadingLabel"
-                   Text="Cargando historial..."
                    Style="{StaticResource HintText}"
                    FontSize="16"
                    HorizontalOptions="Center" />
@@ -30,7 +28,6 @@
             <Border Style="{StaticResource Card}" Padding="20">
                 <VerticalStackLayout Spacing="16">
                     <Label x:Name="GeneralStatsLabel"
-                           Text="Estadísticas Generales"
                            Style="{StaticResource CardTitle}"
                            HorizontalOptions="Center" />
 
@@ -53,7 +50,6 @@
                                        TextColor="{StaticResource Primary}"
                                        HorizontalOptions="Center" />
                                 <Label x:Name="TotalCigarettesCaption"
-                                       Text="Total cigarros"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -75,7 +71,6 @@
                                        TextColor="{StaticResource Success}"
                                        HorizontalOptions="Center" />
                                 <Label x:Name="DaysRecordedCaption"
-                                       Text="Días registrados"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -97,7 +92,6 @@
                                        TextColor="{StaticResource Accent}"
                                        HorizontalOptions="Center" />
                                 <Label x:Name="AvgPerDayCaption"
-                                       Text="Promedio/día"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -119,7 +113,6 @@
                                        TextColor="{StaticResource Success}"
                                        HorizontalOptions="Center" />
                                 <Label x:Name="ReductionCaption"
-                                       Text="Reducción lograda"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -133,7 +126,6 @@
                                 StrokeShape="RoundRectangle 8"
                                 Padding="12">
                             <Label x:Name="SummaryLabel"
-                                   Text="Cargando estadísticas..."
                                    Style="{StaticResource BodyText}"
                                    HorizontalOptions="Center"
                                    HorizontalTextAlignment="Center" />
@@ -146,7 +138,6 @@
             <Border Style="{StaticResource Card}" Padding="20">
                 <VerticalStackLayout Spacing="16">
                     <Label x:Name="EconomicStatsLabel"
-                           Text="Estadísticas Económicas"
                            Style="{StaticResource CardTitle}"
                            HorizontalOptions="Center" />
 
@@ -167,7 +158,6 @@
                                        TextColor="{StaticResource Danger}"
                                        HorizontalOptions="Center" />
                                 <Label x:Name="TotalSpentCaption"
-                                       Text="Total gastado"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -189,7 +179,6 @@
                                        TextColor="{StaticResource Success}"
                                        HorizontalOptions="Center" />
                                 <Label x:Name="TotalSavedCaption"
-                                       Text="Total ahorrado"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -211,7 +200,6 @@
                                        TextColor="{StaticResource Accent}"
                                        HorizontalOptions="Center" />
                                 <Label x:Name="AvgSpentCaption"
-                                       Text="Promedio/día"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -233,7 +221,6 @@
                                        TextColor="{StaticResource Primary}"
                                        HorizontalOptions="Center" />
                                 <Label x:Name="SavingsPctCaption"
-                                       Text="% de ahorro"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -244,7 +231,6 @@
 
             <!-- Botón actualizar -->
             <Button x:Name="RefreshButton"
-                    Text="Actualizar datos"
                     Clicked="OnRefreshClicked"
                     Style="{StaticResource PrimaryButton}"
                     FontSize="16"

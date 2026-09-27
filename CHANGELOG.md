@@ -7,6 +7,28 @@ y el versionado las reglas de la [Constitución del proyecto](constitution/const
 `ApplicationDisplayVersion` (legible) y `ApplicationVersion` (entero incremental) se
 actualizan en sincronía antes de cada publicación.
 
+## [2026.09.27.0] — 2026-09-27
+
+`versionCode`: 2026092700
+
+### Corregido
+- **Divisas traducidas (General §7)**: los nombres de las 14 divisas de `Currency` salen de
+  `ILocalizationService` (claves `currency_<código>` en es/en); con el móvil en inglés ya no se
+  ven en castellano. El selector de Configuración rehace la lista al cambiar de idioma y elige la
+  divisa guardada de la misma lista que muestra.
+- **Correo de contacto traducido**: el asunto («Contacto desde QuitSmoke» / «Contact from
+  QuitSmoke») y el cuerpo del correo de Acerca de pasan a las claves `email_subject` y `email_body`;
+  el título del selector de aplicaciones de correo y el error sin actividad, a `email_chooser_title`
+  y `email_no_activity`. Los avisos de error de Acerca de usan las claves `error` y `ok`.
+- **Notificaciones**: el nombre del canal «Estado» (visible en los ajustes de Android) y el botón
+  «🚬 Fumar» de la notificación persistente se resuelven por `ILocalizationService`
+  (`notif_channel_status`, `notif_smoke_action`) en vez de texto fijo.
+- **Configuración**: los estados iniciales «Sin verificar» y «Manual» de batería y autoinicio se
+  traducen (`settings_unverified`, `settings_manual`); antes salían siempre en castellano.
+- **Sin textos en castellano en el XAML**: se quitan los textos provisionales de `MainPage`,
+  `HistoryPage`, `SettingsPage` y `AboutPage` (títulos, etiquetas y botones que el código ya
+  rellena), para que no asomen en castellano antes de aplicar el idioma.
+
 ## [2026.07.27.0] — 2026-07-27
 
 `versionCode`: 202607270

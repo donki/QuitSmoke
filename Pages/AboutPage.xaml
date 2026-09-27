@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="QuitSmoke.Pages.AboutPage"
-             Title="Acerca de">
+             x:Class="QuitSmoke.Pages.AboutPage">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="18">
@@ -22,7 +21,6 @@
                            HorizontalOptions="Center" />
 
                     <Label x:Name="VersionLabel"
-                           Text="Versión 1.10.0"
                            Style="{StaticResource HintText}"
                            FontSize="15"
                            HorizontalOptions="Center" />
@@ -45,7 +43,6 @@
             <Border Style="{StaticResource Card}">
                 <VerticalStackLayout Padding="25,20" Spacing="14">
                     <Label x:Name="ContactTitleLabel"
-                           Text="Contacto"
                            Style="{StaticResource CardTitle}" />
 
                     <Button Text="jsoladelarosa@gmail.com"
@@ -65,19 +62,16 @@
             <Border Style="{StaticResource Card}">
                 <VerticalStackLayout Padding="25,20" Spacing="14">
                     <Label x:Name="LanguageTitleLabel"
-                           Text="Idioma"
                            Style="{StaticResource CardTitle}" />
 
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
                         <Button x:Name="SpanishButton"
                                 Grid.Column="0"
-                                Text="🇪🇸 Español"
                                 Style="{StaticResource OutlineButton}"
                                 Clicked="OnSpanishClicked" />
 
                         <Button x:Name="EnglishButton"
                                 Grid.Column="1"
-                                Text="🇺🇸 English"
                                 Style="{StaticResource OutlineButton}"
                                 Clicked="OnEnglishClicked" />
                     </Grid>
@@ -93,7 +87,6 @@
             <Border Style="{StaticResource Card}">
                 <VerticalStackLayout Padding="25,20" Spacing="12">
                     <Label x:Name="PrivacyTitleLabel"
-                           Text="Privacidad"
                            Style="{StaticResource CardTitle}" />
 
                     <Label x:Name="PrivacyTextLabel"
@@ -107,7 +100,6 @@
             <Border Style="{StaticResource Card}">
                 <VerticalStackLayout Padding="25,20" Spacing="12">
                     <Label x:Name="LicenseTitleLabel"
-                           Text="Licencia"
                            Style="{StaticResource CardTitle}" />
 
                     <Label x:Name="LicenseTextLabel"
@@ -125,7 +117,6 @@
             <Border Style="{StaticResource Card}">
                 <VerticalStackLayout Padding="25,20" Spacing="12">
                     <Label x:Name="LegalTitleLabel"
-                           Text="Aviso Legal"
                            Style="{StaticResource CardTitle}"
                            TextColor="{StaticResource Danger}" />
 
@@ -145,7 +136,6 @@
                             StrokeShape="RoundRectangle 8"
                             Padding="14">
                         <Label x:Name="LegalWarningLabel"
-                               Text="⚠️ Uso bajo su propio riesgo"
                                FontSize="14"
                                FontAttributes="Bold"
                                TextColor="{StaticResource Danger}"
