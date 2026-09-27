@@ -44,6 +44,15 @@ public partial class SettingsPage : ContentPage
         _ = LoadDataAsync();
     }
 
+    // Atrás vuelve a Inicio sin que el campo en edición pierda el foco: se guarda al salir para no
+    // perder lo escrito (General: no perder lo escrito).
+    protected override async void OnDisappearing()
+    {
+        base.OnDisappearing();
+        try { await SaveSettingsAsync(); }
+        catch (Exception ex) { SocShared.CrashGuard.Log(ex, "SettingsPage.OnDisappearing"); }
+    }
+
     protected override async void OnAppearing()
     {
         base.OnAppearing();

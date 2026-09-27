@@ -22,8 +22,8 @@
     <MauiEnableVisualStudioHotReload>true</MauiEnableVisualStudioHotReload>
 
     <!-- Display Version (Constitucion §6: DisplayVersion legible + Version entero incremental, en sincronia) -->
-    <ApplicationDisplayVersion>2026.09.27.0</ApplicationDisplayVersion>
-    <ApplicationVersion>2026092700</ApplicationVersion>
+    <ApplicationDisplayVersion>2026.09.28.0</ApplicationDisplayVersion>
+    <ApplicationVersion>2026092800</ApplicationVersion>
 
     <!-- Company Information -->
     <Company>sOCratic</Company>
@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="..\Shared\AuthorNotes.cs" Link="AuthorNotes.cs" />
     <Compile Include="..\Shared\ModernDialog.cs" Link="ModernDialog.cs" />
+    <Compile Include="..\Shared\CrashGuard.cs" Link="CrashGuard.cs" />
   </ItemGroup>
 
   <Import Project="..\Shared\signing.props" />

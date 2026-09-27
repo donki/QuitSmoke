@@ -12,6 +12,11 @@ public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
     {
+        // Gestor global de excepciones (General 6.12): un error inesperado se registra y se avisa en
+        // el idioma elegido en la app (no toca la cultura), y la app sigue.
+        SocShared.CrashGuard.Install("QuitSmoke", language: () =>
+            IPlatformApplication.Current?.Services.GetService<ILocalizationService>()?.GetCurrentLanguage());
+
         var builder = MauiApp.CreateBuilder();
         // La categoría y el canal de notificaciones se registran antes que el contenedor de
         // servicios: se usa una instancia propia del servicio de idioma (lee el idioma guardado).

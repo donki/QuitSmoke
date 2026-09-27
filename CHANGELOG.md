@@ -7,6 +7,30 @@ y el versionado las reglas de la [Constitución del proyecto](constitution/const
 `ApplicationDisplayVersion` (legible) y `ApplicationVersion` (entero incremental) se
 actualizan en sincronía antes de cada publicación.
 
+## [2026.09.28.0] — 2026-09-28
+
+`versionCode`: 2026092800
+
+### Añadido
+- **Gestor global de excepciones** (General §6.12) con la pieza común `Mobile/Shared/CrashGuard.cs`:
+  un error inesperado ya no cierra la aplicación; se registra con su traza en `crash.log` y se
+  avisa en el idioma elegido en la app (es/en).
+
+### Corregido
+- **Botón de atrás** (Mobile §7): con targetSdk 36 Android 16 activa el «atrás predictivo» y el
+  botón no llegaba a la app; se desactiva (`enableOnBackInvokedCallback="false"`). Ahora atrás
+  cierra primero el menú lateral o el diálogo abierto; en Historial, Configuración o Acerca de
+  vuelve a Inicio; y en Inicio la aplicación pasa a segundo plano en vez de cerrarse.
+- Configuración guarda al salir de la pantalla: volver con atrás mientras se escribe en un campo
+  ya no pierde lo escrito.
+
+### English
+- Global exception handler: an unexpected error no longer closes the app; it is logged and you
+  are told in the app's language.
+- Back button: closes the side menu or an open dialog first, returns Home from History, Settings
+  and About, and on Home sends the app to the background instead of closing it. Settings are saved
+  when you leave the screen.
+
 ## [2026.09.27.0] — 2026-09-27
 
 `versionCode`: 2026092700
