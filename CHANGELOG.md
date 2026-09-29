@@ -7,6 +7,30 @@ y el versionado las reglas de la [Constitución del proyecto](constitution/const
 `ApplicationDisplayVersion` (legible) y `ApplicationVersion` (entero incremental) se
 actualizan en sincronía antes de cada publicación.
 
+## [2026.09.29.0] — 2026-09-29
+
+`versionCode`: 2026092900
+
+### Cambiado
+- **Fuera los emoji** (General §6.2): los consejos, los relojes de último y próximo cigarro, las
+  tarjetas de Historial y los títulos de Acerca de llevan iconos planos de línea (SVG 24×24, trazo
+  índigo) en vez de emoji, que cambiaban de dibujo según el teléfono y se cortaban con la letra
+  grande. Cada consejo muestra el icono de su categoría (salud, dinero, familia, motivación…).
+- Los botones de idioma llevan la **bandera dibujada** (España / Estados Unidos) junto al nombre,
+  uno por fila para que con la letra grande no se corte el nombre; el botón del correo de contacto
+  tampoco se corta.
+- Las notificaciones quedan solo con texto: «Puedes fumar ahora», «Próximo cigarro» y el botón
+  «Fumar» (Android no dibuja imágenes dentro del texto de una acción).
+- El botón Actualizar de Historial lleva su icono.
+
+### English
+- No more emoji: tips, the last/next cigarette clocks, the History cards and the About headings use
+  flat line icons; each tip shows the icon of its category.
+- Language buttons show a drawn flag next to the language name, one per row so the name is not
+  cut off with large text; the contact e-mail button is no longer cut off either.
+- Notifications are text only: "You can smoke now", "Next cigarette" and the "Smoke" button.
+- The History refresh button has its icon.
+
 ## [2026.09.28.0] — 2026-09-28
 
 `versionCode`: 2026092800

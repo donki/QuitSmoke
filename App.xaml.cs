@@ -11,7 +11,7 @@ public partial class App : Application
     {
         InitializeComponent();
 
-        // Botón "🚬 Fumar" de la notificación persistente: registra un cigarro sin abrir la app.
+        // Botón "Fumar" de la notificación persistente: registra un cigarro sin abrir la app.
         LocalNotificationCenter.Current.NotificationActionTapped += OnNotificationActionTapped;
     }
 

@@ -50,7 +50,7 @@ public partial class MainPage : ContentPage
             UpdateUI();
             ShowRandomTip();
 
-            // Mantener la notificación persistente (con el botón "🚬 Fumar") al día.
+            // Mantener la notificación persistente (con el botón "Fumar") al día.
             await _notificationService.UpdatePersistentStatusAsync(_smokingData);
         }
         catch (Exception ex)
@@ -118,7 +118,7 @@ public partial class MainPage : ContentPage
         if (tips.Count == 0)
             return;
         var tip = tips[new Random().Next(tips.Count)];
-        TipIcon.Text = tip.Icon;
+        TipIcon.Source = tip.Icon;
         TipTitle.Text = tip.Title;
         TipText.Text = tip.Message;
     }

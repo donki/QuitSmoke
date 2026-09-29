@@ -17,7 +17,7 @@ public class NotificationService : INotificationService
     // (en MIUI/One UI un canal DEFAULT ongoing oculta la fila de acciones).
     private const string StatusChannelId = "quit_smoke_status_v2";
 
-    // Id de la acción "🚬 Fumar" del botón de la notificación persistente. La categoría con esta
+    // Id de la acción "Fumar" del botón de la notificación persistente. La categoría con esta
     // acción se registra en MauiProgram y el tap se maneja en App.xaml.cs.
     public const int SmokeActionId = 100;
 
@@ -117,7 +117,7 @@ public class NotificationService : INotificationService
                 NotificationId = PersistentStatusNotificationId,
                 Title = title,
                 Description = desc,
-                // Categoría que aporta el botón de acción "🚬 Fumar" (registrada en MauiProgram).
+                // Categoría que aporta el botón de acción "Fumar" (registrada en MauiProgram).
                 CategoryType = NotificationCategoryType.Status,
                 Android = new()
                 {

@@ -26,7 +26,7 @@ public static class MauiProgram
             .UseMauiApp<App>()
             .UseLocalNotification(config =>
             {
-                // Categoría "Status" con el botón "🚬 Fumar": permite registrar un cigarro
+                // Categoría "Status" con el botón "Fumar": permite registrar un cigarro
                 // directamente desde la notificación persistente, sin abrir la app.
                 config.AddCategory(new NotificationCategory(NotificationCategoryType.Status)
                 {

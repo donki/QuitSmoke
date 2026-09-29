@@ -22,8 +22,8 @@
     <MauiEnableVisualStudioHotReload>true</MauiEnableVisualStudioHotReload>
 
     <!-- Display Version (Constitucion §6: DisplayVersion legible + Version entero incremental, en sincronia) -->
-    <ApplicationDisplayVersion>2026.09.28.0</ApplicationDisplayVersion>
-    <ApplicationVersion>2026092800</ApplicationVersion>
+    <ApplicationDisplayVersion>2026.09.29.0</ApplicationDisplayVersion>
+    <ApplicationVersion>2026092900</ApplicationVersion>
 
     <!-- Company Information -->
     <Company>sOCratic</Company>

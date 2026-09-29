@@ -42,11 +42,17 @@
             <!-- 2. Contacto -->
             <Border Style="{StaticResource Card}">
                 <VerticalStackLayout Padding="25,20" Spacing="14">
-                    <Label x:Name="ContactTitleLabel"
-                           Style="{StaticResource CardTitle}" />
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                        <Image Source="ic_mail.png" WidthRequest="22" HeightRequest="22" VerticalOptions="Center" />
+                        <Label Grid.Column="1" VerticalOptions="Center"
+                               x:Name="ContactTitleLabel"
+                               Style="{StaticResource CardTitle}" />
+                    </Grid>
 
                     <Button Text="jsoladelarosa@gmail.com"
                             Style="{StaticResource OutlineButton}"
+                            FontSize="13"
+                            Padding="8,0"
                             Clicked="OnContactEmailClicked"
                             HorizontalOptions="Fill" />
 
@@ -61,17 +67,26 @@
             <!-- 4. Idioma -->
             <Border Style="{StaticResource Card}">
                 <VerticalStackLayout Padding="25,20" Spacing="14">
-                    <Label x:Name="LanguageTitleLabel"
-                           Style="{StaticResource CardTitle}" />
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                        <Image Source="ic_language.png" WidthRequest="22" HeightRequest="22" VerticalOptions="Center" />
+                        <Label Grid.Column="1" VerticalOptions="Center"
+                               x:Name="LanguageTitleLabel"
+                               Style="{StaticResource CardTitle}" />
+                    </Grid>
 
-                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                    <!-- Una fila por idioma: con la letra grande, bandera y nombre no caben en media tarjeta -->
+                    <Grid RowDefinitions="Auto,Auto" RowSpacing="10">
                         <Button x:Name="SpanishButton"
-                                Grid.Column="0"
+                                ImageSource="ic_flag_es.png"
+                                ContentLayout="Left,8"
+                                Grid.Row="0"
                                 Style="{StaticResource OutlineButton}"
                                 Clicked="OnSpanishClicked" />
 
                         <Button x:Name="EnglishButton"
-                                Grid.Column="1"
+                                ImageSource="ic_flag_us.png"
+                                ContentLayout="Left,8"
+                                Grid.Row="1"
                                 Style="{StaticResource OutlineButton}"
                                 Clicked="OnEnglishClicked" />
                     </Grid>
@@ -86,8 +101,12 @@
             <!-- 5. Privacidad -->
             <Border Style="{StaticResource Card}">
                 <VerticalStackLayout Padding="25,20" Spacing="12">
-                    <Label x:Name="PrivacyTitleLabel"
-                           Style="{StaticResource CardTitle}" />
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                        <Image Source="ic_lock.png" WidthRequest="22" HeightRequest="22" VerticalOptions="Center" />
+                        <Label Grid.Column="1" VerticalOptions="Center"
+                               x:Name="PrivacyTitleLabel"
+                               Style="{StaticResource CardTitle}" />
+                    </Grid>
 
                     <Label x:Name="PrivacyTextLabel"
                            Text=""
@@ -99,8 +118,12 @@
             <!-- 6. Licencia -->
             <Border Style="{StaticResource Card}">
                 <VerticalStackLayout Padding="25,20" Spacing="12">
-                    <Label x:Name="LicenseTitleLabel"
-                           Style="{StaticResource CardTitle}" />
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                        <Image Source="ic_license.png" WidthRequest="22" HeightRequest="22" VerticalOptions="Center" />
+                        <Label Grid.Column="1" VerticalOptions="Center"
+                               x:Name="LicenseTitleLabel"
+                               Style="{StaticResource CardTitle}" />
+                    </Grid>
 
                     <Label x:Name="LicenseTextLabel"
                            Text=""
@@ -116,9 +139,13 @@
             <!-- 7. Aviso Legal -->
             <Border Style="{StaticResource Card}">
                 <VerticalStackLayout Padding="25,20" Spacing="12">
-                    <Label x:Name="LegalTitleLabel"
-                           Style="{StaticResource CardTitle}"
-                           TextColor="{StaticResource Danger}" />
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                        <Image Source="ic_legal_danger.png" WidthRequest="22" HeightRequest="22" VerticalOptions="Center" />
+                        <Label Grid.Column="1" VerticalOptions="Center"
+                               x:Name="LegalTitleLabel"
+                               Style="{StaticResource CardTitle}"
+                               TextColor="{StaticResource Danger}" />
+                    </Grid>
 
                     <Label x:Name="LegalText1Label"
                            Text=""
@@ -135,12 +162,16 @@
                             StrokeThickness="1"
                             StrokeShape="RoundRectangle 8"
                             Padding="14">
-                        <Label x:Name="LegalWarningLabel"
-                               FontSize="14"
-                               FontAttributes="Bold"
-                               TextColor="{StaticResource Danger}"
-                               HorizontalOptions="Center"
-                               HorizontalTextAlignment="Center" />
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8" HorizontalOptions="Center">
+                            <Image Source="ic_warning_danger.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" />
+                            <Label x:Name="LegalWarningLabel"
+                                   Grid.Column="1"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Danger}"
+                                   VerticalOptions="Center"
+                                   HorizontalTextAlignment="Center" />
+                        </Grid>
                     </Border>
                 </VerticalStackLayout>
             </Border>

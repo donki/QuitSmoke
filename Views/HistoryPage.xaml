@@ -42,7 +42,7 @@
                                 StrokeShape="RoundRectangle 10"
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
-                                <Label Text="🚬" FontSize="24" HorizontalOptions="Center" />
+                                <Image Source="ic_cigarette.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" />
                                 <Label x:Name="TotalCigarettesLabel"
                                        Text="0"
                                        FontSize="20"
@@ -63,7 +63,7 @@
                                 StrokeShape="RoundRectangle 10"
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
-                                <Label Text="📅" FontSize="24" HorizontalOptions="Center" />
+                                <Image Source="ic_calendar.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" />
                                 <Label x:Name="TotalDaysLabel"
                                        Text="0"
                                        FontSize="20"
@@ -84,7 +84,7 @@
                                 StrokeShape="RoundRectangle 10"
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
-                                <Label Text="📊" FontSize="24" HorizontalOptions="Center" />
+                                <Image Source="ic_chart_bar.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" />
                                 <Label x:Name="AveragePerDayLabel"
                                        Text="0.0"
                                        FontSize="20"
@@ -105,7 +105,7 @@
                                 StrokeShape="RoundRectangle 10"
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
-                                <Label Text="📉" FontSize="24" HorizontalOptions="Center" />
+                                <Image Source="ic_trending_down.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" />
                                 <Label x:Name="ReductionLabel"
                                        Text="0%"
                                        FontSize="20"
@@ -150,7 +150,7 @@
                                 StrokeShape="RoundRectangle 10"
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
-                                <Label Text="💸" FontSize="24" HorizontalOptions="Center" />
+                                <Image Source="ic_money.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" />
                                 <Label x:Name="TotalSpentLabel"
                                        Text="€0.00"
                                        FontSize="16"
@@ -171,7 +171,7 @@
                                 StrokeShape="RoundRectangle 10"
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
-                                <Label Text="💚" FontSize="24" HorizontalOptions="Center" />
+                                <Image Source="ic_piggy.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" />
                                 <Label x:Name="TotalSavedLabel"
                                        Text="€0.00"
                                        FontSize="16"
@@ -192,7 +192,7 @@
                                 StrokeShape="RoundRectangle 10"
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
-                                <Label Text="📊" FontSize="24" HorizontalOptions="Center" />
+                                <Image Source="ic_chart_bar.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" />
                                 <Label x:Name="AverageSpentLabel"
                                        Text="€0.00"
                                        FontSize="16"
@@ -213,7 +213,7 @@
                                 StrokeShape="RoundRectangle 10"
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
-                                <Label Text="📈" FontSize="24" HorizontalOptions="Center" />
+                                <Image Source="ic_percent.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" />
                                 <Label x:Name="SavingsPercentageLabel"
                                        Text="0.0%"
                                        FontSize="16"
@@ -231,6 +231,8 @@
 
             <!-- Botón actualizar -->
             <Button x:Name="RefreshButton"
+                    ImageSource="ic_refresh_w.png"
+                    ContentLayout="Left,8"
                     Clicked="OnRefreshClicked"
                     Style="{StaticResource PrimaryButton}"
                     FontSize="16"
