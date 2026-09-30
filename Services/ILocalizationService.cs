@@ -340,6 +340,13 @@ public class LocalizationService : ILocalizationService
                 ["currency_BRL"] = "Brazilian Real"
             }
         };
+
+        // El idioma elegido en la app manda desde el principio. Antes solo se leia al pedir un
+        // texto, asi que GetCurrentLanguage() daba el del sistema hasta entonces y, p. ej., el
+        // consejo de un aviso lanzado con la app cerrada salia en el otro idioma.
+        var saved = Preferences.Get("app_language", _currentLanguage);
+        if (_translations.ContainsKey(saved))
+            _currentLanguage = saved;
     }
 
     public string GetCurrentLanguage() => _currentLanguage;

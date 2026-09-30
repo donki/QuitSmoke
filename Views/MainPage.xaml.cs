@@ -79,7 +79,7 @@ public partial class MainPage : ContentPage
         {
             LastCigaretteLabel.Text = $"{L("main_last")}: {lastSmoke:HH:mm}";
             var timeSince = DateTime.Now - lastSmoke;
-            TimeSinceLastLabel.Text = $"{L("main_time_since")}: {FormatTimeSpan(timeSince)}";
+            TimeSinceLastLabel.Text = $"{L("main_time_since")}: {TimeFormat.Elapsed(timeSince)}";
         }
         else
         {
@@ -121,18 +121,6 @@ public partial class MainPage : ContentPage
         TipIcon.Source = tip.Icon;
         TipTitle.Text = tip.Title;
         TipText.Text = tip.Message;
-    }
-
-    private string FormatTimeSpan(TimeSpan timeSpan)
-    {
-        if (timeSpan.TotalMinutes < 1)
-            return "< 1 min";
-        if (timeSpan.TotalHours < 1)
-            return $"{(int)timeSpan.TotalMinutes} min";
-        if (timeSpan.TotalDays < 1)
-            return $"{(int)timeSpan.TotalHours}h {timeSpan.Minutes}min";
-
-        return $"{(int)timeSpan.TotalDays}d {timeSpan.Hours}h";
     }
 
     private async void OnSmokeClicked(object sender, EventArgs e)

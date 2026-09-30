@@ -1,4 +1,4 @@
-# Changelog
+﻿# Changelog
 
 Todos los cambios relevantes de QuitSmoke se documentan en este fichero.
 
@@ -6,6 +6,25 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/)
 y el versionado las reglas de la [Constitución del proyecto](constitution/constitucion.md) (§6):
 `ApplicationDisplayVersion` (legible) y `ApplicationVersion` (entero incremental) se
 actualizan en sincronía antes de cada publicación.
+
+## [2026.09.30.0] — 2026-09-30
+
+`versionCode`: 2026093000
+
+### Corregido
+- **El idioma elegido en la app no mandaba hasta pedir el primer texto.** Si un aviso arrancaba la
+  app estando cerrada, el consejo salía en el idioma del teléfono aunque en Configuración se hubiera
+  elegido el otro. Ahora el idioma guardado se aplica al crear el servicio de textos. Lo encontró la
+  prueba nueva `ElIdiomaGuardadoMandaDesdeElPrincipio`.
+- `appcast.json` anunciaba la versión «1.10.0», que nunca parecía más nueva que la instalada: el
+  aviso de versión nueva no salía nunca. Ahora anuncia esta versión.
+
+### Añadido
+- **Pruebas automáticas** (`QuitSmoke.Tests`, xUnit): plan de reducción (horas despierto,
+  intervalo, próximo cigarro), precios y ahorro, cambio de día e historial en disco, estadísticas
+  del Histórico, divisas, consejos es/en (y que exista su icono), consejos ya vistos y textos es/en.
+- Las cuentas del Histórico salen de `Services/HistoryStatistics.cs` y el «hace cuánto» de
+  `Helpers/TimeFormat.cs` (antes dentro de las páginas); el resultado en pantalla es el mismo.
 
 ## [2026.09.29.0] — 2026-09-29
 

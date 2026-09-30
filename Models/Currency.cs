@@ -40,4 +40,8 @@ public class Currency
 
         return list;
     }
+
+    /// <summary>Símbolo de una divisa (EUR → €); si no se conoce, el propio código.</summary>
+    public static string SymbolFor(string currencyCode) =>
+        GetAvailableCurrencies().FirstOrDefault(c => c.Code == currencyCode)?.Symbol ?? currencyCode;
 }

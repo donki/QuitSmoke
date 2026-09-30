@@ -1,4 +1,4 @@
-# 🚭 QuitSmoke
+﻿# 🚭 QuitSmoke
 
 Una aplicación móvil desarrollada en .NET MAUI para ayudar a las personas a reducir y controlar su consumo de cigarrillos de manera gradual y efectiva.
 
@@ -82,6 +82,29 @@ dotnet build -t:Run -f net9.0-android
 ### Instalar en Dispositivo Android
 ```bash
 dotnet build -t:Install -f net9.0-android
+```
+
+## Pruebas
+
+36 pruebas (xUnit, `QuitSmoke.Tests`), todas pasan; el banco tarda alrededor de 1 s (sin contar la
+compilación). Medido el 2026-09-30:
+
+- **Cobertura de lo instrumentado: 99 %** de las líneas de los ficheros de la app que se enlazan a
+  las pruebas: plan de reducción (horas despierto, intervalo, próximo cigarro), precios y ahorro,
+  cambio de día e historial en disco, estadísticas del Histórico, divisas, consejos es/en, consejos
+  ya vistos y textos es/en (incluido que toda clave que pide la app exista).
+- **Cobertura sobre toda la app: 46 %** (1040 de ~2280 líneas de C#). Lo que queda son las páginas
+  MAUI, el gráfico del Histórico y lo propio de Android (avisos, batería, pantalla).
+
+Sin móvil: `FileSystem`/`Preferences` se sustituyen en `QuitSmoke.Tests/Shims.cs`. Las pruebas
+encontraron un fallo (el idioma elegido no mandaba hasta pedir el primer texto), corregido en la
+2026.09.30.0.
+
+```powershell
+dotnet test QuitSmoke.Tests
+# con cobertura (ReportGenerator es herramienta local: dotnet tool restore)
+dotnet test QuitSmoke.Tests --collect:"XPlat Code Coverage" --results-directory cov
+dotnet reportgenerator -reports:cov/*/coverage.cobertura.xml -targetdir:cov/rep -reporttypes:TextSummary
 ```
 
 ## 📖 Uso de la Aplicación
