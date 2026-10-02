@@ -63,10 +63,10 @@ public static class MauiProgram
         builder.Services.AddSingleton<ISmokingDataService, SmokingDataService>();
         builder.Services.AddSingleton<IAppNotificationService, NotificationService>();
         builder.Services.AddSingleton<ILocalizationService, LocalizationService>();
-        builder.Services.AddSingleton<UpdateService>();
+        builder.Services.AddSingleton<ILinkOpener, BrowserLinkOpener>();
+        builder.Services.AddSingleton<UpdateService>(sp => new UpdateService(sp.GetRequiredService<ILocalizationService>(), sp.GetRequiredService<ILinkOpener>()));
 #if ANDROID
         builder.Services.AddSingleton<IPowerSettingsService, QuitSmoke.Platforms.Android.Services.PowerSettingsService>();
-        builder.Services.AddSingleton<IScreenService, QuitSmoke.Platforms.Android.Services.ScreenService>();
         builder.Services.AddSingleton<IEmailService, QuitSmoke.Platforms.Android.Services.EmailService>();
 #endif
 

@@ -1,4 +1,4 @@
-﻿# Changelog
+# Changelog
 
 Todos los cambios relevantes de QuitSmoke se documentan en este fichero.
 
@@ -6,6 +6,27 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/)
 y el versionado las reglas de la [Constitución del proyecto](constitution/constitucion.md) (§6):
 `ApplicationDisplayVersion` (legible) y `ApplicationVersion` (entero incremental) se
 actualizan en sincronía antes de cada publicación.
+
+## [2026.10.02.0] — 2026-10-02
+
+`versionCode`: 2026100200 (sustituye a la 2026.09.30.0, que no llegó a subirse a Play)
+
+### Cambiado
+- **La lógica sale de las pantallas** (constitución General 8.6, mínimo 90 % de toda la app):
+  Inicio, Histórico, Configuración y Acerca de pasan a *view models* (`ViewModels/`) que se prueban
+  sin móvil; las páginas enlazan sus etiquetas y solo leen y rellenan los campos. La comprobación
+  de versión y el botón «Fumar» de la notificación también se prueban.
+- Banco: 73 pruebas; cobertura de toda la app del 58 % al 79 % (con el método nuevo, que cuenta las
+  líneas ejecutables de verdad; con el anterior, la 2026.09.30.0 salía con un 46 %).
+
+### Quitado
+- Código muerto: el gráfico del Histórico (no se usaba), un conversor sin usar y el servicio de
+  pantalla encendida, registrado pero nunca llamado.
+
+### EN
+- Screen logic moved out of the pages into tested view models (Home, History, Settings, About),
+  plus the update check and the notification's "Smoke" button. 73 tests; whole-app coverage
+  58 % → 79 %. Removed unused code (history chart, a converter, the keep-screen-on service).
 
 ## [2026.09.30.0] — 2026-09-30
 

@@ -31,16 +31,22 @@
     <!-- La misma que usa la app para los avisos (MIT); su parte portable basta para compilar. -->
     <PackageReference Include="Plugin.LocalNotification" Version="11.1.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Maui.Essentials" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Maui.Graphics" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Using Include="Xunit" />
+    <Using Include="Microsoft.Maui.ApplicationModel" />
+    <Using Include="Microsoft.Maui.ApplicationModel.Communication" />
+    <Using Include="Microsoft.Maui.Graphics" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Include="..\Models\*.cs" LinkBase="App\Models" />
     <Compile Include="..\Helpers\TimeFormat.cs" LinkBase="App\Helpers" />
-    <Compile Include="..\Services\ILocalizationService.cs;..\Services\ISmokingDataService.cs;..\Services\SmokingDataService.cs;..\Services\INotificationService.cs;..\Services\NotificationService.cs;..\Services\HistoryStatistics.cs" LinkBase="App\Services" />
+    <Compile Include="..\Services\*.cs" LinkBase="App\Services" />
+    <Compile Include="..\ViewModels\*.cs" LinkBase="App\ViewModels" />
   </ItemGroup>
 
 </Project>

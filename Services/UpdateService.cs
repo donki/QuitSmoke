@@ -1,23 +1,38 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using QuitSmoke.Helpers;
 
 namespace QuitSmoke.Services;
 
 /// <summary>
 /// Comprobacion de version al arrancar (constitucion, seccion 15): consulta un manifiesto en el
-/// propio repositorio del proyecto (fuente de confianza) y, si hay una version mas reciente que la
-/// instalada, avisa al usuario y le propone actualizar. Es silenciosa y no bloqueante: si no hay red
-/// o ya se esta al dia, no molesta.
+/// propio repositorio y, si hay una version mas reciente que la instalada, avisa y propone
+/// actualizar. Silenciosa y no bloqueante: sin red o ya al dia, no molesta.
 /// </summary>
 public class UpdateService
 {
-    private const string AppcastUrl = "https://raw.githubusercontent.com/donki/QuitSmoke/main/appcast.json";
+    public const string AppcastUrl = "https://raw.githubusercontent.com/donki/QuitSmoke/main/appcast.json";
 
     private static readonly HttpClient Http = new() { Timeout = TimeSpan.FromSeconds(8) };
+    private readonly ILocalizationService _loc;
+    private readonly ILinkOpener _links;
+    private readonly Func<Task<string>> _fetch;
+    private readonly Func<string> _currentVersion;
     private bool _checkedThisSession;
 
-    public async Task CheckAndPromptAsync(Page page)
+    public UpdateService(ILocalizationService loc, ILinkOpener links)
+        : this(loc, links, () => Http.GetStringAsync(AppcastUrl), () => AppInfo.Current.VersionString)
+    {
+    }
+
+    public UpdateService(ILocalizationService loc, ILinkOpener links, Func<Task<string>> fetch, Func<string> currentVersion)
+    {
+        _loc = loc;
+        _links = links;
+        _fetch = fetch;
+        _currentVersion = currentVersion;
+    }
+
+    public async Task CheckAndPromptAsync(IUserDialogs dialogs)
     {
         if (_checkedThisSession)
             return;
@@ -25,27 +40,22 @@ public class UpdateService
 
         try
         {
-            var json = await Http.GetStringAsync(AppcastUrl);
-            var manifest = JsonSerializer.Deserialize<Appcast>(json);
+            var manifest = JsonSerializer.Deserialize<Appcast>(await _fetch());
             if (manifest?.Version is null)
                 return;
 
-            var current = AppInfo.Current.VersionString;
+            var current = _currentVersion();
             if (CompareVersions(manifest.Version, current) <= 0)
                 return; // ya se esta en la ultima version (o mas nueva)
 
-            var loc = ServiceHelper.GetService<ILocalizationService>();
-            var title = loc.GetString("update_available");
-            var body = string.Format(loc.GetString("update_message"), manifest.Version, current);
-
-            var wantsUpdate = await SocShared.ModernDialog.AlertAsync(page,
-                title,
-                body,
-                loc.GetString("update_now"),
-                loc.GetString("update_later"));
+            var wantsUpdate = await dialogs.ConfirmAsync(
+                _loc.GetString("update_available"),
+                string.Format(_loc.GetString("update_message"), manifest.Version, current),
+                _loc.GetString("update_now"),
+                _loc.GetString("update_later"));
 
             if (wantsUpdate && !string.IsNullOrWhiteSpace(manifest.Url))
-                await Browser.Default.OpenAsync(new Uri(manifest.Url), BrowserLaunchMode.SystemPreferred);
+                await _links.OpenAsync(manifest.Url);
         }
         catch
         {
@@ -54,7 +64,7 @@ public class UpdateService
     }
 
     /// <summary>Compara versiones numericas por partes ("1.10.0"). &gt;0 si a es mas nueva que b.</summary>
-    private static int CompareVersions(string a, string b)
+    public static int CompareVersions(string a, string b)
     {
         var pa = Parts(a);
         var pb = Parts(b);

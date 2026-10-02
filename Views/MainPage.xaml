@@ -19,18 +19,17 @@
             <!-- Consejo aleatorio -->
             <Border Style="{StaticResource Card}" Padding="20">
                 <VerticalStackLayout Spacing="12">
-                    <Image x:Name="TipIcon"
-                           Source="ic_tip_bulb.png"
+                    <Image x:Name="TipIcon" Source="{Binding TipIcon}"
                            WidthRequest="48"
                            HeightRequest="48"
                            HorizontalOptions="Center" />
 
-                    <Label x:Name="TipTitle"
+                    <Label x:Name="TipTitle" Text="{Binding TipTitle}"
                            Style="{StaticResource CardTitle}"
                            HorizontalOptions="Center"
                            HorizontalTextAlignment="Center" />
 
-                    <Label x:Name="TipText"
+                    <Label x:Name="TipText" Text="{Binding TipText}"
                            Style="{StaticResource BodyText}"
                            HorizontalOptions="Center"
                            HorizontalTextAlignment="Center"
@@ -41,7 +40,7 @@
                             StrokeShape="RoundRectangle 15"
                             Padding="8,4"
                             HorizontalOptions="Center">
-                        <Label x:Name="TipSmartLabel"
+                        <Label x:Name="TipSmartLabel" Text="{Binding TipSmart}"
                                FontSize="12"
                                FontAttributes="Bold"
                                TextColor="{StaticResource White}" />
@@ -52,16 +51,15 @@
             <!-- Progress Display -->
             <Border Style="{StaticResource Card}" Padding="20">
                 <VerticalStackLayout Spacing="10">
-                    <Label x:Name="ProgressLabel"
+                    <Label x:Name="ProgressLabel" Text="{Binding ProgressText}"
                            Style="{StaticResource CardTitle}"
                            HorizontalOptions="Center" />
 
-                    <ProgressBar x:Name="DayProgressBar"
-                                 Progress="0.5"
+                    <ProgressBar x:Name="DayProgressBar" Progress="{Binding Progress}"
                                  ProgressColor="{StaticResource Primary}"
                                  HeightRequest="10" />
 
-                    <Label x:Name="RemainingLabel"
+                    <Label x:Name="RemainingLabel" Text="{Binding RemainingText}"
                            Style="{StaticResource BodyText}"
                            HorizontalOptions="Center" />
                 </VerticalStackLayout>
@@ -76,7 +74,7 @@
                                WidthRequest="22"
                                HeightRequest="22"
                                HorizontalOptions="Center" />
-                        <Label x:Name="LastCigaretteLabel"
+                        <Label x:Name="LastCigaretteLabel" Text="{Binding LastText}"
                                FontSize="12"
                                HorizontalOptions="Center"
                                HorizontalTextAlignment="Center"
@@ -92,7 +90,7 @@
                                WidthRequest="22"
                                HeightRequest="22"
                                HorizontalOptions="Center" />
-                        <Label x:Name="NextCigaretteLabel"
+                        <Label x:Name="NextCigaretteLabel" Text="{Binding NextText}"
                                FontSize="12"
                                HorizontalOptions="Center"
                                HorizontalTextAlignment="Center"
@@ -108,7 +106,7 @@
                         Stroke="Transparent"
                         StrokeShape="RoundRectangle 10"
                         Padding="12">
-                    <Label x:Name="TimeSinceLastLabel"
+                    <Label x:Name="TimeSinceLastLabel" Text="{Binding SinceText}"
                            FontSize="16"
                            FontAttributes="Bold"
                            HorizontalOptions="Center"
@@ -117,17 +115,24 @@
             </Border>
 
             <!-- Smoke Button principal -->
-            <Button x:Name="SmokeBtn"
+            <Button x:Name="SmokeBtn" Text="{Binding SmokeButtonText}"
                     Style="{StaticResource PrimaryButton}"
                     ImageSource="ic_cigarette_white.png"
                     ContentLayout="Left,8"
                     FontSize="18"
                     HeightRequest="60"
                     CornerRadius="30"
-                    Clicked="OnSmokeClicked" />
+                    Clicked="OnSmokeClicked">
+                <!-- Pasado el maximo de hoy, el boton cambia al color de aviso. -->
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding LimitReached}" Value="True">
+                        <Setter Property="BackgroundColor" Value="{StaticResource Accent}" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
 
             <!-- Quick Actions -->
-            <Button x:Name="RefreshBtn"
+            <Button x:Name="RefreshBtn" Text="{Binding RefreshText}"
                     Style="{StaticResource OutlineButton}"
                     ImageSource="ic_refresh.png"
                     ContentLayout="Left,8"
@@ -136,15 +141,15 @@
             <!-- Daily Stats -->
             <Border Style="{StaticResource Card}" Padding="15">
                 <VerticalStackLayout Spacing="5">
-                    <Label x:Name="DailyStatsLabel"
+                    <Label x:Name="DailyStatsLabel" Text="{Binding DailyStats}"
                            Style="{StaticResource CardTitle}"
                            HorizontalOptions="Center" />
 
-                    <Label x:Name="TimeBetweenLabel"
+                    <Label x:Name="TimeBetweenLabel" Text="{Binding TimeBetweenText}"
                            Style="{StaticResource BodyText}"
                            HorizontalOptions="Center" />
 
-                    <Label x:Name="AwakeHoursLabel"
+                    <Label x:Name="AwakeHoursLabel" Text="{Binding AwakeText}"
                            Style="{StaticResource BodyText}"
                            HorizontalOptions="Center" />
                 </VerticalStackLayout>

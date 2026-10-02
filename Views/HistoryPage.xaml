@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage x:Class="QuitSmoke.Views.HistoryPage"
+             Title="{Binding Title}"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <Grid>
         <!-- Spinner de carga -->
-        <VerticalStackLayout x:Name="LoadingView"
-                             IsVisible="True"
+        <VerticalStackLayout x:Name="LoadingView" IsVisible="{Binding IsLoading}"
                              HorizontalOptions="Center"
                              VerticalOptions="Center"
                              Spacing="16">
-            <ActivityIndicator x:Name="LoadingIndicator"
-                               IsRunning="True"
+            <ActivityIndicator x:Name="LoadingIndicator" IsRunning="{Binding IsLoading}"
                                HeightRequest="50"
                                WidthRequest="50" />
-            <Label x:Name="LoadingLabel"
+            <Label x:Name="LoadingLabel" Text="{Binding LoadingText}"
                    Style="{StaticResource HintText}"
                    FontSize="16"
                    HorizontalOptions="Center" />
         </VerticalStackLayout>
 
         <!-- Contenido principal -->
-        <ScrollView x:Name="ContentView" IsVisible="False">
+        <ScrollView x:Name="ContentView" IsVisible="{Binding IsLoaded}">
             <VerticalStackLayout Padding="16" Spacing="16">
 
             <!-- Estadísticas principales -->
             <Border Style="{StaticResource Card}" Padding="20">
                 <VerticalStackLayout Spacing="16">
-                    <Label x:Name="GeneralStatsLabel"
+                    <Label x:Name="GeneralStatsLabel" Text="{Binding GeneralStats}"
                            Style="{StaticResource CardTitle}"
                            HorizontalOptions="Center" />
 
@@ -43,13 +42,12 @@
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
                                 <Image Source="ic_cigarette.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" />
-                                <Label x:Name="TotalCigarettesLabel"
-                                       Text="0"
+                                <Label x:Name="TotalCigarettesLabel" Text="{Binding TotalCigarettes}"
                                        FontSize="20"
                                        FontAttributes="Bold"
                                        TextColor="{StaticResource Primary}"
                                        HorizontalOptions="Center" />
-                                <Label x:Name="TotalCigarettesCaption"
+                                <Label x:Name="TotalCigarettesCaption" Text="{Binding TotalCigarettesCaption}"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -64,13 +62,12 @@
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
                                 <Image Source="ic_calendar.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" />
-                                <Label x:Name="TotalDaysLabel"
-                                       Text="0"
+                                <Label x:Name="TotalDaysLabel" Text="{Binding TotalDays}"
                                        FontSize="20"
                                        FontAttributes="Bold"
                                        TextColor="{StaticResource Success}"
                                        HorizontalOptions="Center" />
-                                <Label x:Name="DaysRecordedCaption"
+                                <Label x:Name="DaysRecordedCaption" Text="{Binding DaysRecordedCaption}"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -85,13 +82,12 @@
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
                                 <Image Source="ic_chart_bar.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" />
-                                <Label x:Name="AveragePerDayLabel"
-                                       Text="0.0"
+                                <Label x:Name="AveragePerDayLabel" Text="{Binding AveragePerDay}"
                                        FontSize="20"
                                        FontAttributes="Bold"
                                        TextColor="{StaticResource Accent}"
                                        HorizontalOptions="Center" />
-                                <Label x:Name="AvgPerDayCaption"
+                                <Label x:Name="AvgPerDayCaption" Text="{Binding AvgPerDayCaption}"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -106,13 +102,12 @@
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
                                 <Image Source="ic_trending_down.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" />
-                                <Label x:Name="ReductionLabel"
-                                       Text="0%"
+                                <Label x:Name="ReductionLabel" Text="{Binding Reduction}"
                                        FontSize="20"
                                        FontAttributes="Bold"
                                        TextColor="{StaticResource Success}"
                                        HorizontalOptions="Center" />
-                                <Label x:Name="ReductionCaption"
+                                <Label x:Name="ReductionCaption" Text="{Binding ReductionCaption}"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -125,7 +120,7 @@
                                 StrokeThickness="1"
                                 StrokeShape="RoundRectangle 8"
                                 Padding="12">
-                            <Label x:Name="SummaryLabel"
+                            <Label x:Name="SummaryLabel" Text="{Binding Summary}"
                                    Style="{StaticResource BodyText}"
                                    HorizontalOptions="Center"
                                    HorizontalTextAlignment="Center" />
@@ -137,7 +132,7 @@
             <!-- Estadísticas económicas -->
             <Border Style="{StaticResource Card}" Padding="20">
                 <VerticalStackLayout Spacing="16">
-                    <Label x:Name="EconomicStatsLabel"
+                    <Label x:Name="EconomicStatsLabel" Text="{Binding EconomicStats}"
                            Style="{StaticResource CardTitle}"
                            HorizontalOptions="Center" />
 
@@ -151,13 +146,12 @@
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
                                 <Image Source="ic_money.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" />
-                                <Label x:Name="TotalSpentLabel"
-                                       Text="€0.00"
+                                <Label x:Name="TotalSpentLabel" Text="{Binding TotalSpent}"
                                        FontSize="16"
                                        FontAttributes="Bold"
                                        TextColor="{StaticResource Danger}"
                                        HorizontalOptions="Center" />
-                                <Label x:Name="TotalSpentCaption"
+                                <Label x:Name="TotalSpentCaption" Text="{Binding TotalSpentCaption}"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -172,13 +166,12 @@
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
                                 <Image Source="ic_piggy.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" />
-                                <Label x:Name="TotalSavedLabel"
-                                       Text="€0.00"
+                                <Label x:Name="TotalSavedLabel" Text="{Binding TotalSaved}"
                                        FontSize="16"
                                        FontAttributes="Bold"
                                        TextColor="{StaticResource Success}"
                                        HorizontalOptions="Center" />
-                                <Label x:Name="TotalSavedCaption"
+                                <Label x:Name="TotalSavedCaption" Text="{Binding TotalSavedCaption}"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -193,13 +186,12 @@
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
                                 <Image Source="ic_chart_bar.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" />
-                                <Label x:Name="AverageSpentLabel"
-                                       Text="€0.00"
+                                <Label x:Name="AverageSpentLabel" Text="{Binding AverageSpent}"
                                        FontSize="16"
                                        FontAttributes="Bold"
                                        TextColor="{StaticResource Accent}"
                                        HorizontalOptions="Center" />
-                                <Label x:Name="AvgSpentCaption"
+                                <Label x:Name="AvgSpentCaption" Text="{Binding AvgPerDayCaption}"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -214,13 +206,12 @@
                                 Padding="12">
                             <VerticalStackLayout Spacing="4">
                                 <Image Source="ic_percent.png" WidthRequest="28" HeightRequest="28" HorizontalOptions="Center" />
-                                <Label x:Name="SavingsPercentageLabel"
-                                       Text="0.0%"
+                                <Label x:Name="SavingsPercentageLabel" Text="{Binding SavingsPercentage}"
                                        FontSize="16"
                                        FontAttributes="Bold"
                                        TextColor="{StaticResource Primary}"
                                        HorizontalOptions="Center" />
-                                <Label x:Name="SavingsPctCaption"
+                                <Label x:Name="SavingsPctCaption" Text="{Binding SavingsPctCaption}"
                                        Style="{StaticResource HintText}"
                                        HorizontalOptions="Center" />
                             </VerticalStackLayout>
@@ -230,7 +221,7 @@
             </Border>
 
             <!-- Botón actualizar -->
-            <Button x:Name="RefreshButton"
+            <Button x:Name="RefreshButton" Text="{Binding RefreshText}"
                     ImageSource="ic_refresh_w.png"
                     ContentLayout="Left,8"
                     Clicked="OnRefreshClicked"

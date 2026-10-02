@@ -1,4 +1,4 @@
-﻿# 🚭 QuitSmoke
+# 🚭 QuitSmoke
 
 Una aplicación móvil desarrollada en .NET MAUI para ayudar a las personas a reducir y controlar su consumo de cigarrillos de manera gradual y efectiva.
 
@@ -86,19 +86,23 @@ dotnet build -t:Install -f net9.0-android
 
 ## Pruebas
 
-36 pruebas (xUnit, `QuitSmoke.Tests`), todas pasan; el banco tarda alrededor de 1 s (sin contar la
-compilación). Medido el 2026-09-30:
+73 pruebas (xUnit, `QuitSmoke.Tests`), todas pasan; el banco tarda alrededor de 1 s (sin contar la
+compilación). Medido el 2026-10-01:
 
-- **Cobertura de lo instrumentado: 99 %** de las líneas de los ficheros de la app que se enlazan a
-  las pruebas: plan de reducción (horas despierto, intervalo, próximo cigarro), precios y ahorro,
-  cambio de día e historial en disco, estadísticas del Histórico, divisas, consejos es/en, consejos
-  ya vistos y textos es/en (incluido que toda clave que pide la app exista).
-- **Cobertura sobre toda la app: 46 %** (1040 de ~2280 líneas de C#). Lo que queda son las páginas
-  MAUI, el gráfico del Histórico y lo propio de Android (avisos, batería, pantalla).
+- **Cobertura de lo instrumentado: 99 %** de las líneas de los ficheros de la app que compila el
+  banco: plan de reducción, precios y ahorro, cambio de día e historial en disco, estadísticas,
+  divisas, consejos y textos es/en, avisos, comprobación de versión, el botón «Fumar» de la
+  notificación y la lógica de cada pantalla (`ViewModels/`: Inicio, Histórico, Configuración y
+  Acerca de).
+- **Cobertura sobre toda la app: 79 %** (1379 de 1745 líneas ejecutables de C#). Se cuentan las
+  líneas que mide coverlet en lo que compila el banco y, en el resto, las líneas con código (sin
+  llaves solas, `using` ni comentarios); con el método anterior la 2026.09.30.0 salía con un 46 %
+  (58 % con el nuevo). **Mínimo de la constitución: 90 %**; lo que falta (lo propio de Android, el
+  arranque y el enlace fino de las páginas con MAUI) y el plan están en `13-TAREAS-QuitSmoke.md`.
 
-Sin móvil: `FileSystem`/`Preferences` se sustituyen en `QuitSmoke.Tests/Shims.cs`. Las pruebas
-encontraron un fallo (el idioma elegido no mandaba hasta pedir el primer texto), corregido en la
-2026.09.30.0.
+Sin móvil: `FileSystem`/`Preferences` se sustituyen en `QuitSmoke.Tests/Shims.cs` y los datos,
+avisos, diálogos, correo y batería son dobles. Las pruebas encontraron un fallo (el idioma elegido
+no mandaba hasta pedir el primer texto), corregido en la 2026.09.30.0.
 
 ```powershell
 dotnet test QuitSmoke.Tests

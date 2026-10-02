@@ -1,129 +1,47 @@
-using QuitSmoke.Services;
 using QuitSmoke.Helpers;
+using QuitSmoke.Services;
+using QuitSmoke.ViewModels;
+using QuitSmoke.Views;
 
 namespace QuitSmoke.Pages
 {
+    /// <summary>Acerca de. Las etiquetas se enlazan a <see cref="AboutViewModel"/>.</summary>
     public partial class AboutPage : ContentPage
     {
-        // CONFIGURACIÓN
-        private const string ContactEmail = "jsoladelarosa@gmail.com";
-        private const string AppName = "QuitSmoke";
-
-        private readonly ILocalizationService _localizationService;
-        private readonly IEmailService? _emailService;
+        private readonly AboutViewModel _vm;
 
         public AboutPage()
         {
             InitializeComponent();
-            _localizationService = ServiceHelper.GetService<ILocalizationService>();
-
-            // Obtener el servicio de email si está disponible (solo en Android)
+            // En Android, el correo nativo; en el resto, el de MAUI Essentials.
+            IEmailService email = new EssentialsEmailService();
 #if ANDROID
-            _emailService = ServiceHelper.GetService<IEmailService>();
+            email = ServiceHelper.GetService<IEmailService>();
 #endif
-            UpdateUI();
-        }
-
-        private void UpdateUI()
-        {
-            string L(string key) => _localizationService.GetString(key);
-
-            Title = L("about_title");
-
-            // Cabecera
-            VersionLabel.Text = $"{L("version_label")} {AppInfo.Current.VersionString}";
-            DescriptionLabel.Text = L("app_description");
-
-            // Contacto
-            ContactTitleLabel.Text = L("contact");
-            ContactHintLabel.Text = L("contact_hint");
-
-            // Apoyo
-
-            // Idioma
-            LanguageTitleLabel.Text = L("language");
-            SpanishButton.Text = L("language_es");
-            EnglishButton.Text = L("language_en");
-            LanguageHintLabel.Text = L("select_language");
+            BindingContext = _vm = new AboutViewModel(ServiceHelper.GetService<ILocalizationService>(),
+                AppInfo.Current.VersionString, email);
             HighlightActiveLanguage();
-
-            // Privacidad
-            PrivacyTitleLabel.Text = L("privacy_title");
-            PrivacyTextLabel.Text = L("privacy_text");
-
-            // Licencia
-            LicenseTitleLabel.Text = L("license_title");
-            LicenseTextLabel.Text = L("license_text");
-            LicenseLineLabel.Text = L("license_line");
-
-            // Aviso Legal
-            LegalTitleLabel.Text = L("legal_notice");
-            LegalText1Label.Text = L("legal_text_1");
-            LegalText2Label.Text = L("legal_text_2");
-            LegalWarningLabel.Text = L("legal_warning");
         }
 
         private void HighlightActiveLanguage()
         {
-            var active = _localizationService.GetCurrentLanguage();
-            var primaryStyle = (Style)Application.Current!.Resources["PrimaryButton"];
-            var outlineStyle = (Style)Application.Current!.Resources["OutlineButton"];
-
-            SpanishButton.Style = active == "es" ? primaryStyle : outlineStyle;
-            EnglishButton.Style = active == "en" ? primaryStyle : outlineStyle;
+            var primary = (Style)Application.Current!.Resources["PrimaryButton"];
+            var outline = (Style)Application.Current!.Resources["OutlineButton"];
+            SpanishButton.Style = _vm.SpanishActive ? primary : outline;
+            EnglishButton.Style = _vm.EnglishActive ? primary : outline;
         }
 
-        private async void OnContactEmailClicked(object? sender, EventArgs e)
+        private async void OnContactEmailClicked(object? sender, EventArgs e) => await _vm.ContactAsync(new ModernDialogs(this));
+
+        private async void OnSpanishClicked(object? sender, EventArgs e) => await SetLanguageAsync("es");
+
+        private async void OnEnglishClicked(object? sender, EventArgs e) => await SetLanguageAsync("en");
+
+        private async Task SetLanguageAsync(string code)
         {
-            try
-            {
-                var subject = _localizationService.GetString("email_subject");
-                var body = string.Format(_localizationService.GetString("email_body"), AppName);
-
-                // Intentar usar el servicio nativo de Android primero
-                if (_emailService != null)
-                {
-                    await _emailService.SendEmailAsync(ContactEmail, subject, body);
-                }
-                else
-                {
-                    // Fallback a MAUI Essentials
-                    var message = new EmailMessage
-                    {
-                        Subject = subject,
-                        To = new List<string> { ContactEmail },
-                        Body = body
-                    };
-
-                    await Email.ComposeAsync(message);
-                }
-            }
-            catch (FeatureNotSupportedException)
-            {
-                var errorMessage = _localizationService.GetString("email_error");
-                await SocShared.ModernDialog.AlertAsync(this, _localizationService.GetString("error"), errorMessage, _localizationService.GetString("ok"));
-            }
-            catch (Exception ex)
-            {
-                var errorMessage = _localizationService.GetString("email_error_message");
-                await SocShared.ModernDialog.AlertAsync(this, _localizationService.GetString("error"), $"{errorMessage}: {ex.Message}", _localizationService.GetString("ok"));
-            }
-        }
-
-        private async void OnSpanishClicked(object? sender, EventArgs e)
-        {
-            _localizationService.SetLanguage("es");
-            UpdateUI();
-            await SocShared.ModernDialog.AlertAsync(this,_localizationService.GetString("language"),
-                _localizationService.GetString("language_selected"), _localizationService.GetString("ok"));
-        }
-
-        private async void OnEnglishClicked(object? sender, EventArgs e)
-        {
-            _localizationService.SetLanguage("en");
-            UpdateUI();
-            await SocShared.ModernDialog.AlertAsync(this,_localizationService.GetString("language"),
-                _localizationService.GetString("language_selected"), _localizationService.GetString("ok"));
+            var done = _vm.SetLanguageAsync(code, new ModernDialogs(this));
+            HighlightActiveLanguage();
+            await done;
         }
     }
 }

@@ -27,40 +27,10 @@ public partial class App : Application
         return window;
     }
 
-    private static async Task InitPersistentNotificationAsync()
-    {
-        try
-        {
-            var notif = ServiceHelper.GetService<QuitSmoke.Services.INotificationService>();
-            var dataService = ServiceHelper.GetService<ISmokingDataService>();
-            if (notif is null || dataService is null) return;
+    private static Task InitPersistentNotificationAsync() => NotificationActions.InitAsync(
+        ServiceHelper.GetService<QuitSmoke.Services.INotificationService>(), ServiceHelper.GetService<ISmokingDataService>());
 
-            await notif.RequestPermissionAsync();
-            var data = await dataService.GetDataAsync();
-            await notif.UpdatePersistentStatusAsync(data);
-        }
-        catch
-        {
-            // no bloquear el arranque si falla la notificación
-        }
-    }
-
-    private async void OnNotificationActionTapped(NotificationActionEventArgs e)
-    {
-        if (e.ActionId != NotificationService.SmokeActionId) return;
-        try
-        {
-            var dataService = ServiceHelper.GetService<ISmokingDataService>();
-            var notif = ServiceHelper.GetService<QuitSmoke.Services.INotificationService>();
-            if (dataService is null || notif is null) return;
-
-            await dataService.AddSmokedCigaretteAsync();
-            var data = await dataService.GetDataAsync();
-            await notif.UpdatePersistentStatusAsync(data);
-        }
-        catch
-        {
-            // ignore
-        }
-    }
+    private async void OnNotificationActionTapped(NotificationActionEventArgs e) =>
+        await NotificationActions.HandleAsync(e.ActionId, ServiceHelper.GetService<ISmokingDataService>(),
+            ServiceHelper.GetService<QuitSmoke.Services.INotificationService>());
 }
